@@ -18,9 +18,9 @@ class CreateQuizEvents extends Migration
             $table->integer('quiz_event_name');
             $table->integer('questionnaire_id'); //questionnaire to use
             $table->integer('class_id'); //class id
-            $table->timestamp('quiz_created');
-            $table->timestampTz('quiz_conducted');
-            $table->timestampTz('is_quiz_finished');
+            $table->timestamps();
+            // $table->timestampTz('quiz_conducted');
+            // $table->timestampTz('is_quiz_finished');
         });
     }
 

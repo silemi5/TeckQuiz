@@ -10,7 +10,7 @@
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('usr') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
@@ -19,20 +19,6 @@
                                 @if ($errors->has('usr'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('usr') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('permissions') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Permissions</label>
-
-                            <div class="col-md-6">
-                                <input id="permissions" type="number" class="form-control" name="permissions" value="{{ old('permissions') }}" required autofocus>
-
-                                @if ($errors->has('usr'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('permissions') }}</strong>
                                     </span>
                                 @endif
                             </div>
