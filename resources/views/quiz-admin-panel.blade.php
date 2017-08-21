@@ -27,20 +27,23 @@
                 <div class="col-12 container row">
                     <!-- Example of a quiz event entry -->
                     <div class="col quiz-event">
+                        @foreach ($quiz_events as $qe)
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title"><span class="badge badge-secondary">ID</span> Subject </h4>
-                                <h6 class="card-subtitle mb-2 text-muted">Event Name</h6>
-                                <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Start</a>
-                                <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#exampleModal">Manage quiz</a>
+                                <h4 class="card-title">{{ $qe->quiz_event_name }}</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ $qe->subject_desc }}</h6>
+                                <a href="{{ $qe->quiz_event_id }}" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#StartQuiz">Start</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#ManageQuiz">Manage quiz</a>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="manage-class" role="tabpanel" aria-labelledby="manage-class">
                 <!-- Fetch instructor's subjects -->
-                <form action="">
+
+                <!-- <form action="">
                     <h3>Manage class</h3>
                     <div class="form-group">
                         <label for="select-class">Select class</label>
@@ -54,7 +57,24 @@
                         <button type="submit" class="btn btn-outline-primary">Go to class</button>
                         <button class="btn btn-primary">Add new class</button>
                     </div>
-                </form>
+                </form> -->
+
+                <h3>Manage Class</h3>
+                <div class="col-12 container row">
+                    <!-- Example of a quiz event entry -->
+                    <div class="col quiz-event">
+                        @foreach ($classes as $classe)
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ $classe->subject_code }}</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ $classe->subject_desc }}</h6>
+                                <a href="" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#StartQuiz">Manage Class</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings">
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum, dignissimos.</p>
