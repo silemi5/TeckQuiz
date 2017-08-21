@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    protected $primaryKey = "usr_id";
+    
     use Notifiable;
 
     /**
@@ -28,4 +30,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function classe()
+    {
+        return $this->hasMany("App\Classe", "usr_id", "instructor_id");
+    }
 }

@@ -17,7 +17,7 @@ class CreateClassesTable extends Migration
             $table->increments('class_id');
             //instructor_id comes from users table
             $table->integer('instructor_id');
-            $table->increments('subject_id');
+            $table->integer('subject_id');
         });
     }
 
