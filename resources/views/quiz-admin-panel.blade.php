@@ -1,4 +1,6 @@
-@extends('layouts.app') @section('title', 'Quiz Panel - TeckQuiz') @section('content')
+@extends('layouts.app')
+@section('title', 'Quiz Panel - TeckQuiz')
+@section('content')
 <div class="container-fluid">
     <div class="row">
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
@@ -23,7 +25,6 @@
 
             <div class="tab-content col" id="v-pills-tabContent">
                 <div class="tab-pane fade show active row" id="quiz-events" role="tabpanel" aria-labelledby="quiz-events">
-                    <!-- TODO: Change style of quiz presentation. -->
                     <h3>Quiz Events</h3>
                     <div class="col container row mb-2">
                         <!-- Example of a quiz event entry -->
@@ -33,7 +34,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $qe->quiz_event_name }}</h4>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $qe->subject_desc }}</h6>
-                                    <a href="{{ $qe->quiz_event_id }}" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#StartQuiz">Start</a>
+                                    <a href="/quiz/{{ $qe->quiz_event_id }}" class="btn btn-outline-primary btn-sm">Start</a>
                                     <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#ManageQuiz">Manage quiz</a>
                                     <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#">Details</a>
                                 </div>

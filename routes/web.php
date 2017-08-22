@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::get('/quiz', 'QuizController@RedirectToAppropriatePanel')->middleware('auth');
 
+Route::get('/quiz/{quiz_id}', 'QuizController@TakeQuiz')->middleware('auth');
+
 Route::get('/changelog', function (){
     return view('changelog');
 });
