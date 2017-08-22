@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuestions extends Migration
+class CreateUserProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateQuestions extends Migration
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
-            $table->increments('question_id');
-            $table->string('question_name');
-            $table->integer('question_type');
-            $table->string('choices');
+        Schema::create('user_profiles', function (Blueprint $table) {
+            $table->integer('usr_id');
+            $table->string('given_name');
+            $table->string('family_name');
+            $table->string('middle_name');
+            $table->string('ext_name');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateQuestions extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questions');
+        Schema::dropIfExists('user_profiles');
     }
 }

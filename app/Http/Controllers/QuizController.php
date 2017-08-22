@@ -23,15 +23,16 @@ class QuizController extends Controller
         if (Auth::user()->permissions == 1)
         {
             $classes = DB::table('classes')
-                        ->join('student_classes', 'student_classes.class_id', '=', 'classes.class_id')
                         ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
                         ->where('classes.instructor_id', $id)
+                        ->where('class_active', true)
                         ->get();
-            
+
             $quiz_events = DB::table('quiz_events')
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
                             ->where('classes.instructor_id', $id)
+                            ->where('quiz_event_status', 0)
                             ->get();
 
             return view('quiz-admin-panel', compact('classes'), compact('quiz_events'));

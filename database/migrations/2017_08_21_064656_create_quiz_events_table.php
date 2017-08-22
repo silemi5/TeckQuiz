@@ -18,6 +18,7 @@ class CreateQuizEventsTable extends Migration
             $table->string('quiz_event_name');
             $table->integer('questionnaire_id');
             $table->integer('class_id');
+            $table->integer('quiz_event_status');
             $table->timestamps();
         });
     }

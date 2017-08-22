@@ -18,6 +18,7 @@ class CreateClassesTable extends Migration
             //instructor_id comes from users table
             $table->integer('instructor_id');
             $table->integer('subject_id');
+            $table->boolean('class_active');
         });
     }
 

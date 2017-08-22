@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="alert alert-warning col-12" role="alert">
-            This feature is not yet fully implemented!
+            This website is on alpha phase! <a href="">Learn more</a>
         </div>
         <div class="col-12">
             <h1>Hello back teacher!</h1>
@@ -38,42 +38,34 @@
                         </div>
                         @endforeach
                     </div>
+                    <div class="col">
+                        <button class="btn btn-primary">New quiz event</button>
+                    </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="manage-class" role="tabpanel" aria-labelledby="manage-class">
                 <!-- Fetch instructor's subjects -->
-
-                <!-- <form action="">
-                    <h3>Manage class</h3>
-                    <div class="form-group">
-                        <label for="select-class">Select class</label>
-                        <select class="form-control" id="class-selected">
-                            <option id="a">Database Management Systems 2</option>
-                            <option id="b">System Analysis and Design</option>
-                            <option id="c">Web Development</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-outline-primary">Go to class</button>
-                        <button class="btn btn-primary">Add new class</button>
-                    </div>
-                </form> -->
-
                 <h3>Manage Class</h3>
-                <div class="col-12 container row">
-                    <!-- Example of a quiz event entry -->
+                
+                
+                <div class="col container row">
+                    <!-- Quiz event entry -->
                     <div class="col quiz-event">
                         @foreach ($classes as $classe)
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">{{ $classe->subject_code }}</h4>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ $classe->subject_desc }}</h6>
-                                <a href="" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#StartQuiz">Manage Class</a>
+                                <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#StartQuiz">Manage Class</a>
                                 <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
                             </div>
                         </div>
-                        @endforeach
+                        @endforeach             
                     </div>
+                    <div class="col">
+                        <button class="btn btn-primary">New class</button>
+                    </div>
+                    
                 </div>
             </div>
             <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings">
