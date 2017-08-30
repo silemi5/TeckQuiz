@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Quiz Panel - TeckQuiz')
+@section('title', 'Quiz Dashboard - TeckQuiz')
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -44,10 +44,10 @@
                         
                     </div>
                     <div class="col">
-                        <button class="btn btn-primary">New quiz event</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#NewQuizEventModal">New quiz event</button>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="manage-class" role="tabpanel" aria-labelledby="manage-class">
+                <div class="tab-pane fade" id="manage-class" role="tabpanel" aria-labelledby="manage-class"><!-- Manage Class -->
                     <!-- Fetch instructor's subjects -->
                     <h3>Manage Class</h3>
                     <div class="col container row mb-2">
@@ -56,8 +56,8 @@
                             @foreach ($classes as $classe)
                             <div class="card mb-2">
                                 <div class="card-body">
-                                    <h4 class="card-title">{{ $classe->subject_code }}</h4>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ $classe->subject_desc }}</h6>
+                                    <h4 class="card-title">{{ $classe->subject_code }}: {{ $classe->subject_desc }}</h4>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
                                     <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#StartQuiz">Manage Class</a>
                                     <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
                                 </div>
@@ -75,6 +75,45 @@
                 </div>
             </div>
         </main>
+        <!-- Modal -->
+        <div class="modal fade" id="NewQuizEventModal" tabindex="-1" role="dialog" aria-labelledby="NewQuizEventModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form class="modal-content form" action="/new/quiz" method="POST">
+                     {{ csrf_field() }}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalTitle">New Quiz Event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group"><label for="">Quiz Name</label><input name="quiz_name" type="text" class="form-control"></div>
+                        <div class="form-group">
+                            <label for="">Class</label>
+                            <select name="class_id" id="class_id" class="form-control">
+                                 @foreach ($classes as $classe)
+                                    <option value="{{ $classe->class_id }}">{{ $classe->subject_desc }} ({{ $classe->course_sec }})</option>
+                                 @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group"><label for="">Questions</label><input name="questions" type="number" min="1" class="form-control"></div>
+                        <!-- TODO: Time limit -->
+                        <div class="form-group">
+                            <label for="">Questionnaire to use</label>
+                            <select name="questionnaire" id="questionnaire" class="form-control">
+                                <option value="1">Create new questionnaire</option>
+                                <option value="2">Use existing questionnaire</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="valid" value="1">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -41,7 +41,7 @@
                 background-position: cover;
                 color: #C5CAE9;
             }
-        </style>
+    </style>
     <div class="container-fluid app-title-container">
         <div class="jumbotron app-title" style="border-radius: 0">
             <h1 class="text-center">TeckQuiz</h1>
@@ -55,5 +55,76 @@
     <div class="container-fluid center-features app-feature-2">
         <h2 class="text-center"><strong>Serve quiz with ease.</strong></h2>
         <p class="text-center">No more confusion, just do it.</p>
+    </div>
+    <script>
+        function authenticateUser() {
+            console.log("inside!");
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var usr = $("#usr").val();
+            var pwd = $("#password").val();
+            $.post("/authenticate", { usr, pwd }, function (data) {
+                console.log(data);
+            });
+            console.log("outside!");
+        }
+    </script>
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                        {{ csrf_field() }}
+
+                        <div class="form-group{{ $errors->has('usr') ? ' has-error' : '' }}">
+                            <label for="usr" class="col-md-4 control-label">Username</label>
+                            <input id="usr" type="text" class="form-control" name="usr" value="{{ old('usr') }}" required autofocus>                        @if ($errors->has('usr'))
+                            <span class="help-block">
+                                            <strong>{{ $errors->first('usr') }}</strong>
+                                        </span> @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <label for="password" class="col-md-4 control-label">Password</label>
+
+                            <input id="password" type="password" class="form-control" name="password" required> @if ($errors->has('password'))
+                            <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span> @endif
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                        </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                        Login
+                                    </button>
+                            <!-- <button type="button" onclick="authenticate()" class="btn btn-primary">
+                                        Login
+                                    </button> -->
+
+                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        Forgot Your Password?
+                                    </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

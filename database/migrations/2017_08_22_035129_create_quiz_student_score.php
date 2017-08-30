@@ -14,8 +14,10 @@ class CreateQuizStudentScore extends Migration
     public function up()
     {
         Schema::create('quiz_student_score', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            $table->integer('student_id');
+            $table->integer('quiz_event_id');
+            $table->integer('score');
+            //$table->timestamps();
         });
     }
 

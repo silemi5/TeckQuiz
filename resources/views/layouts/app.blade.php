@@ -14,6 +14,7 @@
     <!-- Styles -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/teckquiz.css') }}" rel="stylesheet">
+    <script src="{{ asset('assets/js/jquery-3.2.0.min.js') }}"></script>
 </head>
 
 <body>
@@ -73,69 +74,11 @@
         </nav>
         @yield('content')
 
-        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                            {{ csrf_field() }}
-
-                            <div class="form-group{{ $errors->has('usr') ? ' has-error' : '' }}">
-                                <label for="usr" class="col-md-4 control-label">Username</label>
-                                <input id="usr" type="text" class="form-control" name="usr" value="{{ old('usr') }}" required autofocus>
-                                @if ($errors->has('usr'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('usr') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Password</label>
-
-                                <input id="password" type="password" class="form-control" name="password" required>
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-                                <!-- <button type="button" onclick="authenticate()" class="btn btn-primary">
-                                    Login
-                                </button> -->
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('assets/js/jquery-3.2.0.min.js') }}"></script>
+    
     <script src="{{ asset('assets/js/popper.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 </body>
