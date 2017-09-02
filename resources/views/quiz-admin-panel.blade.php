@@ -26,6 +26,25 @@
             <div class="tab-content col" id="v-pills-tabContent">
                 <div class="tab-pane fade show active row" id="quiz-events" role="tabpanel" aria-labelledby="quiz-events">
                     <h3>Quiz Events</h3>
+                    <script>
+                        function enableQuiz(quiz_event_id){
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.post("/startquiz", {quiz_event_id}, function(data){
+                                var response = jQuery.parseJSON(data)
+                                var qid = quiz_event_id
+                                if (response.status == 0){
+                                    alert('Quiz started!');
+                                    $("#buttonPanel" + quiz_event_id).html("<a href='#' onclick='disableQuiz(" + qid + ")' class='btn btn-outline-primary'>Disable quiz</a> <a href='#' onclick='endQuiz(" + qid + ")' class='btn btn-outline-danger'>End quiz</a> <a href='#' class='btn btn-outline-secondary' data-toggle='modal' data-target='#'>Details</a>");
+                                }else{
+                                    alert("Something happened! Quiz not started!");
+                                }
+                            });
+                        }
+                    </script>
                     <div class="col container row mb-2">
                         <!-- Example of a quiz event entry -->
                         <div class="col quiz-event">
@@ -34,9 +53,16 @@
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $qe->quiz_event_name }}</h4>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $qe->subject_desc }}</h6>
-                                    <a href="/quiz/{{ $qe->quiz_event_id }}" class="btn btn-outline-primary btn-sm">Start</a>
-                                    <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#ManageQuiz">Manage quiz</a>
-                                    <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#">Details</a>
+                                    <div id="buttonPanel{{ $qe->quiz_event_id }}">
+                                    @if($qe->quiz_event_status == 0)
+                                        <a href="#" onclick="enableQuiz({{ $qe->quiz_event_id }})" class="btn btn-outline-primary">Enable quiz</a>
+                                        <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ManageQuiz">Manage quiz</a>
+                                    @elseif($qe->quiz_event_status == 1)
+                                        <a href="#" onclick="disableQuiz({{ $qe->quiz_event_id }})" class="btn btn-outline-primary">Disable quiz</a>
+                                        <a href="#" onclick="endQuiz({{ $qe->quiz_event_id }})" class="btn btn-outline-danger">End quiz</a>
+                                        <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#">Manage Quiz</a>
+                                    @endif
+                                    </div>
                                 </div>
                             </div>
                             @endforeach
@@ -58,8 +84,8 @@
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $classe->subject_code }}: {{ $classe->subject_desc }}</h4>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
-                                    <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#StartQuiz">Manage Class</a>
-                                    <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
+                                    <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#StartQuiz">Manage Class</a>
+                                    <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
                                 </div>
                             </div>
                             @endforeach

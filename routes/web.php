@@ -27,6 +27,8 @@ Route::post('/new/quiz', 'QuizController@NewQuizEvent')->middleware('auth');
 
 Route::post('/new/quiz/add', 'QuizController@AddNewQuizEvent')->middleware('auth');
 
+Route::post('/startquiz', 'QuizController@StartQuizEvent')->middleware('auth');
+
 Route::get('/changelog', function (){
     return view('changelog');
 });

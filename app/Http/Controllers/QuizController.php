@@ -30,7 +30,8 @@ class QuizController extends Controller
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
                             ->where('classes.instructor_id', $id)
-                            ->where('quiz_event_status', 0)
+                            ->where('quiz_event_status', 0)//upcoming
+                            ->orWhere('quiz_event_status', 1)//pending
                             ->get();
 
             return view('quiz-admin-panel', compact('classes'), compact('quiz_events'));
@@ -160,8 +161,19 @@ class QuizController extends Controller
                 "quiz_event_status" => false
             ]
         ]);
-
-        echo "FUCK";
+        // redirect('')
     }
 
+    public function StartQuizEvent(){
+        $quiz_event_id = $_POST['quiz_event_id'];
+        try{
+            DB::table('quiz_events')
+            ->where('quiz_event_id', $quiz_event_id)
+            ->update(['quiz_event_status' => 1]);
+
+            return json_encode(["status" => 0]);
+        }catch(Exception $e){
+            return json_encode(["status" => 1, "message" => "$e"]);
+        }
+    }
 }
