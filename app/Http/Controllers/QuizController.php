@@ -74,18 +74,25 @@ class QuizController extends Controller
                         ->where('quiz_event_id', $quiz_id)
                         ->where('quiz_event_status', 1)
                         ->get();
-        if ($verify_quiz->count() != 1){//Student can't access the quiz if it is not enabled.
+
+        if ($verify_quiz->count() < 1){//Student can't access the quiz if it is not enabled.
             return abort(403, 'Unauthorized access');
         }
         else{
+            $quiz = DB::table('quiz_events')
+                            ->select('quiz_event_name', 'quiz_event_id')
+                            ->where('quiz_event_id', $quiz_id)
+                            ->first();
+            // return var_dump($quiz_name);               
             $quiz_content = DB::table('questions')
                             ->select('question_id', 'question_name', 'choices', 'question_type')
                             ->join('questionnaires', 'questionnaires.questionnaire_id', '=', 'questions.questionnaire_id')
                             ->join('quiz_events', 'quiz_events.questionnaire_id', '=', 'questionnaires.questionnaire_id')
                             ->where('quiz_event_id', $quiz_id)
+                            ->inRandomOrder()
                             ->get();
-            return $quiz_content->shuffle();
-            //return view('quiz.quiz-event', compact('quiz_id'));
+            //return $quiz_content;
+            return view('quiz.quiz-event', compact('quiz_content'), compact('quiz'));
         }
     }
 
@@ -161,7 +168,7 @@ class QuizController extends Controller
                 "quiz_event_status" => false
             ]
         ]);
-        // redirect('')
+        return redirect('quiz');
     }
 
     public function StartQuizEvent(){

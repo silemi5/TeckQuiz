@@ -15,44 +15,57 @@
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/teckquiz.css') }}" rel="stylesheet">
 </head>
+    <style>
+        .sidebar{
+            top: 0px;
+        }
+    </style>
 
 <body>
-    <div class="container">
+    <?php $questionNum = 1 ?>
+    <div class="container-fluid">
         <div class="row">
-            <div class="col">
-                <h1>Welcome!</h1>
-                <p>{{ $quiz_id }}</p>
-                <p>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Start Quiz
-                    </button>
-                </p>
-            </div>
-            <!-- Button trigger modal -->
-            
+            <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="v-pills-welcome-tab" data-toggle="pill" href="#welcome" role="tab" aria-controls="v-pills-welcome"
+                            aria-expanded="true">Welcome</a>
+                    </li>
+                    @foreach($quiz_content as $qc)
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                    id="v-pills-welcome-tab"
+                                    data-toggle="pill"
+                                    href="#q{{ $questionNum }}"
+                                    role="tab"
+                                    aria-controls="v-pills-q{{ $questionNum }}"
+                                    aria-expanded="true">
+                                Question {{ $questionNum++ }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+                <?php $questionNum = 1 ?>
+            </nav>
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" id="quiz-content">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo, numquam.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Next</button>
-                        </div>
+            <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+                <div class="tab-content col" id="v-pills-tabContent">
+                    
+                    <div class="tab-pane active" id="welcome" role="tabpanel" aria-labelledby="welcome">
+                        <h1>{{ $quiz->quiz_event_name }}</h1>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum, dignissimos.</p>
                     </div>
+                    @foreach($quiz_content as $qc)
+                        <div class="tab-pane" id="q{{ $questionNum }}" role="tabpanel" aria-labelledby="q{{ $questionNum }}">
+                            <h2>Question #{{ $questionNum++ }}</h2>
+                            <p>{{ $qc->question_name }}</p>
+                        </div>
+                    @endforeach
                 </div>
-            </div>
-
+            </main>
         </div>
     </div>
+
     <script src="{{ asset('assets/js/jquery-3.2.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
