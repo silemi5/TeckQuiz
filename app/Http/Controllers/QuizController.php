@@ -45,11 +45,14 @@ class QuizController extends Controller
                             ->where('quiz_event_status', 0)
                             ->get();
             $pending_quiz = DB::table('quiz_events')
+                            ->select('quiz_event_name', 'subject_desc', 'quiz_events.quiz_event_id')
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
                             ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
-                            ->where('student_id', $id)
+                            ->leftJoin('quiz_student_score', 'quiz_events.quiz_event_id', '=', 'quiz_student_score.quiz_event_id')
+                            ->where('student_classes.student_id', $id)
                             ->where('quiz_event_status', 1)
+                            ->whereNull('score')
                             ->get();
             $finished_quiz = DB::table('quiz_events')
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
@@ -58,7 +61,7 @@ class QuizController extends Controller
                             ->where('student_id', $id)
                             ->where('quiz_event_status', 2)
                             ->get();
-            //return $quiz_events;
+            //return $pending_quiz;
             return view('quiz-student-panel', compact('pending_quiz'), compact('upcoming_quiz'), compact('finished_quiz'));
         }
     }
@@ -80,11 +83,12 @@ class QuizController extends Controller
         }
         else{
             $quiz = DB::table('quiz_events')
-                            ->select('quiz_event_name', 'quiz_event_id', 'course_sec')
+                            ->select('quiz_event_name', 'quiz_events.quiz_event_id', 'course_sec', 'score')
                             ->join('classes', 'classes.class_id', '=', 'quiz_events.class_id')
-                            ->where('quiz_event_id', $quiz_id)
-                            ->first();
-            // return var_dump($quiz_name);               
+                            ->leftJoin('quiz_student_score', 'quiz_events.quiz_event_id', '=', 'quiz_student_score.quiz_event_id')
+                            ->where('quiz_events.quiz_event_id', '=' , $quiz_id)
+                            ->whereNull('score')
+                            ->first();              
             $quiz_content = DB::table('questions')
                             ->select('question_id', 'question_name', 'choices', 'question_type')
                             ->join('questionnaires', 'questionnaires.questionnaire_id', '=', 'questions.questionnaire_id')
@@ -183,5 +187,50 @@ class QuizController extends Controller
         }catch(Exception $e){
             return json_encode(["status" => 1, "message" => "$e"]);
         }
+    }
+
+    public function SubmitAnswers(){
+        $question_ids = $_POST['question_id'];
+        $answers = $_POST['answer'];
+        $quiz_event_id = $_POST['quiz_event_id'];
+        $student_id = Auth::user()->usr_id;
+        
+        for($x = 1; $x <= count($question_ids); $x++){
+            DB::table('quiz_student_answers')->insert(
+                [
+                    "student_id" => $student_id,
+                    "quiz_event_id" => $quiz_event_id,
+                    "question_id" => $question_ids[$x],
+                    "student_answer" => $answers[$x]
+                ]
+            );
+        }
+
+        $answers = DB::table('questions')
+                ->select('question_name as question', 'student_answer as stud_ans', 'answer as correct_ans', 'points')
+                ->join('quiz_student_answers', 'quiz_student_answers.question_id', '=', 'questions.question_id')
+                ->where('quiz_event_id', $quiz_event_id)
+                ->get();
+
+        // for($x = 0; $x < count($score); $x++){
+        //     if ($score[])
+        // }
+        $score = 0;
+        foreach($answers as $answer){
+            if($answer->correct_ans == $answer->stud_ans){
+                $score += $answer->points;
+            }
+        }
+
+        DB::table('quiz_student_score')->insert([
+            "student_id" => $student_id,
+            "quiz_event_id" => $quiz_event_id,
+            "score" => $score
+        ]);
+        
+         return "You scored $score in the quiz!";
+        
+
+        // return "Done!";
     }
 }

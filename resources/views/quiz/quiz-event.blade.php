@@ -35,12 +35,12 @@
                                 aria-expanded="true">Welcome</a>
                         </li>
                         @foreach($quiz_content as $qc)
-                        <li class="nav-item">
-                            <a class="nav-link disabled" id="v-pills-q{{ $questionNum}}-tab" data-toggle="pill" href="#q{{ $questionNum }}" role="tab" aria-controls="v-pills-q{{ $questionNum }}"
-                                aria-expanded="true">
-                                Question {{ $questionNum++ }}
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" id="v-pills-q{{ $questionNum }}-tab" data-toggle="pill" href="#q{{ $questionNum }}" role="tab" aria-controls="v-pills-q{{ $questionNum }}"
+                                    aria-expanded="true">
+                                    Question {{ $questionNum++ }}
+                                </a>
+                            </li>
                         @endforeach
                     </ul>
                     <?php $questionNum = 1 ?>
@@ -49,7 +49,8 @@
                     {{ csrf_field() }}
                 </form>
                 <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-                    <form class="tab-content col" id="v-pills-tabContent" action="/test">
+                    <form class="tab-content col" id="v-pills-tabContent" action="/quiz/submit" method="POST">
+                        {{ csrf_field() }}
                         <div class="tab-pane fade show active" id="welcome" role="tabpanel" aria-labelledby="welcome">
                             <h1>Welcome!</h1>
                             <p>Please verify that you are using your <b>OWN</b> account. If not, logout then login using your
@@ -72,7 +73,7 @@
                                     <h1>Question #{{ $questionNum }} ({{ $qc->question_id }})</h1><span class="badge badge-info">Identification</span><hr>
                                     <p style="font-size: 1.5rem">{{ $qc->question_name }}</p>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="answer[]" rows="3" placeholder="Input answer here..."></textarea>
+                                        <textarea class="form-control" name="answer[{{ $questionNum }}]" rows="3" placeholder="Input answer here..."></textarea>
                                     </div>
 
                                 @elseif($qc->question_type == 2)
@@ -117,6 +118,7 @@
                                 </div>
                             </div>
                         @endforeach
+                        <input type="hidden" name="quiz_event_id" value="{{ $quiz->quiz_event_id }}">
                     </form>
                 </main>
             </div>

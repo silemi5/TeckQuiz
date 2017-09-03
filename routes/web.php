@@ -31,12 +31,14 @@ Route::post('/new/quiz/add', 'QuizController@AddNewQuizEvent')->middleware('auth
 
 Route::post('/startquiz', 'QuizController@StartQuizEvent')->middleware('auth');
 
+Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');
+
 Route::get('/changelog', function (){
     return view('changelog');
 });
 
-Route::get('/test', function (){
-    return $_GET;
+Route::post('/test', function (){
+    return $_POST;
 });
 
 Route::get('/{any}', function(){
