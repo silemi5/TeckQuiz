@@ -80,7 +80,8 @@ class QuizController extends Controller
         }
         else{
             $quiz = DB::table('quiz_events')
-                            ->select('quiz_event_name', 'quiz_event_id')
+                            ->select('quiz_event_name', 'quiz_event_id', 'course_sec')
+                            ->join('classes', 'classes.class_id', '=', 'quiz_events.class_id')
                             ->where('quiz_event_id', $quiz_id)
                             ->first();
             // return var_dump($quiz_name);               

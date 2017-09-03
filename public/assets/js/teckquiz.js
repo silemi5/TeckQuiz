@@ -8,3 +8,17 @@
 //     }
 // }
 console.log("Trying to warn you of using a feature intended for web developers!");
+
+function MoveQuestion(id){
+    $('.nav-item a[href="#q' + id + '"]').tab('show');
+}
+
+function enableQuiz() {
+    $(".disabled").removeClass("disabled");
+    $("#v-pills-welcome-tab").addClass("disabled");
+    $('.nav-item a[href="#q1"]').tab('show');
+}
+
+function theFinalCountdown(){
+    
+}

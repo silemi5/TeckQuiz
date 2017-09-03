@@ -32,7 +32,10 @@
                         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About us</a>
+                        <a class="nav-link" href="/aboutus">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/changelog">Changelog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Report a bug</a>

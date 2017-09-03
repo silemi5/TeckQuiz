@@ -11,6 +11,8 @@
 |
 */
 
+
+
 Route::get('/', function () {
     return view('home');
 });
@@ -34,5 +36,9 @@ Route::get('/changelog', function (){
 });
 
 Route::get('/test', function (){
-    return "Working!";
+    return $_GET;
+});
+
+Route::get('/{any}', function(){
+    abort(404);
 });

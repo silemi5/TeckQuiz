@@ -15,14 +15,20 @@ class QuestionSeeder extends Seeder
             'question_id' => 1,
             'questionnaire_id' => 1,
             'question_name' => 'What is 1 + 1?',
-            'question_type' => 1,
+            'question_type' => 2,
             'choices' => '2;11;Both the indicated numbers;Not listed'
         ],[
             'question_id' => 2,
             'questionnaire_id' => 1,
             'question_name' => 'Do you love her?',
-            'question_type' => 2,
-            'choices' => 2
+            'question_type' => 3,
+            'choices' => 0
+        ],[
+            'question_id' => 3,
+            'questionnaire_id' => 1,
+            'question_name' => 'What is love?',
+            'question_type' => 1,
+            'choices' => 0
         ]]);
     }
 }

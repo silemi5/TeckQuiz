@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Quiz</title>
+    <title>{{ $quiz->quiz_event_name }} - TeckQuiz</title>
 
     <!-- Styles -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -17,58 +17,118 @@
 </head>
     <style>
         .sidebar{
+            position: fixed;
             top: 0px;
         }
     </style>
 
 <body>
-    <?php $questionNum = 1 ?>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-                <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="v-pills-welcome-tab" data-toggle="pill" href="#welcome" role="tab" aria-controls="v-pills-welcome"
-                            aria-expanded="true">Welcome</a>
-                    </li>
-                    @foreach($quiz_content as $qc)
+    <div id="app">
+        <?php $questionNum = 1 ?>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item disabled"><a class="nav-link disabled" style="font-size: 2rem; text-align: center">TeckQuiz</a></li>
                         <li class="nav-item">
-                            <a class="nav-link"
-                                    id="v-pills-welcome-tab"
-                                    data-toggle="pill"
-                                    href="#q{{ $questionNum }}"
-                                    role="tab"
-                                    aria-controls="v-pills-q{{ $questionNum }}"
-                                    aria-expanded="true">
+                            <a class="nav-link active" id="v-pills-welcome-tab" data-toggle="pill" href="#welcome" role="tab" aria-controls="v-pills-welcome"
+                                aria-expanded="true">Welcome</a>
+                        </li>
+                        @foreach($quiz_content as $qc)
+                        <li class="nav-item">
+                            <a class="nav-link disabled" id="v-pills-q{{ $questionNum}}-tab" data-toggle="pill" href="#q{{ $questionNum }}" role="tab" aria-controls="v-pills-q{{ $questionNum }}"
+                                aria-expanded="true">
                                 Question {{ $questionNum++ }}
                             </a>
                         </li>
-                    @endforeach
-                </ul>
-                <?php $questionNum = 1 ?>
-            </nav>
+                        @endforeach
+                    </ul>
+                    <?php $questionNum = 1 ?>
+                </nav>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+                    <form class="tab-content col" id="v-pills-tabContent" action="/test">
+                        <div class="tab-pane fade show active" id="welcome" role="tabpanel" aria-labelledby="welcome">
+                            <h1>Welcome!</h1>
+                            <p>Please verify that you are using your <b>OWN</b> account. If not, logout then login using your
+                                own credentials.</p>
+                            <p></p>
+                            <p>Quiz: <b>{{ $quiz->quiz_event_name }}</b></p>
+                            <p>Username: <b>{{ Auth::user()->usr }}</b></p>
+                            <p>Course and Section: <b>{{ $quiz->course_sec }}</b></p>
+                            <button type="button" id="enablequizbtn" class="btn btn-primary" onclick="enableQuiz()">Yes, this is correct. No turning back.</button>
+                            <button type="button" class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </button>
 
-            <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-                <div class="tab-content col" id="v-pills-tabContent">
-                    
-                    <div class="tab-pane active" id="welcome" role="tabpanel" aria-labelledby="welcome">
-                        <h1>{{ $quiz->quiz_event_name }}</h1>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum, dignissimos.</p>
-                    </div>
-                    @foreach($quiz_content as $qc)
-                        <div class="tab-pane" id="q{{ $questionNum }}" role="tabpanel" aria-labelledby="q{{ $questionNum }}">
-                            <h2>Question #{{ $questionNum++ }}</h2>
-                            <p>{{ $qc->question_name }}</p>
                         </div>
-                    @endforeach
-                </div>
-            </main>
+                        @foreach($quiz_content as $qc)
+                            <div class="tab-pane fade" id="q{{ $questionNum }}" role="tabpanel" aria-labelledby="q{{ $questionNum }}">
+                                <h3> ({{ $qc->question_id }})</h3>
+                                <input type="hidden" name="question_id[{{ $questionNum }}]" value="{{ $qc->question_id }}">
+                                @if($qc->question_type == 1)
+                                    <h1>Question #{{ $questionNum }} ({{ $qc->question_id }})</h1><span class="badge badge-info">Identification</span><hr>
+                                    <p style="font-size: 1.5rem">{{ $qc->question_name }}</p>
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="answer[]" rows="3" placeholder="Input answer here..."></textarea>
+                                    </div>
+
+                                @elseif($qc->question_type == 2)
+                                    <h1>Question #{{ $questionNum }}</h1><span class="badge badge-info">Multiple Choice</span><hr>
+                                    <p style="font-size: 1.5rem">{{ $qc->question_name }}</p>
+                                    <?php $choices = explode(";", $qc->choices); $choicenum = 0; ?>
+                                    <div class="form-group">
+                                        <h5>Choices</h5>
+                                        @foreach($choices as $choice)
+                                            <div class="form-check">
+                                                <label for="mc_c{{ $choicenum }}" class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" id="mc_c{{ $choicenum }}" value="{{ ++$choicenum }}">
+                                                    {{ $choice }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>  
+                                
+                                @elseif($qc->question_type == 3)
+                                    <h1>Question #{{ $questionNum }}</h1><span class="badge badge-info">True or False</span><hr>
+                                    <p style="font-size: 1.5rem">{{ $qc->question_name }}</p>
+                                    <div class="form-group">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" value="T">
+                                                    True
+                                                </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" value="F">
+                                                    False
+                                                </label>
+                                        </div>
+                                    </div>
+                                @endif
+                                <hr>
+                                <div class="form-group">
+                                    @if ($questionNum > 1) <button type="button" class="btn btn-primary" onclick="MoveQuestion({{ $questionNum - 1 }})">Previous</button>@endif
+                                    @if ($questionNum < count($quiz_content))<button type="button" class="btn btn-primary" onclick="MoveQuestion({{ ++$questionNum }})">Next</button>
+                                    @else <button type="submit" class="btn btn-primary" onclick="">Submit</button> @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </form>
+                </main>
+            </div>
         </div>
     </div>
+    
+    
 
     <script src="{{ asset('assets/js/jquery-3.2.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/teckquiz.js') }}"></script>
 </body>
 
 
