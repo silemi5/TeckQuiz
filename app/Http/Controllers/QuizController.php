@@ -229,7 +229,22 @@ class QuizController extends Controller
 
     }
 
-    public function GoToClass(){
-        return view('manage.classes');
+    public function GoToClass($class_id){
+        $quiz_class = DB::table('classes')
+                    ->join('subjects', 'classes.subject_id', '=', 'subjects.subject_id')
+                    ->where('instructor_id', Auth::user()->usr_id)
+                    ->where('classes.class_id', $class_id)
+                    ->first();
+
+        $students = DB::table('student_classes')
+                    ->join('user_profiles', 'student_classes.student_id', '=', 'user_profiles.usr_id')
+                    ->where('class_id', $class_id)
+                    ->get();
+        //return $quiz_class;
+        return view('manage.classes', compact('students'), compact('quiz_class'));
+    }
+
+    public function ListClass($class_id){
+
     }
 }

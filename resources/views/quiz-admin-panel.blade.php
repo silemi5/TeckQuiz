@@ -93,7 +93,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $classe->subject_code }}: {{ $classe->subject_desc }}</h4>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
-                                    <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#StartQuiz">Manage Class</a>
+                                    <a href="/class/{{ $classe->subject_id }}" class="btn btn-outline-primary">Manage Class</a>
                                     <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
                                 </div>
                             </div>
@@ -107,6 +107,7 @@
                 </div>
                 <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings">
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum, dignissimos.</p>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#classmodal">New quiz event</button>
                 </div>
             </div>
         </main>
@@ -150,27 +151,7 @@
                 </form>
             </div>
         </div>
-
-        <div class="modal fade" id="NewQuizEventModal" tabindex="-1" role="dialog" aria-labelledby="NewQuizEventModal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <form class="modal-content form" action="/test" method="POST">
-                    {{ csrf_field() }}
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="ModalTitle">Class</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Next</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        
     </div>
 </div>
 

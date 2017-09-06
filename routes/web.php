@@ -33,7 +33,7 @@ Route::post('/quiz/changestatus', 'QuizController@ChangeQuizEventStatus')->middl
 
 Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');
 
-Route::get('/class', 'QuizController@GoToClass')->middleware('auth');
+Route::get('/class/{class_id}', 'QuizController@GoToClass')->middleware('auth');
 
 Route::get('/changelog', function (){
     return view('changelog');
