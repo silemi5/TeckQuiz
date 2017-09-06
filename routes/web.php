@@ -25,13 +25,15 @@ Route::get('/quiz', 'QuizController@RedirectToAppropriatePanel')->middleware('au
 
 Route::get('/quiz/{quiz_id}', 'QuizController@TakeQuiz')->middleware('auth');
 
-Route::post('/new/quiz', 'QuizController@NewQuizEvent')->middleware('auth');
+Route::post('/new/quiz', 'QuizController@NewQuizEventForm')->middleware('auth');
 
-Route::post('/new/quiz/add', 'QuizController@AddNewQuizEvent')->middleware('auth');
+Route::post('/new/quiz/add', 'QuizController@CreateQuizEvent')->middleware('auth');
 
 Route::post('/quiz/changestatus', 'QuizController@ChangeQuizEventStatus')->middleware('auth');
 
 Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');
+
+Route::get('/class', 'QuizController@GoToClass')->middleware('auth');
 
 Route::get('/changelog', function (){
     return view('changelog');

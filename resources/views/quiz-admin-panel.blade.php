@@ -10,8 +10,8 @@
                         aria-expanded="true">Quiz Events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#manage-class" role="tab" aria-controls="v-pills-profile"
-                        aria-expanded="true">Manage class</a>
+                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#my-classes" role="tab" aria-controls="v-pills-profile"
+                        aria-expanded="true">My Classes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#settings" role="tab" aria-controls="v-pills-settings"
@@ -82,9 +82,9 @@
                         <button class="btn btn-secondary" data-toggle="modal" data-target="">View finished quiz events</button>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="manage-class" role="tabpanel" aria-labelledby="manage-class"><!-- Manage Class -->
+                <div class="tab-pane fade" id="my-classes" role="tabpanel" aria-labelledby="my-classes"><!-- Manage Class -->
                     <!-- Fetch instructor's subjects -->
-                    <h3>Manage Class</h3>
+                    <h3>My Classes</h3>
                     <div class="col container row mb-2">
                         <!-- Quiz event entry -->
                         <div class="col quiz-event">
@@ -110,6 +110,7 @@
                 </div>
             </div>
         </main>
+        
         <!-- Modal -->
         <div class="modal fade" id="NewQuizEventModal" tabindex="-1" role="dialog" aria-labelledby="NewQuizEventModal" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -141,6 +142,27 @@
                             </select>
                         </div>
                         <input type="hidden" name="valid" value="1">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal fade" id="NewQuizEventModal" tabindex="-1" role="dialog" aria-labelledby="NewQuizEventModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form class="modal-content form" action="/test" method="POST">
+                    {{ csrf_field() }}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalTitle">Class</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

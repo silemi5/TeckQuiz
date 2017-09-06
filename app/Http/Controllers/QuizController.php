@@ -61,17 +61,17 @@ class QuizController extends Controller
         }
     }
 
-    public function NewQuizEvent(){
+    public function NewQuizEventForm(){
         $quiz = [
             "name" => $_POST['quiz_name'],
             "num" => $_POST['questions'],
             "class_id" => $_POST['class_id'],
             "questionnaire" => $_POST['questionnaire']
         ];
-        return view('new.new-quiz', compact('quiz'));
+        return view('create.quiz-event', compact('quiz'));
     }
 
-    public function AddNewQuizEvent(){
+    public function CreateQuizEvent(){
         $quiz_name = $_POST['quiz_name'];
         $class_id = $_POST['class_id'];
 
@@ -85,11 +85,14 @@ class QuizController extends Controller
         $mc4 = $_POST['mc4'];
         $c_mc = $_POST['c-mc'];
 
+        //Correct True or False
         $c_tf = $_POST['c-tf'];
 
+        //Correct Identification
         $c_identify = $_POST['c-identify'];
 
-        DB::table('questionnaires')->insert([
+
+        DB::table('questionnaires')->insert([//Puts a questionnaire entry
             ["questionnaire_name" => "$quiz_name"],
         ]);
 
@@ -224,5 +227,9 @@ class QuizController extends Controller
         
          return "You scored $score in the quiz!";
 
+    }
+
+    public function GoToClass(){
+        return view('manage.classes');
     }
 }
