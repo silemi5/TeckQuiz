@@ -18,6 +18,7 @@ class CreateQuizStudentAnswers extends Migration
             $table->integer('quiz_event_id');
             $table->integer('question_id');
             $table->string('student_answer');
+            //$table->primary(['student_id', 'quiz_event_id', 'question_id']);
         });
     }
 

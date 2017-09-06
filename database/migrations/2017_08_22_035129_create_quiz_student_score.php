@@ -17,7 +17,8 @@ class CreateQuizStudentScore extends Migration
             $table->integer('student_id');
             $table->integer('quiz_event_id');
             $table->integer('score');
-            //$table->timestamps();
+            $table->primary(['student_id', 'quiz_event_id']);
+            $table->timestamp('recorded_on');
         });
     }
 

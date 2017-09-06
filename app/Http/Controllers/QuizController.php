@@ -8,13 +8,6 @@ use Auth;
 
 use Illuminate\Support\Facades\DB;
 
-//use App\Classe;
-// use App\Question;
-// use App\Questionnaire;
-// use App\QuizEvent;
-// use App\StudentClass;
-// use App\Subject;
-
 class QuizController extends Controller
 {
     public function RedirectToAppropriatePanel(){
@@ -37,14 +30,15 @@ class QuizController extends Controller
             return view('quiz-admin-panel', compact('classes'), compact('quiz_events'));
         }
         else{//The user is a student
-            $upcoming_quiz = DB::table('quiz_events')
+            $upcoming_quiz = DB::table('quiz_events')//Gets upcoming quiz (quiz_event_status = 0)
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
                             ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
                             ->where('student_id', $id)
                             ->where('quiz_event_status', 0)
                             ->get();
-            $pending_quiz = DB::table('quiz_events')
+                            
+            $pending_quiz = DB::table('quiz_events')//Gets pending quiz (quiz_event_status = 1)
                             ->select('quiz_event_name', 'subject_desc', 'quiz_events.quiz_event_id')
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
@@ -54,50 +48,16 @@ class QuizController extends Controller
                             ->where('quiz_event_status', 1)
                             ->whereNull('score')
                             ->get();
-            $finished_quiz = DB::table('quiz_events')
+
+            $finished_quiz = DB::table('quiz_events')//Gets finished quiz (quiz_event_status = 2)
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
                             ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
                             ->where('student_id', $id)
                             ->where('quiz_event_status', 2)
                             ->get();
-            //return $pending_quiz;
+
             return view('quiz-student-panel', compact('pending_quiz'), compact('upcoming_quiz'), compact('finished_quiz'));
-        }
-    }
-
-    public function TakeQuiz($quiz_id){
-        if (Auth::user()->permissions == 1){
-            return "You're a teacher!";
-        }
-        $id = Auth::user()->usr_id;
-        $verify_quiz = DB::table('quiz_events')
-                        ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
-                        ->where('student_id', $id)
-                        ->where('quiz_event_id', $quiz_id)
-                        ->where('quiz_event_status', 1)
-                        ->get();
-
-        if ($verify_quiz->count() < 1){//Student can't access the quiz if it is not enabled.
-            return abort(403, 'Unauthorized access');
-        }
-        else{
-            $quiz = DB::table('quiz_events')
-                            ->select('quiz_event_name', 'quiz_events.quiz_event_id', 'course_sec', 'score')
-                            ->join('classes', 'classes.class_id', '=', 'quiz_events.class_id')
-                            ->leftJoin('quiz_student_score', 'quiz_events.quiz_event_id', '=', 'quiz_student_score.quiz_event_id')
-                            ->where('quiz_events.quiz_event_id', '=' , $quiz_id)
-                            ->whereNull('score')
-                            ->first();              
-            $quiz_content = DB::table('questions')
-                            ->select('question_id', 'question_name', 'choices', 'question_type')
-                            ->join('questionnaires', 'questionnaires.questionnaire_id', '=', 'questions.questionnaire_id')
-                            ->join('quiz_events', 'quiz_events.questionnaire_id', '=', 'questionnaires.questionnaire_id')
-                            ->where('quiz_event_id', $quiz_id)
-                            ->inRandomOrder()
-                            ->get();
-            //return $quiz_content;
-            return view('quiz.quiz-event', compact('quiz_content'), compact('quiz'));
         }
     }
 
@@ -170,23 +130,12 @@ class QuizController extends Controller
                 "quiz_event_name" => "$quiz_name",
                 "questionnaire_id" => $questionnaire_id,
                 "class_id" => $class_id,
-                "quiz_event_status" => false
+                "quiz_event_status" => false,
+                "created_at" => \Carbon\Carbon::now(),
+                "updated_at" => \Carbon\Carbon::now()
             ]
         ]);
         return redirect('quiz');
-    }
-
-    public function StartQuizEvent(){
-        $quiz_event_id = $_POST['quiz_event_id'];
-        try{
-            DB::table('quiz_events')
-            ->where('quiz_event_id', $quiz_event_id)
-            ->update(['quiz_event_status' => 1]);
-
-            return json_encode(["status" => 0]);
-        }catch(Exception $e){
-            return json_encode(["status" => 1, "message" => "$e"]);
-        }
     }
 
     public function ChangeQuizEventStatus(){
@@ -203,8 +152,39 @@ class QuizController extends Controller
             return json_encode(["status" => 1, "message" => "$e"]);
         }
     }
-    
 
+     public function TakeQuiz($quiz_id){
+        $id = Auth::user()->usr_id;
+        $verify_quiz = DB::table('quiz_events')
+                        ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
+                        ->where('student_id', $id)
+                        ->where('quiz_event_id', $quiz_id)
+                        ->where('quiz_event_status', 1)
+                        ->get();
+
+        if ($verify_quiz->count() < 1){//Student can't access the quiz if it is not enabled.
+            return abort(403, 'Unauthorized access');
+        }
+        else{
+            $quiz = DB::table('quiz_events')
+                            ->select('quiz_event_name', 'quiz_events.quiz_event_id', 'course_sec', 'score')
+                            ->join('classes', 'classes.class_id', '=', 'quiz_events.class_id')
+                            ->leftJoin('quiz_student_score', 'quiz_events.quiz_event_id', '=', 'quiz_student_score.quiz_event_id')
+                            ->where('quiz_events.quiz_event_id', '=' , $quiz_id)
+                            ->whereNull('score')
+                            ->first();              
+            $quiz_content = DB::table('questions')
+                            ->select('question_id', 'question_name', 'choices', 'question_type')
+                            ->join('questionnaires', 'questionnaires.questionnaire_id', '=', 'questions.questionnaire_id')
+                            ->join('quiz_events', 'quiz_events.questionnaire_id', '=', 'questionnaires.questionnaire_id')
+                            ->where('quiz_event_id', $quiz_id)
+                            ->inRandomOrder()
+                            ->get();
+
+            return view('quiz.quiz-event', compact('quiz_content'), compact('quiz'));
+        }
+    }
+    
     public function SubmitAnswers(){
         $question_ids = $_POST['question_id'];
         $answers = $_POST['answer'];
@@ -217,7 +197,7 @@ class QuizController extends Controller
                     "student_id" => $student_id,
                     "quiz_event_id" => $quiz_event_id,
                     "question_id" => $question_ids[$x],
-                    "student_answer" => $answers[$x]
+                    "student_answer" => $answers[$x],
                 ]
             );
         }
@@ -238,7 +218,8 @@ class QuizController extends Controller
         DB::table('quiz_student_score')->insert([
             "student_id" => $student_id,
             "quiz_event_id" => $quiz_event_id,
-            "score" => $score
+            "score" => $score,
+            "recorded_on" => \Carbon\Carbon::now()
         ]);
         
          return "You scored $score in the quiz!";
