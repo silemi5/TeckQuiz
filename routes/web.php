@@ -29,7 +29,7 @@ Route::post('/new/quiz', 'QuizController@NewQuizEvent')->middleware('auth');
 
 Route::post('/new/quiz/add', 'QuizController@AddNewQuizEvent')->middleware('auth');
 
-Route::post('/startquiz', 'QuizController@StartQuizEvent')->middleware('auth');
+Route::post('/quiz/changestatus', 'QuizController@ChangeQuizEventStatus')->middleware('auth');
 
 Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');
 

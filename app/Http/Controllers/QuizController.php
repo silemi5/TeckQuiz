@@ -189,6 +189,22 @@ class QuizController extends Controller
         }
     }
 
+    public function ChangeQuizEventStatus(){
+        $quiz_event_id = $_POST['quiz_event_id'];
+        $q_status = $_POST['quiz_status'];
+
+        try{
+            DB::table('quiz_events')
+            ->where('quiz_event_id', $quiz_event_id)
+            ->update(['quiz_event_status' => $q_status]);
+
+            return json_encode(["status" => 0]);
+        }catch(Exception $e){
+            return json_encode(["status" => 1, "message" => "$e"]);
+        }
+    }
+    
+
     public function SubmitAnswers(){
         $question_ids = $_POST['question_id'];
         $answers = $_POST['answer'];
@@ -212,9 +228,6 @@ class QuizController extends Controller
                 ->where('quiz_event_id', $quiz_event_id)
                 ->get();
 
-        // for($x = 0; $x < count($score); $x++){
-        //     if ($score[])
-        // }
         $score = 0;
         foreach($answers as $answer){
             if($answer->correct_ans == $answer->stud_ans){
@@ -229,8 +242,6 @@ class QuizController extends Controller
         ]);
         
          return "You scored $score in the quiz!";
-        
 
-        // return "Done!";
     }
 }

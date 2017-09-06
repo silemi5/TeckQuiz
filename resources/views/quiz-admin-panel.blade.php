@@ -27,39 +27,47 @@
                 <div class="tab-pane fade show active row" id="quiz-events" role="tabpanel" aria-labelledby="quiz-events">
                     <h3>Quiz Events</h3>
                     <script>
-                        function enableQuiz(quiz_event_id){
-                            $.ajaxSetup({
+                        $.ajaxSetup({
                                 headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                 }
-                            });
-                            $.post("/startquiz", {quiz_event_id}, function(data){
+                        });
+
+                        function ChangeQuizStatus(quiz_event_id, quiz_status){
+                            $.post("/quiz/changestatus", {quiz_event_id, quiz_status}, function(data){
                                 var response = jQuery.parseJSON(data)
                                 var qid = quiz_event_id
                                 if (response.status == 0){
-                                    alert('Quiz started!');
-                                    $("#buttonPanel" + quiz_event_id).html("<a href='#' onclick='disableQuiz(" + qid + ")' class='btn btn-outline-primary'>Disable quiz</a> <a href='#' onclick='endQuiz(" + qid + ")' class='btn btn-outline-danger'>End quiz</a> <a href='#' class='btn btn-outline-secondary' data-toggle='modal' data-target='#'>Details</a>");
+                                    if (quiz_status == 0){//Disables the quiz
+                                        $("#buttonPanel" + qid).html("<a href='#' onclick='ChangeQuizStatus(" + qid + ", 1)' class='btn btn-outline-primary'>Enable quiz</a> <a href='' class='btn btn-outline-secondary' data-toggle='modal' data-target='#ManageQuiz'>Manage quiz</a>");
+                                    }else if(quiz_status == 1){//Enables the quiz
+                                        $("#buttonPanel" + qid).html("<a href='#' onclick='ChangeQuizStatus(" + qid + ", 0)' class='btn btn-outline-primary'>Disable quiz</a> <a href='#' onclick='endQuiz(" + qid + ", 2)' class='btn btn-outline-danger'>End quiz</a> <a href='#' class='btn btn-outline-secondary' data-toggle='modal' data-target='#'>Details</a>");
+                                    }else if(quiz_status == 2){//Ends the quiz
+                                        $("#quiz_card" + qid).html("");
+                                        $("#quiz_card" + qid).hide();
+                                    }
                                 }else{
                                     alert("Something happened! Quiz not started!");
                                 }
                             });
                         }
+                        
                     </script>
                     <div class="col container row mb-2">
                         <!-- Example of a quiz event entry -->
                         <div class="col quiz-event">
                             @foreach ($quiz_events as $qe)
-                            <div class="card mb-2">
+                            <div class="card mb-2" id="quiz_card{{ $qe->quiz_event_id }}">
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $qe->quiz_event_name }}</h4>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $qe->subject_desc }}</h6>
                                     <div id="buttonPanel{{ $qe->quiz_event_id }}">
                                     @if($qe->quiz_event_status == 0)
-                                        <a href="#" onclick="enableQuiz({{ $qe->quiz_event_id }})" class="btn btn-outline-primary">Enable quiz</a>
+                                        <a href="#" onclick="ChangeQuizStatus({{ $qe->quiz_event_id }}, 1)" class="btn btn-outline-primary">Enable quiz</a>
                                         <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ManageQuiz">Manage quiz</a>
                                     @elseif($qe->quiz_event_status == 1)
-                                        <a href="#" onclick="disableQuiz({{ $qe->quiz_event_id }})" class="btn btn-outline-primary">Disable quiz</a>
-                                        <a href="#" onclick="endQuiz({{ $qe->quiz_event_id }})" class="btn btn-outline-danger">End quiz</a>
+                                        <a href="#" onclick="ChangeQuizStatus({{ $qe->quiz_event_id }}, 0)" class="btn btn-outline-primary">Disable quiz</a>
+                                        <a href="#" onclick="ChangeQuizStatus({{ $qe->quiz_event_id }}, 2)" class="btn btn-outline-danger">End quiz</a>
                                         <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#">Manage Quiz</a>
                                     @endif
                                     </div>
@@ -71,6 +79,7 @@
                     </div>
                     <div class="col">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#NewQuizEventModal">New quiz event</button>
+                        <button class="btn btn-secondary" data-toggle="modal" data-target="">View finished quiz events</button>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="manage-class" role="tabpanel" aria-labelledby="manage-class"><!-- Manage Class -->
