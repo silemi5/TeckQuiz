@@ -27,7 +27,15 @@ class QuizController extends Controller
                             ->orWhere('quiz_event_status', 1)//pending
                             ->get();
 
-            return view('quiz-admin-panel', compact('classes'), compact('quiz_events'));
+            $finished_quiz_events = DB::table('quiz_events')
+                            ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
+                            ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
+                            ->where('classes.instructor_id', $id)
+                            ->where('quiz_event_status', 2)//finished
+                            ->get();
+            
+
+            return view('quiz-admin-panel', compact('classes', 'quiz_events', 'finished_quiz_events'));
         }
         else{//The user is a student
             $upcoming_quiz = DB::table('quiz_events')//Gets upcoming quiz (quiz_event_status = 0)
@@ -148,7 +156,7 @@ class QuizController extends Controller
         try{
             DB::table('quiz_events')
             ->where('quiz_event_id', $quiz_event_id)
-            ->update(['quiz_event_status' => $q_status]);
+            ->update(['quiz_event_status' => $q_status, 'updated_at' => \Carbon\Carbon::now()]);
 
             return json_encode(["status" => 0]);
         }catch(Exception $e){
