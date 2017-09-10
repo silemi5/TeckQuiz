@@ -238,6 +238,12 @@ class QuizController extends Controller
     }
 
     public function GoToClass($class_id){
+        $quiz_events = DB::table('quiz_events')
+                            ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
+                            ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
+                            ->where('classes.class_id', $class_id)
+                            ->get();
+
         $quiz_class = DB::table('classes')
                     ->join('subjects', 'classes.subject_id', '=', 'subjects.subject_id')
                     ->where('instructor_id', Auth::user()->usr_id)
@@ -247,12 +253,23 @@ class QuizController extends Controller
         $students = DB::table('student_classes')
                     ->join('user_profiles', 'student_classes.student_id', '=', 'user_profiles.usr_id')
                     ->where('class_id', $class_id)
+                    ->orderBy('family_name', 'asc')
                     ->get();
         //return $quiz_class;
-        return view('manage.classes', compact('students'), compact('quiz_class'));
+        return view('manage.classes', compact('students', 'quiz_class', 'quiz_events'));
+    }
+
+    public function RetrieveUserCredentials(){
+        $usr_id = $_POST['sid'];
+        $response = DB::table('users')
+                    ->select('usr', 'password')
+                    ->where('usr_id', $usr_id)
+                    ->first();
+                    
+        return json_encode($response);
     }
 
     public function ListClass($class_id){
-
+        //
     }
 }
