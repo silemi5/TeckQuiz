@@ -26,17 +26,28 @@
         <div class="row justify-content-center">
             <div class="col-4 card">
                 <div class="card-body">
-                    <form>
-                        <div class="form-group">
+                    <form action="{{ route('login') }}" method="POST">
+                        {{ csrf_field() }}
+                        <div class="form-group{{ $errors->has('usr') ? ' has-error' : '' }}">
                             <label for="">Username</label>
-                            <input class="form-control" type="text">
+                            <input id="usr" name="usr" type="text" value="{{ old('usr') }}" class="form-control" required autofocus>
+                            @if ($errors->has('usr'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('usr') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="">Password</label>
-                            <input class="form-control" type="password">
+                            <input id="password" name="password" type="password" class="form-control" required>
+                            @if ($errors->has('password'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary btn-block">Login</button>
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>
                     </form>
                 </div>
