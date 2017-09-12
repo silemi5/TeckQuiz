@@ -259,14 +259,29 @@ class QuizController extends Controller
         return view('manage.classes', compact('students', 'quiz_class', 'quiz_events'));
     }
 
-    public function RetrieveUserCredentials(){
-        $usr_id = $_POST['sid'];
-        $response = DB::table('users')
-                    ->select('usr', 'password')
-                    ->where('usr_id', $usr_id)
-                    ->first();
-                    
-        return json_encode($response);
+    public function UpdateStudentInfo(){
+        $n = [
+                "g" => $_POST['g'],
+                "f" => $_POST['f'],
+                "mi" => $_POST['mi'],
+                "ne" => $_POST['ne'],
+                "sid" => $_POST['sid'],
+        ];
+
+        try{
+            DB::table('user_profiles')
+            ->where('usr_id', $n['sid'])
+            ->update([
+                'given_name' => $n['g'],
+                'family_name' => $n['f'],
+                'middle_name' => $n['mi'],
+                'ext_name' => $n['ne']
+            ]);
+
+            return json_encode(["status" => 0]);
+        }catch(Exception $e){
+            return json_encode(["status" => 1, "message" => "$e"]);
+        }
     }
 
     public function ListClass($class_id){

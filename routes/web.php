@@ -35,7 +35,7 @@ Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');
 
 Route::get('/class/{class_id}', 'QuizController@GoToClass')->middleware('auth');
 
-Route::post('/_SCRIPTS/RetrieveUserCredentials', 'QuizController@RetrieveUserCredentials')->middleware('auth');
+Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('auth');
 
 Route::get('/changelog', function (){
     return view('changelog');

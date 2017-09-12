@@ -132,7 +132,7 @@
                                                 type="button"
                                                 class="btn btn-primary btn-sm"
                                                 data-toggle="modal"
-                                                data-target="#EditStudent"
+                                                data-target="#StudentProfileModal"
                                                 data-usrid="{{ $s->usr_id }}"
                                                 data-gname="{{ $s->given_name }}"
                                                 data-fname="{{ $s->family_name }}"
@@ -148,7 +148,13 @@
                             </table>
                         </div>
                         
-                        <button class="btn btn-primary">Add new student</button>
+                        <button 
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#AddNewStudentModal"
+                            disabled>
+                            Add new student
+                        </button>
                     </div>
 
                     <div class="tab-pane fade" id="settings-tab" role="tabpanel" aria-labelledby="settings-tab">
@@ -173,7 +179,7 @@
                 </div>
             </main>
    
-            <div class="modal fade" id="EditStudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="StudentProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -193,34 +199,57 @@
                                         <input type="text" class="form-control m-1" placeholder="M.I." id="mi-name" style="width:4rem">
                                         <input type="text" class="form-control m-1" placeholder="Extension Name" id="ne-name" style="width:12rem">
                                     </div>
-                                    
-                                </div>
-                                <div class="form-group">
-                                    <label for="message-text" class="form-control-label">Message:</label>
-                                    <textarea class="form-control" id="message-text"></textarea>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Update Profile</button>
+                            <button type="button" class="btn btn-primary" id="UpdateProfile">Update Profile</button>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- <div class="modal fade" id="AddNewStudentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add New Student</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form">
+                                <input type="hidden" id="usrid" value="-1">
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <div class="form-inline">
+                                        <input type="text" class="form-control m-1" placeholder="Family Name" id="f-name" style="width:12rem">
+                                        <input type="text" class="form-control m-1" placeholder="Given Name" id="g-name" style="width:12rem">
+                                        <input type="text" class="form-control m-1" placeholder="M.I." id="mi-name" style="width:4rem">
+                                        <input type="text" class="form-control m-1" placeholder="Extension Name" id="ne-name" style="width:12rem">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="UpdateProfile">Update Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
             <script>
-                $('#EditStudent').on('show.bs.modal', function (event) {
+                $('#StudentProfileModal').on('show.bs.modal', function (event) {
                     var button = $(event.relatedTarget) // Button that triggered the modal
                     var sid = button.data('usrid')
                     var gname = button.data('gname')
                     var fname = button.data('fname')
                     var miname = button.data('miname')
                     var nename = button.data('nename')
-
-                    $.post("/_SCRIPTS/RetrieveUserCredentials", {sid}, function(data){
-                        var response = jQuery.parseJSON(data);
-                    });
+                    var act = button.data('act')
 
                     var modal = $(this)
                     modal.find('#g-name').val(gname)
@@ -228,6 +257,25 @@
                     modal.find('#mi-name').val(miname)
                     modal.find('#ne-name').val(nename)
                     modal.find('#usrid').val(sid)
+                });
+
+                $('#UpdateProfile').click(function (){
+                    var modal = $(this)
+                    var g = $('#g-name').val()
+                    var f = $('#f-name').val()
+                    var mi = $('#mi-name').val()
+                    var ne = $('#ne-name').val()
+                    var sid = $('#usrid').val()
+                    var act = $('#act').val()
+                    
+                    $.ajax({
+                        url: '/student/update',
+                        type: 'POST',
+                        data: {g, f, mi, ne, sid, act},
+                        success: function(result) {
+                            location.reload(true);
+                        }
+                    });
                 });
             </script>
         </div>
