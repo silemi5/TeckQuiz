@@ -46,7 +46,7 @@
                 @if(Auth::guest())
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="" data-toggle="modal" data-target="#loginModal">Login</a>
+                            <a class="nav-link" href="/login">Login</a>
                         </li>
                     </ul>
                 @else
@@ -75,8 +75,14 @@
 
             </div>
         </nav>
-        @yield('content')
 
+        @yield('content')
+        
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">Copyright 2017 TeckQuiz</span>
+            </div>
+        </footer>
         
     </div>
 

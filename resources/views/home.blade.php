@@ -2,129 +2,64 @@
 
 @section('title', 'TeckQuiz - An Online Quiz Management System')
 @section('content')
-    <style>
-            body {
-                padding-top: 50px;
-            }
-            .app-title-container {
-                background: url('./assets/img/study-map.jpg') center center no-repeat;
-                background-attachment: fixed;
-                background-position: cover;
-                height: 100vh;
-                width: 100%;
+    <div class="main">
+        <style>
+            p.home-lead {
+                font-size: 26px;
             }
 
-            .app-title {
-                background: rgba(255, 255, 255, 0.5);
-                position: relative;
-                top: 50%;
-                transform: translateY(-50%);
+            h1.home-title {
+                font-size: 72px;
             }
-
-            .center-features {
-                background-color: rgba(255, 255, 255, 0.5);
-                height: 100vh;
-                padding: 10rem 0;
-            }
-
-            .app-feature-1 {
-                background: url('./assets/img/crumpled-paper.jpg') center center no-repeat;
-                background-attachment: fixed;
-                background-position: cover;
-                color: #212121;
-            }
-
-            .app-feature-2 {
-                background-color: rgba(255, 255, 255, 0.5);
-                background: url('./assets/img/work-enviroment.jpg') center center no-repeat;
-                background-attachment: fixed;
-                background-position: cover;
-                color: #C5CAE9;
-            }
-    </style>
-    <div class="container-fluid app-title-container">
-        <div class="jumbotron app-title" style="border-radius: 0">
-            <h1 class="text-center">TeckQuiz</h1>
-            <p class="text-center">An Online Quiz Management System</p>
-        </div>
-    </div>
-    <div class="container-fluid center-features app-feature-1">
-        <h2 class="text-center"><strong>Forget the paper, just test.</strong></h2>
-        <p class="text-center">Quiz without paper. Quiz without hassle.</p>
-    </div>
-    <div class="container-fluid center-features app-feature-2">
-        <h2 class="text-center"><strong>Serve quiz with ease.</strong></h2>
-        <p class="text-center">No more confusion, just do it.</p>
-    </div>
-    <script>
-        function authenticateUser() {
-            console.log("inside!");
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            var usr = $("#usr").val();
-            var pwd = $("#password").val();
-            $.post("/authenticate", { usr, pwd }, function (data) {
-                console.log(data);
-            });
-            console.log("outside!");
-        }
-    </script>
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('usr') ? ' has-error' : '' }}">
-                            <label for="usr" class="col-md-4 control-label">Username</label>
-                            <input id="usr" type="text" class="form-control" name="usr" value="{{ old('usr') }}" required autofocus>                        @if ($errors->has('usr'))
-                            <span class="help-block">
-                                            <strong>{{ $errors->first('usr') }}</strong>
-                                        </span> @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <input id="password" type="password" class="form-control" name="password" required> @if ($errors->has('password'))
-                            <span class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span> @endif
-                        </div>
-
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                        </label>
+        </style>
+        <div class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 text-left">
+                        <h1 class="home-title">TeckQuiz</h1>
+                        <p class="home-lead">
+                            An Online Quiz System built for the Web.
+                        </p>
+                    </div>
+                    <div class="col-lg-5 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">Register</div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="">Name</label>
+                                        <div class="form-inline">
+                                            <input type="text" placeholder="Given name" class="form-control form-inline m-1" style="width: 128px">
+                                            <input type="text" placeholder="M.I." class="form-control form-inline m-1" style="width: 52px">
+                                            <input type="text" placeholder="Family name" class="form-control form-inline m-1" style="width: 128px">
+                                            <input type="text" placeholder="Ext." class="form-control form-inline m-1" style="width: 52px">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Username</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Password</label>
+                                        <input type="password" class="form-control">
+                                        <small class="form-text text-muted">At least 8 characters</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Class Code</label>
+                                        <input type="text" class="form-control">
+                                        <small class="form-text text-muted">Ask your teacher for the code</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-success btn-block">Register</button>
+                                        <small class="form-text text-muted text-center">By clicking "Register", you agree to our terms of service and privacy policy.</small>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
-                                        Login
-                                    </button>
-                            <!-- <button type="button" onclick="authenticate()" class="btn btn-primary">
-                                        Login
-                                    </button> -->
-
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        Forgot Your Password?
-                                    </a>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
 @endsection
