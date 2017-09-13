@@ -27,7 +27,7 @@
                     <h3>Pending Quizzes</h3>
                     <div class="col container row mb-2">
                         <!-- Example of a quiz event entry -->
-                        <div class="col quiz-event">
+                        <div class="col-6 quiz-event">
                             @foreach ($pending_quiz as $pq)
                             <div class="card mb-2">
                                 <div class="card-body">
@@ -44,7 +44,7 @@
                     <h3>Upcoming Quizzes</h3>
                     <div class="col container row mb-2">
                         <!-- Example of a quiz event entry -->
-                        <div class="col quiz-event">
+                        <div class="col-6 quiz-event">
                             @foreach ($upcoming_quiz as $uq)
                             <div class="card mb-2">
                                 <div class="card-body">

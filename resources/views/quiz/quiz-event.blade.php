@@ -57,7 +57,7 @@
                                 own credentials.</p>
                             <p></p>
                             <p>Quiz: <b>{{ $quiz->quiz_event_name }}</b></p>
-                            <p>Username: <b>{{ Auth::user()->usr }}</b></p>
+                            <p>Name: <b>{{ $user_profile->family_name }}, {{ $user_profile->given_name }} {{ $user_profile->ext_name }} {{ $user_profile->middle_name }}</b></p>
                             <p>Course and Section: <b>{{ $quiz->course_sec }}</b></p>
                             <button type="button" id="enablequizbtn" class="btn btn-primary" onclick="enableQuiz()">Yes, this is correct. No turning back.</button>
                             <button type="button" class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -112,7 +112,7 @@
                                 @endif
                                 <hr>
                                 <div class="form-group">
-                                    @if ($questionNum > 1) <button type="button" class="btn btn-primary" onclick="MoveQuestion({{ $questionNum - 1 }})">Previous</button>@endif
+                                    @if ($questionNum > 1) <button type="button" class="btn btn-primary" onclick="MoveQuestion({{ $questionNum - 1 }})">Previous</button> @endif
                                     @if ($questionNum < count($quiz_content))<button type="button" class="btn btn-primary" onclick="MoveQuestion({{ ++$questionNum }})">Next</button>
                                     @else <button type="submit" class="btn btn-primary" onclick="">Submit</button> @endif
                                 </div>

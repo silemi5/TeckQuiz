@@ -171,6 +171,10 @@ class QuizController extends Controller
      public function TakeQuiz($quiz_id){
         $id = Auth::user()->usr_id;
 
+        $user_profile = DB::table('user_profiles')
+                        ->where('usr_id', $id)
+                        ->first();
+
         $QuizTaken = DB::table('quiz_student_score')
                         ->where('student_id', $id)
                         ->where('quiz_event_id', $quiz_id)
@@ -179,8 +183,6 @@ class QuizController extends Controller
         if($QuizTaken->count() > 0){
             return abort(403, 'Quiz already taken');
         }
-        
-        
 
         $verify_quiz = DB::table('quiz_events')
                         ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
@@ -199,7 +201,8 @@ class QuizController extends Controller
                             ->leftJoin('quiz_student_score', 'quiz_events.quiz_event_id', '=', 'quiz_student_score.quiz_event_id')
                             ->where('quiz_events.quiz_event_id', '=' , $quiz_id)
                             ->whereNull('score')
-                            ->first();              
+                            ->first();
+
             $quiz_content = DB::table('questions')
                             ->select('question_id', 'question_name', 'choices', 'question_type')
                             ->join('questionnaires', 'questionnaires.questionnaire_id', '=', 'questions.questionnaire_id')
@@ -208,7 +211,7 @@ class QuizController extends Controller
                             ->inRandomOrder()
                             ->get();
 
-            $content = view('quiz.quiz-event', compact('quiz_content', 'quiz'));
+            $content = view('quiz.quiz-event', compact('quiz_content', 'quiz', 'user_profile'));
 
             return response($content)
                         ->header('Cache-Control', 'no-cache, must-revalidate')

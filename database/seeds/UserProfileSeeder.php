@@ -24,13 +24,13 @@ class UserProfileSeeder extends Seeder
             'middle_name' => 'A.',
             'ext_name' => '',
         ],[
-            'usr_id' => 4,
+            'usr_id' => 5,
             'given_name' => 'Christian',
             'family_name' => 'Reyes',
             'middle_name' => 'P.',
             'ext_name' => '',
         ],[
-            'usr_id' => 5,
+            'usr_id' => 4,
             'given_name' => 'Keren Keziah',
             'family_name' => 'Pequit',
             'middle_name' => 'A.',

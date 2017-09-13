@@ -24,7 +24,7 @@
                     @if (Auth::guest())
                     <div class="col-lg-5 col-md-12 col-sm-12">
                         <div class="card">
-                            <div class="card-header">Register</div>
+                            <!-- <div class="card-header">Register</div> -->
                             <div class="card-body">
                                 <form>
                                     <div class="form-group">
