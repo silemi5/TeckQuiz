@@ -11,8 +11,6 @@
 |
 */
 
-
-
 Route::get('/', function () {
     return view('home');
 });
@@ -21,7 +19,11 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/quiz', 'QuizController@RedirectToAppropriatePanel')->middleware('auth');
+Route::get('/panel', 'QuizController@RedirectToAppropriatePanel')->middleware('auth');
+
+Route::post('/quiz/changestatus', 'QuizController@ChangeQuizEventStatus')->middleware('auth');
+
+Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');
 
 Route::get('/quiz/{quiz_id}', 'QuizController@TakeQuiz')->middleware('auth');
 
@@ -29,13 +31,9 @@ Route::post('/new/quiz', 'QuizController@NewQuizEventForm')->middleware('auth');
 
 Route::post('/new/quiz/add', 'QuizController@CreateQuizEvent')->middleware('auth');
 
-Route::post('/quiz/changestatus', 'QuizController@ChangeQuizEventStatus')->middleware('auth');
+Route::get('/class/{class_id}', 'QuizController@ViewClass')->middleware('auth');//View class
 
-Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');
-
-Route::get('/class/{class_id}', 'QuizController@GoToClass')->middleware('auth');
-
-Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('auth');
+Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('auth');//Update student profile
 
 Route::get('/changelog', function (){
     return view('changelog');

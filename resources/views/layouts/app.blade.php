@@ -28,8 +28,8 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav col-md-10">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/aboutus">About us</a>
@@ -58,7 +58,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <h6 class="dropdown-header">Signed in as: <b>{{ Auth::user()->usr }}</b></h6>
                             <a class="dropdown-item" href="/profile">Profile</a>
-                            <a class="dropdown-item" href="/quiz">Quiz Panel</a>
+                            <a class="dropdown-item" href="/panel">User Panel</a>
                             <a class="dropdown-item" href="#">Preference</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

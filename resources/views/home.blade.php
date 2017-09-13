@@ -21,6 +21,7 @@
                             An Online Quiz System built for the Web.
                         </p>
                     </div>
+                    @if (Auth::guest())
                     <div class="col-lg-5 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">Register</div>
@@ -57,6 +58,16 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                        <div class="col-lg-5 col-md-12 col-sm-12">
+                        <div class="card">
+                            <!-- <div class="card-header">Register</div> -->
+                            <div class="card-body">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima, modi!
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

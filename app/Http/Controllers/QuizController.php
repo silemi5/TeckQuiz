@@ -51,7 +51,7 @@ class QuizController extends Controller
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
                             ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
-                            ->leftJoin('quiz_student_score', 'quiz_events.quiz_event_id', '=', 'quiz_student_score.quiz_event_id')
+                            ->leftJoin('quiz_student_score', 'student_classes.student_id', '=', 'quiz_student_score.student_id')
                             ->where('student_classes.student_id', $id)
                             ->where('quiz_event_status', 1)
                             ->whereNull('score')
@@ -258,7 +258,10 @@ class QuizController extends Controller
 
     }
 
-    public function GoToClass($class_id){
+    public function ViewClass($class_id){
+        if (Auth::user()->permissions == 0){
+            abort(403, 'Unauthorized access');
+        }
         $quiz_events = DB::table('quiz_events')
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
