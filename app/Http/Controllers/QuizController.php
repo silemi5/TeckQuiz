@@ -114,15 +114,18 @@ class QuizController extends Controller
             $n_identify = 0;
 
             if($question_type[$x] == 1){//Identification
-                $choices = "$c_identify[$n_identify]";
+                $choices = "";
+                $answer = $c_identify[$n_identify];
                 $n_identify++;
             }
             else if($question_type[$x] == 2){//Multiple Choice
-                $choices = "$mc1[$n_mc];$mc2[$n_mc];$mc3[$n_mc];$mc4[$n_mc]";
+                $choices = $mc1[$n_mc] . ";" . $mc2[$n_mc] . ";" . $mc3[$n_mc] . ";" . $mc4[$n_mc];
+                $answer = $c_mc[$n_mc];
                 $n_mc++;
             }
             else if($question_type[$x] == 3){//True or False
-                $choices = $c_tf[$n_tf];
+                $choices = "";
+                $answer = $c_tf[$n_tf];
                 $n_tf++;
             }
 
@@ -131,7 +134,8 @@ class QuizController extends Controller
                     "questionnaire_id" => $questionnaire_id,
                     "question_name" => "$questions[$x]",
                     "question_type" => $question_type[$x],
-                    "choices" => "$choices"
+                    "choices" => "$choices",
+                    "answer" => "$answer"
                 ]
             ]);
         }
@@ -166,6 +170,18 @@ class QuizController extends Controller
 
      public function TakeQuiz($quiz_id){
         $id = Auth::user()->usr_id;
+
+        $QuizTaken = DB::table('quiz_student_score')
+                        ->where('student_id', $id)
+                        ->where('quiz_event_id', $quiz_id)
+                        ->get();
+
+        if($QuizTaken->count() > 0){
+            return abort(403, 'Quiz already taken');
+        }
+        
+        
+
         $verify_quiz = DB::table('quiz_events')
                         ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
                         ->where('student_id', $id)
@@ -192,7 +208,12 @@ class QuizController extends Controller
                             ->inRandomOrder()
                             ->get();
 
-            return view('quiz.quiz-event', compact('quiz_content'), compact('quiz'));
+            $content = view('quiz.quiz-event', compact('quiz_content', 'quiz'));
+
+            return response($content)
+                        ->header('Cache-Control', 'no-cache, must-revalidate')
+                        ->header('Pragma', 'no-cache')
+                        ->header('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
         }
     }
     

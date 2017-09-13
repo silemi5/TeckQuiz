@@ -78,12 +78,6 @@
 
         @yield('content')
         
-        <footer class="footer">
-            <div class="container">
-                <span class="text-muted">Copyright 2017 TeckQuiz</span>
-            </div>
-        </footer>
-        
     </div>
 
     <!-- Scripts -->

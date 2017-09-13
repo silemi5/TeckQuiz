@@ -23,28 +23,28 @@
     </style>
     <div class="container">
         <h3 class="text-center">Login to TeckQuiz</h3>
+        @if($errors->has('usr'))
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="alert alert-danger" role="alert">
+                    {{ $errors->first('usr') }}
+                </div>
+            </div>
+        </div>
+            
+        @endif
         <div class="row justify-content-center">
             <div class="col-4 card">
                 <div class="card-body">
                     <form action="{{ route('login') }}" method="POST">
                         {{ csrf_field() }}
-                        <div class="form-group{{ $errors->has('usr') ? ' has-error' : '' }}">
+                        <div class="form-group">
                             <label for="">Username</label>
                             <input id="usr" name="usr" type="text" value="{{ old('usr') }}" class="form-control" required autofocus>
-                            @if ($errors->has('usr'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('usr') }}</strong>
-                                </span>
-                            @endif
                         </div>
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="">Password</label>
                             <input id="password" name="password" type="password" class="form-control" required>
-                            @if ($errors->has('password'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                            @endif
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
