@@ -16,8 +16,8 @@ class CreateClassesTable extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->increments('class_id');
             $table->string('course_sec');
-            $table->integer('instructor_id');   //instructor_id comes from users table
-            $table->integer('subject_id');
+            $table->integer('instructor_id')->unsigned();   //instructor_id comes from users table
+            $table->integer('subject_id')->unsigned();
             $table->boolean('class_active');
         });
     }
