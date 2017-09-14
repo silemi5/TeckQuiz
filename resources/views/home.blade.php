@@ -26,32 +26,43 @@
                         <div class="card">
                             <!-- <div class="card-header">Register</div> -->
                             <div class="card-body">
-                                <form>
+                                @if($errors->has('usr'))
+                                    <strong>{{ $errors->first('usr') }}</strong>
+                                @endif
+                                 @if($errors->has('password'))
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                @endif
+                                <form method="POST" action="{{ route('register') }}">
+                                    {{ csrf_field() }}
                                     <div class="form-group">
                                         <label for="">Name</label>
                                         <div class="form-inline">
-                                            <input type="text" placeholder="Given name" class="form-control form-inline m-1" style="width: 128px">
-                                            <input type="text" placeholder="M.I." class="form-control form-inline m-1" style="width: 52px">
-                                            <input type="text" placeholder="Family name" class="form-control form-inline m-1" style="width: 128px">
-                                            <input type="text" placeholder="Ext." class="form-control form-inline m-1" style="width: 52px">
+                                            <input name="n_given" id="n_given" type="text" placeholder="Given name" class="form-control form-inline m-1" style="width: 128px">
+                                            <input name="n_middle" id="n_middle" type="text" placeholder="M.I." class="form-control form-inline m-1" style="width: 52px">
+                                            <input name="n_family" id="n_family" type="text" placeholder="Family name" class="form-control form-inline m-1" style="width: 128px">
+                                            <input name="n_ext" id="n_ext" type="text" placeholder="Ext." class="form-control form-inline m-1" style="width: 52px">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Username</label>
-                                        <input type="text" class="form-control">
+                                        <input name="usr" id="usr" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Password</label>
-                                        <input type="password" class="form-control">
+                                        <input name="password" id="password" type="password" class="form-control">
                                         <small class="form-text text-muted">At least 8 characters</small>
                                     </div>
                                     <div class="form-group">
+                                        <label for="">Confirm Password</label>
+                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="">Class Code</label>
-                                        <input type="text" class="form-control">
+                                        <input name="class_code" id="class_code" type="text" class="form-control">
                                         <small class="form-text text-muted">Ask your teacher for the code</small>
                                     </div>
                                     <div class="form-group">
-                                        <button class="btn btn-success btn-block">Register</button>
+                                        <button type="submit" class="btn btn-success btn-block">Register</button>
                                         <small class="form-text text-muted text-center">By clicking "Register", you agree to our terms of service and privacy policy.</small>
                                     </div>
                                 </form>
