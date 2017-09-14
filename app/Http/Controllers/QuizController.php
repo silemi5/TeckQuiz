@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 
 use Auth;
 
+use App\Classe;
+use App\Question;
+use App\Questionnaire;
+use App\QuizEvent;
+use App\StudentClass;
+use App\Subject;
+use App\UserProfile;
+
 use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
@@ -13,28 +21,30 @@ class QuizController extends Controller
     public function RedirectToAppropriatePanel(){
         $id = Auth::user()->usr_id;//gets the id of the user
         if (Auth::user()->permissions == 1){//The user is a teacher
-            $classes = DB::table('classes')
-                        ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
-                        ->where('classes.instructor_id', $id)
-                        ->where('class_active', true)
-                        ->get();
-
-            $quiz_events = DB::table('quiz_events')
-                            ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
-                            ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
-                            ->where('classes.instructor_id', $id)
-                            ->where('quiz_event_status', 0)//upcoming
-                            ->orWhere('quiz_event_status', 1)//pending
+            $classes = Classe::with('subject')
+                            ->where('instructor_id', $id)
+                            ->where('class_active', true)
                             ->get();
+                            
+            $quiz_events = QuizEvent::with([
+                    'classe' => function($q) use($id){
+                        $q->where('instructor_id', $id);
+                    },
+                    'classe.subject'])
+                    ->where('quiz_event_status', 0)
+                    ->orWhere('quiz_event_status',1)
+                    ->get()
+                    ->where('classe', '!=', '');
 
-            $finished_quiz_events = DB::table('quiz_events')
-                            ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
-                            ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
-                            ->where('classes.instructor_id', $id)
-                            ->where('quiz_event_status', 2)//finished
-                            ->get();
+            $finished_quiz_events = QuizEvent::with([
+                    'classe' => function($q) use($id){
+                        $q->where('instructor_id', $id);
+                    },
+                    'classe.subject'])
+                    ->where('quiz_event_status', 2)
+                    ->get()
+                    ->where('classe', '!=', '');
             
-
             return view('quiz-admin-panel', compact('classes', 'quiz_events', 'finished_quiz_events'));
         }
         else{//The user is a student
@@ -158,9 +168,10 @@ class QuizController extends Controller
         $q_status = $_POST['quiz_status'];
 
         try{
-            DB::table('quiz_events')
-            ->where('quiz_event_id', $quiz_event_id)
-            ->update(['quiz_event_status' => $q_status, 'updated_at' => \Carbon\Carbon::now()]);
+            $q_e = QuizEvent::find($quiz_event_id);
+            $q_e->quiz_event_status = $q_status;
+            $q_e->updated_at = \Carbon\Carbon::now();
+            $q_e->save();
 
             return json_encode(["status" => 0]);
         }catch(Exception $e){

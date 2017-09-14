@@ -67,8 +67,8 @@
                                 @foreach($quiz_events as $qe)
                                     <tr id="quiz_entry{{ $qe->quiz_event_id }}">
                                         <td>{{ $qe->quiz_event_name }}</td>
-                                        <td>{{ $qe->subject_desc }}</td>
-                                        <td>{{ $qe->course_sec}}</td>
+                                        <td>{{ $qe->classe->subject->subject_desc }}</td>
+                                        <td>{{ $qe->classe->course_sec}}</td>
                                         
                                         @if($qe->quiz_event_status == 0)
                                             <td id="buttonPanel{{ $qe->quiz_event_id }}">
@@ -103,8 +103,8 @@
                                     @foreach($finished_quiz_events as $qe)
                                         <tr>
                                             <td>{{ $qe->quiz_event_name }}</td>
-                                            <td>{{ $qe->subject_desc }}</td>
-                                            <td>{{ $qe->course_sec }}</td>
+                                            <td>{{ $qe->classe->subject->subject_desc }}</td>
+                                            <td>{{ $qe->classe->course_sec}}</td>
                                             <td><button class="btn btn-sm btn-primary">See results</button></td>
                                         </tr>
                                     @endforeach
@@ -125,7 +125,7 @@
                             @foreach ($classes as $classe)
                             <div class="card mb-2">
                                 <div class="card-body">
-                                    <h4 class="card-title">{{ $classe->subject_code }}: {{ $classe->subject_desc }}</h4>
+                                    <h4 class="card-title">{{ $classe->subject->subject_code }}: {{ $classe->subject->subject_desc }}</h4>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
                                     <a href="/class/{{ $classe->subject_id }}" class="btn btn-outline-primary">Manage Class</a>
                                     <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
