@@ -14,9 +14,9 @@ class CreateQuizStudentAnswers extends Migration
     public function up()
     {
         Schema::create('quiz_student_answers', function (Blueprint $table) {
-            $table->integer('student_id');
-            $table->integer('quiz_event_id');
-            $table->integer('question_id');
+            $table->integer('student_id')->unsigned();
+            $table->integer('quiz_event_id')->unsigned();
+            $table->integer('question_id')->unsigned();
             $table->string('student_answer');
             //$table->primary(['student_id', 'quiz_event_id', 'question_id']);
         });
