@@ -67,10 +67,9 @@
                         </div>
                         @foreach($quiz_content as $qc)
                             <div class="tab-pane fade" id="q{{ $questionNum }}" role="tabpanel" aria-labelledby="q{{ $questionNum }}">
-                                <h3> ({{ $qc->question_id }})</h3>
                                 <input type="hidden" name="question_id[{{ $questionNum }}]" value="{{ $qc->question_id }}">
                                 @if($qc->question_type == 1)
-                                    <h1>Question #{{ $questionNum }} ({{ $qc->question_id }})</h1><span class="badge badge-info">Identification</span><hr>
+                                    <h1>Question #{{ $questionNum }}</h1><span class="badge badge-info">Identification</span><hr>
                                     <p style="font-size: 1.5rem">{{ $qc->question_name }}</p>
                                     <div class="form-group">
                                         <textarea class="form-control" name="answer[{{ $questionNum }}]" rows="3" placeholder="Input answer here..."></textarea>
@@ -82,14 +81,17 @@
                                     <?php $choices = explode(";", $qc->choices); $choicenum = 0; ?>
                                     <div class="form-group">
                                         <h5>Choices</h5>
-                                        @foreach($choices as $choice)
-                                            <div class="form-check">
-                                                <label for="mc_c{{ $choicenum }}" class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" id="mc_c{{ $choicenum }}" value="{{ ++$choicenum }}">
-                                                    {{ $choice }}
-                                                </label>
-                                            </div>
-                                        @endforeach
+                                        <div class="form-inline container">
+                                            @foreach($choices as $choice)
+                                                <div class="form-check">
+                                                    <label for="mc_c{{ $choicenum }}" class="form-check-label">
+                                                        <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" id="mc_c{{ $choicenum }}" value="{{ ++$choicenum }}">
+                                                        {{ $choice }}
+                                                    </label>
+                                                </div>
+                                                &nbsp &nbsp
+                                            @endforeach
+                                        </div>
                                     </div>  
                                 
                                 @elseif($qc->question_type == 3)
