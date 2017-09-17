@@ -35,6 +35,8 @@ Route::get('/class/{class_id}', 'QuizController@ViewClass')->middleware('auth');
 
 Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('auth');//Update student profile
 
+Route::get('manage/quiz/{quiz_id}', 'QuizController@ManageQuizEvent')->middleware('auth');
+
 Route::get('/changelog', function (){
     return view('changelog');
 });

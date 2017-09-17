@@ -314,4 +314,8 @@ class QuizController extends Controller
     public function ListClass($class_id){
         //
     }
+
+    public function ManageQuizEvent($class_id){
+        return view('manage.quiz');
+    }
 }
