@@ -48,6 +48,7 @@ class QuizController extends Controller
             return view('quiz-admin-panel', compact('classes', 'quiz_events', 'finished_quiz_events'));
         }
         else{//The user is a student
+            /*
             $upcoming_quiz = DB::table('quiz_events')//Gets upcoming quiz (quiz_event_status = 0)
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
@@ -55,6 +56,17 @@ class QuizController extends Controller
                             ->where('student_id', $id)
                             ->where('quiz_event_status', 0)
                             ->get();
+            */
+            $upcoming_quiz = QuizEvent::with([
+                    'classe',
+                    'classe.student_class' => function ($q) use($id){
+                        $q->where('student_id', $id);
+                    },
+                    'classe.subject'])
+                    ->where('quiz_event_status', 0)
+                    ->get();    
+
+            //return $upcoming_quiz;
                             
             $pending_quiz = DB::table('quiz_events')//Gets pending quiz (quiz_event_status = 1)
                             ->select('quiz_event_name', 'subject_desc', 'quiz_events.quiz_event_id')

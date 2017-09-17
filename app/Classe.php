@@ -21,6 +21,10 @@ class Classe extends Model
         return $this->hasOne('App\Subject', 'subject_id', 'subject_id');
     }
 
+    public function student_class(){
+        return $this->hasMany('App\StudentClass', 'class_id', 'class_id');
+    }
+
     // public function QuizEvent(){
     //     return $this->belongsTo('App\QuizEvent', 'class_id', 'class_id');
     // }

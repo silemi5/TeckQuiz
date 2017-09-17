@@ -49,7 +49,7 @@
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $uq->quiz_event_name }}</h4>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ $uq->subject_desc }}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ $uq->classe->subject->subject_desc }}</h6>
                                 </div>
                             </div>
                             @endforeach
