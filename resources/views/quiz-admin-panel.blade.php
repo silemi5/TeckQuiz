@@ -127,7 +127,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $classe->subject->subject_code }}: {{ $classe->subject->subject_desc }}</h4>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
-                                    <a href="/class/{{ $classe->subject_id }}" class="btn btn-outline-primary">Manage Class</a>
+                                    <a href="/manage/class/{{ $classe->subject_id }}" class="btn btn-outline-primary">Manage Class</a>
                                     <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
                                 </div>
                             </div>

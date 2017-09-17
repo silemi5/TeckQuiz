@@ -328,7 +328,7 @@ class QuizController extends Controller
                     ->where('class_id', $class_id)
                     ->orderBy('family_name', 'asc')
                     ->get();
-        //return $quiz_class;
+                    
         return view('manage.classes', compact('students', 'quiz_class', 'quiz_events'));
     }
 
@@ -361,7 +361,16 @@ class QuizController extends Controller
         //
     }
 
-    public function ManageQuizEvent($class_id){
-        return view('manage.quiz');
+    public function ManageQuizEvent($quiz_id){
+        $id = Auth::user()->usr_id;
+        
+        $quiz_details = QuizEvent::with([
+                    'classe' => function($q) use($id){
+                        $q->where('instructor_id', $id);
+                    },
+                    'classe.subject'])
+                    ->where('quiz_event_id', $quiz_id)
+                    ->first();
+        return view('manage.quiz', compact('quiz_details'));
     }
 }

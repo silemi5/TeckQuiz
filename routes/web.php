@@ -19,23 +19,17 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/panel', 'QuizController@RedirectToAppropriatePanel')->middleware('auth');
+Route::get('/panel', 'QuizController@RedirectToAppropriatePanel')->middleware('auth');//Redirect to appropriate panel
+Route::get('/quiz/{quiz_id}', 'QuizController@TakeQuiz')->middleware('auth');//Take quiz
+Route::get('/manage/class/{class_id}', 'QuizController@ViewClass')->middleware('auth');//View class
+Route::get('manage/quiz/{quiz_id}', 'QuizController@ManageQuizEvent')->middleware('auth');//Manage quiz
 
-Route::post('/quiz/changestatus', 'QuizController@ChangeQuizEventStatus')->middleware('auth');
 
-Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');
-
-Route::get('/quiz/{quiz_id}', 'QuizController@TakeQuiz')->middleware('auth');
-
-Route::post('/new/quiz', 'QuizController@NewQuizEventForm')->middleware('auth');
-
-Route::post('/new/quiz/add', 'QuizController@CreateQuizEvent')->middleware('auth');
-
-Route::get('/class/{class_id}', 'QuizController@ViewClass')->middleware('auth');//View class
-
+Route::post('/quiz/changestatus', 'QuizController@ChangeQuizEventStatus')->middleware('auth');//Change quiz event status
+Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');//sends student's answers
 Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('auth');//Update student profile
-
-Route::get('manage/quiz/{quiz_id}', 'QuizController@ManageQuizEvent')->middleware('auth');
+Route::post('/new/quiz', 'QuizController@NewQuizEventForm')->middleware('auth');//creates new quiz form
+Route::post('/new/quiz/add', 'QuizController@CreateQuizEvent')->middleware('auth');//adds new quiz event
 
 Route::get('/changelog', function (){
     return view('changelog');
