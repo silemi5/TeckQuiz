@@ -22,7 +22,7 @@ class Classe extends Model
     }
 
     public function student_class(){
-        return $this->hasMany('App\StudentClass', 'class_id', 'class_id');
+        return $this->hasOne('App\StudentClass', 'class_id', 'class_id');
     }
 
     // public function QuizEvent(){

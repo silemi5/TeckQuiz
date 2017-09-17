@@ -18,4 +18,8 @@ class StudentClass extends Model
     public function classe(){
         return $this->belongsTo('App\Classe', 'class_id', 'class_id');
     }
+
+    public function student_score(){
+        return $this->hasOne('App\StudentScore', 'student_id', 'student_id');
+    }
 }

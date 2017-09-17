@@ -34,7 +34,7 @@ class QuizController extends Controller
                     ->where('quiz_event_status', 0)
                     ->orWhere('quiz_event_status',1)
                     ->get()
-                    ->where('classe', '!=', '');
+                    ->where('classe', '!=', null);
 
             $finished_quiz_events = QuizEvent::with([
                     'classe' => function($q) use($id){
@@ -48,14 +48,14 @@ class QuizController extends Controller
             return view('quiz-admin-panel', compact('classes', 'quiz_events', 'finished_quiz_events'));
         }
         else{//The user is a student
-            /*
-            $upcoming_quiz = DB::table('quiz_events')//Gets upcoming quiz (quiz_event_status = 0)
-                            ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
-                            ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
-                            ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
-                            ->where('student_id', $id)
-                            ->where('quiz_event_status', 0)
-                            ->get();
+            /* Old Method
+                $upcoming_quiz = DB::table('quiz_events')//Gets upcoming quiz (quiz_event_status = 0)
+                                ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
+                                ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
+                                ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
+                                ->where('student_id', $id)
+                                ->where('quiz_event_status', 0)
+                                ->get();
             */
             $upcoming_quiz = QuizEvent::with([
                     'classe',
@@ -65,10 +65,9 @@ class QuizController extends Controller
                     'classe.subject'])
                     ->where('quiz_event_status', 0)
                     ->get();    
-
-            //return $upcoming_quiz;
                             
-            $pending_quiz = DB::table('quiz_events')//Gets pending quiz (quiz_event_status = 1)
+            /* Old method
+                $pending_quiz = DB::table('quiz_events')//Gets pending quiz (quiz_event_status = 1)
                             ->select('quiz_event_name', 'subject_desc', 'quiz_events.quiz_event_id')
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
@@ -78,6 +77,18 @@ class QuizController extends Controller
                             ->where('quiz_event_status', 1)
                             ->whereNull('score')
                             ->get();
+            */
+
+            $pending_quiz = QuizEvent::with([
+                    'classe',
+                    'classe.subject',
+                    'classe.student_class' => function ($q) use($id){
+                        $q->where('student_id', $id);
+                    },
+                    'classe.student_class.student_score'])
+                    ->where('quiz_event_status', 1)
+                    ->get()
+                    ->where('classe.student_class.student_score', '==', null);
 
             $finished_quiz = DB::table('quiz_events')//Gets finished quiz (quiz_event_status = 2)
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
