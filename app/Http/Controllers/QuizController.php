@@ -90,13 +90,25 @@ class QuizController extends Controller
                     ->get()
                     ->where('classe.student_class.student_score', '==', null);
 
-            $finished_quiz = DB::table('quiz_events')//Gets finished quiz (quiz_event_status = 2)
+            /* Old Method
+                $finished_quiz = DB::table('quiz_events')//Gets finished quiz (quiz_event_status = 2)
                             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
                             ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
                             ->where('student_id', $id)
                             ->where('quiz_event_status', 2)
                             ->get();
+            */
+
+            $finished_quiz = QuizEvent::with([
+                    'classe',
+                    'classe.subject',
+                    'classe.student_class' => function ($q) use($id){
+                        $q->where('student_id', $id);
+                    },
+                    'classe.student_class.student_score'])
+                    ->where('quiz_event_status', 2)
+                    ->get();
 
             return view('quiz-student-panel', compact('pending_quiz'), compact('upcoming_quiz'), compact('finished_quiz'));
         }
