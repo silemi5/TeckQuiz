@@ -128,7 +128,7 @@
                                         <td>{{ $s->family_name }}, {{ $s->given_name }} {{ $s->ext_name }} {{ $s->middle_name }}
                                             </td>
                                         <td>
-                                            <button 
+                                            <button
                                                 type="button"
                                                 class="btn btn-primary btn-sm"
                                                 data-toggle="modal"

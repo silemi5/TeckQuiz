@@ -1,10 +1,15 @@
 @extends('layouts.app')
 @section('title', 'Quiz Dashboard - TeckQuiz')
 @section('content')
+    <style>
+        body{
+            padding-top: 90px;
+        }
+    </style>
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3>New Quiz Event</h3>
+                <h2>New Quiz Event</h2>
                 <p>{{ $quiz['name'] }}</p>
                 <hr>
                 @if ($quiz['questionnaire'] == 1)
@@ -13,6 +18,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="quiz_name" value="{{ $quiz['name'] }}">
                         <input type="hidden" name="class_id" value="{{ $quiz['class_id'] }}">
+                        <input type="hidden" name="q_type" value="{{ $quiz['questionnaire'] }}">
                         @for($x = 1; $x <= $quiz['num']; $x++)
                         <h5>Question #{{ $x }}</h5>
                             <div class="form-group">
@@ -30,16 +36,16 @@
                             
                             <div id="multiple-choice{{ $x }}" style="display: none;">
                                 <div class="form-group">
-                                    <input type="text" name="mc1[]"  class="form-control" placeholder="Choice 1">
+                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control" placeholder="Choice 1">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="mc2[]"  class="form-control" placeholder="Choice 2">
+                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control" placeholder="Choice 2">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="mc3[]"  class="form-control" placeholder="Choice 3">
+                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control" placeholder="Choice 3">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="mc4[]"  class="form-control" placeholder="Choice 4">
+                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control" placeholder="Choice 4">
                                 </div>
                             </div>
 
@@ -64,7 +70,12 @@
                                     <option value="3">Choice 3</option>
                                     <option value="4">Choice 4</option>
                                 </select>
-                            </div>      
+                            </div>
+
+                            <div class="form-group">
+                                <label for="timelimit">Time limit</label>
+                                <input type="number" name="time_limit" class="form-control" min="30" max="120">
+                            </div>
                             
                             <hr>
                             <script>
@@ -96,7 +107,24 @@
                         </button>
                     </form>
                 @else
-                    <h1>lol</h1>
+                    <form action="/new/quiz/add" class="form" method="POST">
+                         {{ csrf_field() }}
+                        <input type="hidden" name="quiz_name" value="{{ $quiz['name'] }}">
+                        <input type="hidden" name="class_id" value="{{ $quiz['class_id'] }}">
+                        <input type="hidden" name="q_type" value="{{ $quiz['questionnaire'] }}">
+                        <div class="form-group">
+                            <label for="q_id">Select existing questionnaire</label>
+                                <select name="q_id" id="q_id" class="form-control">
+                                @foreach($questionnaires as $questionnaire)
+                                    <option value="{{ $questionnaire->questionnaire_id }}">{{ $questionnaire->questionnaire_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Add new quiz</button>
+                        </div>
+                        
+                    </form>
                 @endif
             </div>
         </div>

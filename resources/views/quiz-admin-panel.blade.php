@@ -21,7 +21,6 @@
         </nav>
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-
             <div class="tab-content container" id="v-pills-tabContent">
                 <div class="tab-pane fade show active row" id="quiz-events" role="tabpanel" aria-labelledby="quiz-events">
                     <script>
@@ -73,13 +72,13 @@
                                         @if($qe->quiz_event_status == 0)
                                             <td id="buttonPanel{{ $qe->quiz_event_id }}">
                                                 <button href="" onclick="javascript:ChangeQuizStatus({{ $qe->quiz_event_id }}, 1)" class="btn btn-sm btn-primary">Enable Quiz</button>
-                                                <button class="btn btn-sm btn-primary">Manage Quiz</button>
+                                                <a href="/manage/quiz/{{ $qe->quiz_event_id }}" class="btn btn-sm btn-primary">Manage Quiz</a>
                                             </td>
                                         @elseif($qe->quiz_event_status == 1)
                                             <td id="buttonPanel{{ $qe->quiz_event_id }}">
                                                 <button href="" onclick="javascript:ChangeQuizStatus({{ $qe->quiz_event_id }}, 0)" class="btn btn-sm btn-primary">Disable Quiz</button>
                                                 <button href="" onclick="javascript:ChangeQuizStatus({{ $qe->quiz_event_id }}, 2)" class="btn btn-sm btn-primary">End Quiz</button>
-                                                <button href="" class="btn btn-sm btn-primary">Manage Quiz</button>
+                                                <a href="/manage/quiz/{{ $qe->quiz_event_id }}" class="btn btn-sm btn-primary">Manage Quiz</a>
                                             </td>
                                         @endif
                                     </tr>
@@ -165,7 +164,7 @@
                             <label for="">Class</label>
                             <select name="class_id" id="class_id" class="form-control">
                                  @foreach ($classes as $classe)
-                                    <option value="{{ $classe->class_id }}">{{ $classe->subject_desc }} ({{ $classe->course_sec }})</option>
+                                    <option value="{{ $classe->class_id }}">{{ $classe->subject->subject_desc }} ({{ $classe->course_sec }})</option>
                                  @endforeach
                             </select>
                         </div>

@@ -11,5 +11,7 @@ class Questionnaire extends Model
     // public $timestamps = false;
 
     protected $fillable = [
-        'questionnaire_name'
+        'questionnaire_name',
+        'questionnaire_id'
+    ];
 }

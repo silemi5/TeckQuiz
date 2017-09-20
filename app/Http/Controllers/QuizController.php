@@ -11,6 +11,7 @@ use App\Question;
 use App\Questionnaire;
 use App\QuizEvent;
 use App\StudentClass;
+use App\StudentScore;
 use App\Subject;
 use App\UserProfile;
 
@@ -87,8 +88,11 @@ class QuizController extends Controller
                     },
                     'classe.student_class.student_score'])
                     ->where('quiz_event_status', 1)
-                    ->get()
-                    ->where('classe.student_class.student_score', '==', null);
+                    ->get();
+                    //TODO: hide finished
+                    // ->where('classe.student_class.student_score', '==', null)
+                    
+                    
 
             /* Old Method
                 $finished_quiz = DB::table('quiz_events')//Gets finished quiz (quiz_event_status = 2)
@@ -116,18 +120,27 @@ class QuizController extends Controller
 
     public function NewQuizEventForm(){
         $quiz = [
-            "name" => $_POST['quiz_name'],
-            "num" => $_POST['questions'],
-            "class_id" => $_POST['class_id'],
-            "questionnaire" => $_POST['questionnaire']
-        ];
-        return view('create.quiz-event', compact('quiz'));
+                "name" => $_POST['quiz_name'],
+                "num" => $_POST['questions'],
+                "class_id" => $_POST['class_id'],
+                "questionnaire" => $_POST['questionnaire']
+            ];
+        if ($quiz["questionnaire"] == 2){
+            $quiz = [
+                "name" => $_POST['quiz_name'],
+                "num" => $_POST['questions'],
+                "class_id" => $_POST['class_id'],
+                "questionnaire" => $_POST['questionnaire']
+            ];
+            $questionnaires = Questionnaire::all();
+            return view('create.quiz-event', compact('quiz', 'questionnaires'));
+        }else{
+            return view('create.quiz-event', compact('quiz'));
+        }
+        
     }
 
-    public function CreateQuizEvent(){
-        $quiz_name = $_POST['quiz_name'];
-        $class_id = $_POST['class_id'];
-
+    public function CreateNewQuestionnaire(){
         $questions = $_POST['question'];
         $question_type = $_POST['question_type'];
 
@@ -185,17 +198,89 @@ class QuizController extends Controller
             ]);
         }
 
+        return $questionnaire_id;
+    }
+
+    public function CreateQuizEvent(){
+        $qid = -1;
+        if($_POST['q_type'] == 1){
+            $quiz_name = $_POST['quiz_name'];
+            $class_id = $_POST['class_id'];
+            $questions = $_POST['question'];
+            $question_type = $_POST['question_type'];
+
+            //Multiple choices
+            $mc = $_POST['mc'];
+            $c_mc = $_POST['c-mc'];
+
+            //Correct True or False
+            $c_tf = $_POST['c-tf'];
+
+            //Correct Identification
+            $c_identify = $_POST['c-identify'];
+
+
+            DB::table('questionnaires')->insert([//Puts a questionnaire entry
+                ["questionnaire_name" => "$quiz_name", "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
+            ]);
+
+
+            $questionnaire_id = DB::table('questionnaires')->count();
+            //TODO: FIX MADAPAKING MULTIPLE CHOIEC
+            $n_mc = 0;
+            $n_mc = 0;
+            $n_tf = 0;
+            $n_identify = 0;
+            
+
+            for($x = 0; $x < count($questions); $x++){
+                $answer = "";
+                $choices = "";
+
+                if($question_type[$x] == 1){//Identification
+                    $choices = "";
+                    $answer = $c_identify[$n_identify];
+                    $n_identify++;
+                }
+                else if($question_type[$x] == 2){//Multiple Choice
+                    $choices = $mc[$n_mc][0] . ";" . $mc[$n_mc][1] . ";" . $mc[$n_mc][2] . ";" . $mc[$n_mc][3];
+                    $answer = $c_mc[$n_mc];
+                    $n_mc++;
+                }
+                else if($question_type[$x] == 3){//True or False
+                    $choices = "";
+                    $answer = $c_tf[$n_tf];
+                    $n_tf++;
+                }   
+
+                DB::table('questions')->insert([
+                    [
+                        "questionnaire_id" => $questionnaire_id,
+                        "question_name" => "$questions[$x]",
+                        "question_type" => $question_type[$x],
+                        "choices" => "$choices",
+                        "answer" => "$answer"
+                    ]
+                ]);
+            }
+
+            $qid = $questionnaire_id;
+        }elseif($_POST['q_type'] == 2){
+            $qid = $_POST['q_id'];
+        }
+        
+        
         DB::table('quiz_events')->insert([
             [
                 "quiz_event_name" => "$quiz_name",
-                "questionnaire_id" => $questionnaire_id,
+                "questionnaire_id" => $qid,
                 "class_id" => $class_id,
-                "quiz_event_status" => false,
+                "quiz_event_status" => 0,
                 "created_at" => \Carbon\Carbon::now(),
                 "updated_at" => \Carbon\Carbon::now()
             ]
         ]);
-        return redirect('quiz');
+        return redirect('panel');
     }
 
     public function ChangeQuizEventStatus(){
@@ -271,7 +356,14 @@ class QuizController extends Controller
         $answers = $_POST['answer'];
         $quiz_event_id = $_POST['quiz_event_id'];
         $student_id = Auth::user()->usr_id;
-        
+
+        $check_exisiting = StudentScore::where('student_id', $student_id)
+                            ->where('quiz_event_id', $quiz_event_id)
+                            ->count();
+                            
+        if ($check_exisiting > 0){
+            abort(403);
+        }
         for($x = 1; $x <= count($question_ids); $x++){
             DB::table('quiz_student_answers')->insert(
                 [
@@ -371,6 +463,8 @@ class QuizController extends Controller
                     'classe.subject'])
                     ->where('quiz_event_id', $quiz_id)
                     ->first();
+
+        //return $quiz_details;
         return view('manage.quiz', compact('quiz_details'));
     }
 }
