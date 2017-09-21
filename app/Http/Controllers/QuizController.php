@@ -90,9 +90,7 @@ class QuizController extends Controller
                     ->where('quiz_event_status', 1)
                     ->get();
                     //TODO: hide finished
-                    // ->where('classe.student_class.student_score', '==', null)
-                    
-                    
+                    // ->where('classe.student_class.student_score', '==', null)    
 
             /* Old Method
                 $finished_quiz = DB::table('quiz_events')//Gets finished quiz (quiz_event_status = 2)
@@ -114,7 +112,7 @@ class QuizController extends Controller
                     ->where('quiz_event_status', 2)
                     ->get();
 
-            return view('quiz-student-panel', compact('pending_quiz'), compact('upcoming_quiz'), compact('finished_quiz'));
+            return view('quiz-student-panel', compact('pending_quiz', 'upcoming_quiz', 'finished_quiz'));
         }
     }
 
@@ -460,7 +458,8 @@ class QuizController extends Controller
                     'classe' => function($q) use($id){
                         $q->where('instructor_id', $id);
                     },
-                    'classe.subject'])
+                    'classe.subject',
+                    'questionnaire'])
                     ->where('quiz_event_id', $quiz_id)
                     ->first();
 

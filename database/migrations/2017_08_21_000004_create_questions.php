@@ -22,6 +22,9 @@ class CreateQuestions extends Migration
             $table->string('answer')->nullable();
             $table->integer('points')->default(1);
         });
+        Schema::table('questions', function(Blueprint $table){
+            $table->foreign('questionnaire_id')->references('questionnaire_id')->on('questionnaires');
+        });
     }
 
     /**

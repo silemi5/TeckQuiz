@@ -21,6 +21,10 @@ class CreateQuizEventsTable extends Migration
             $table->integer('quiz_event_status');//0 = upcoming, 1 = pending, 2 = finished
             $table->timestamps();
         });
+        Schema::table('quiz_events', function(Blueprint $table){
+            $table->foreign('class_id')->references('class_id')->on('classes');
+            $table->foreign('questionnaire_id')->references('questionnaire_id')->on('questionnaires');
+        });
     }
 
     /**

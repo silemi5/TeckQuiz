@@ -11,11 +11,11 @@
         <hr>
         <div class="row">
             <div class="col-md-9">
-                <h3>QuizEventName</h3>
+                <h3>{{ $quiz_details->quiz_event_name }}</h3>
                 <p>This is some basic information about the quiz.</p>
                 <p>Class: <b><a href="/manage/class/{{ $quiz_details->class_id }}"></a>{{ $quiz_details->classe->course_sec }}</b></p>
                 <p>Subject: <b>{{ $quiz_details->classe->subject->subject_desc }}</b></p>
-                <p>Questionnaire: <b><a href="#">RelationshipTest</a></b></p>
+                <p>Questionnaire: <b><a href="#">{{ $quiz_details->questionnaire->questionnaire_name }}</a></b></p>
             </div>
             <div class="col-md-3">
                 <button class="btn btn-primary">Enable Quiz</button>

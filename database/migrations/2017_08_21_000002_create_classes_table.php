@@ -20,6 +20,10 @@ class CreateClassesTable extends Migration
             $table->integer('subject_id')->unsigned();
             $table->boolean('class_active');
         });
+        Schema::table('classes', function(Blueprint $table){
+            $table->foreign('instructor_id')->references('usr_id')->on('users');
+            $table->foreign('subject_id')->references('subject_id')->on('subjects');
+        });
     }
 
     /**

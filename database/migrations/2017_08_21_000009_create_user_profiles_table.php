@@ -20,6 +20,9 @@ class CreateUserProfilesTable extends Migration
             $table->string('middle_name');
             $table->string('ext_name');
         });
+        Schema::table('user_profiles', function(Blueprint $table){
+            $table->foreign('usr_id')->references('usr_id')->on('users');
+        });
     }
 
     /**

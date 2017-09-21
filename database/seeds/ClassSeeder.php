@@ -16,7 +16,7 @@ class ClassSeeder extends Seeder
             'course_sec' => "IT3A",
             'instructor_id' => 1,
             'subject_id' => 1,
-            'class_active' => false
+            'class_active' => true
         ],[
             'class_id' => 2,
             'course_sec' => "IT3A",

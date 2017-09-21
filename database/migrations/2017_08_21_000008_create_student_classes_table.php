@@ -17,6 +17,10 @@ class CreateStudentClassesTable extends Migration
             $table->integer('class_id')->unsigned();
             $table->integer('student_id')->unsigned();  //student ID comes from users table
         });
+        Schema::table('student_classes', function(Blueprint $table){
+            $table->foreign('student_id')->references('usr_id')->on('users');
+            $table->foreign('class_id')->references('class_id')->on('classes');
+        });
     }
 
     /**

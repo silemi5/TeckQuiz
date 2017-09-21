@@ -19,6 +19,10 @@ class CreateQuizStudentScore extends Migration
             $table->integer('score');
             $table->timestamp('recorded_on');
         });
+        Schema::table('quiz_student_score', function(Blueprint $table){
+            $table->foreign('student_id')->references('usr_id')->on('users');
+            $table->foreign('quiz_event_id')->references('quiz_event_id')->on('quiz_events');
+        });    
     }
 
     /**
