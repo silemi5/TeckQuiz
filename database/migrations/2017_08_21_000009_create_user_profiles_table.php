@@ -18,7 +18,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('given_name');
             $table->string('family_name');
             $table->string('middle_name');
-            $table->string('ext_name');
+            $table->string('ext_name')->nullable();
         });
         Schema::table('user_profiles', function(Blueprint $table){
             $table->foreign('usr_id')->references('usr_id')->on('users');

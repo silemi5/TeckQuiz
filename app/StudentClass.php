@@ -9,6 +9,7 @@ class StudentClass extends Model
     protected $table = "student_classes";
     protected $primaryKey = null;
     public $timestamps = false;
+    public $incrementing = false; 
 
     protected $fillable = [
         'class_id',

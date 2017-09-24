@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\UserProfile;
+use App\StudentClass;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/quiz';
+    protected $redirectTo = '/panel';
 
     /**
      * Create a new controller instance.
@@ -52,7 +53,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'usr' => 'required|string|max:255|unique:users',
             //'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:1|confirmed',
         ]);
     }
 
@@ -66,19 +67,29 @@ class RegisterController extends Controller
     {
         // $u_p = new UserProfile;
         // $u_p->
-        User::create([
+        $out = User::create([
             'usr' => $data['usr'],
             'permissions' => 0,
             'password' => bcrypt($data['password']),
         ]);
 
-        // return UserProfile::create([
-        //     'usr_id' => DB::table('users')->select('usr_id')->where('usr', $data['usr'])->first(),
-        //     'given_name' => $data['n_given'],
-        //     'family_name' => $data['n_family'],
-        //     'middle_name' => $data['n_middle'],
-        //     'ext_name' => $data['n_ext'],
-        // ]);
+        $usr = User::select('usr_id')->where('usr', $data['usr'])->first();
+        
+        UserProfile::create([
+            'usr_id' => $usr->usr_id,//DB::table('users')->select('usr_id')->where('usr', $data['usr'])->first(),
+            'given_name' => $data['n_given'],
+            'family_name' => $data['n_family'],
+            'middle_name' => $data['n_middle'],
+            'ext_name' => $data['n_ext'],
+        ]);
+
+        StudentClass::create([
+            'student_id' => $usr->usr_id,
+            'class_id' => $data['class_code'],
+        ]);
+
+        return $out;
+        // return User::find($usr->$usr_id);
         //return 
     }
 }
