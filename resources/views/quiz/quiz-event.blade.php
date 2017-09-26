@@ -58,7 +58,7 @@
                             <p></p>
                             <p>Quiz: <b>{{ $quiz->quiz_event_name }}</b></p>
                             <p>Name: <b>{{ $user_profile->family_name }}, {{ $user_profile->given_name }} {{ $user_profile->ext_name }} {{ $user_profile->middle_name }}</b></p>
-                            <p>Course and Section: <b>{{ $quiz->course_sec }}</b></p>
+                            <p>Course and Section: <b>{{ $quiz->classe->course_sec }}</b></p>
                             <button type="button" id="enablequizbtn" class="btn btn-primary" onclick="enableQuiz()">Yes, this is correct. No turning back.</button>
                             <button type="button" class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout

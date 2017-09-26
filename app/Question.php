@@ -18,4 +18,12 @@ class Question extends Model
         'answer',
         'points'
     ];
+
+    public function answer(){
+        $this->hasOne('App\StudentAnswer', 'question_id', 'question_id');
+    }
+
+    public function questionnaire(){
+        
+    }
 }

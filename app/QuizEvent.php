@@ -32,4 +32,5 @@ class QuizEvent extends Model
     public function questionnaire(){
         return $this->hasOne('App\Questionnaire', 'questionnaire_id', 'questionnaire_id');
     }
+
 }

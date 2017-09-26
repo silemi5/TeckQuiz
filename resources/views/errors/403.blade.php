@@ -18,6 +18,7 @@
                 <div class="col text-center" style="padding-top:10rem">
                     <h1 style="font-size: 10rem">403</h1>
                     <h3>You do not have permission to access this page.</h3>
+                    <h5>Reason: {{ $exception->getMessage() }}</h5>
                 </div>
             </div>
         </div>
