@@ -14,6 +14,7 @@ use App\StudentClass;
 use App\StudentScore;
 use App\Subject;
 use App\UserProfile;
+use App\StudentAnswer;
 
 use Illuminate\Support\Facades\DB;
 
@@ -58,29 +59,27 @@ class QuizController extends Controller
                     ->where('quiz_event_status', 0)
                     ->get();    
                             
-            $pending_quiz = DB::table('quiz_events')//Gets pending quiz (quiz_event_status = 1)
-                        ->select('quiz_event_name', 'subject_desc', 'quiz_events.quiz_event_id')
-                        ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
-                        ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
-                        ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
-                        ->leftJoin('quiz_student_score', 'student_classes.student_id', '=', 'quiz_student_score.student_id')
-                        ->where('student_classes.student_id', $id)
-                        ->where('quiz_event_status', 1)
-                        ->whereNull('score')
-                        ->get();
+            // $pending_quiz = DB::table('quiz_events')//Gets pending quiz (quiz_event_status = 1)
+            //             ->select('quiz_event_name', 'subject_desc', 'quiz_events.quiz_event_id')
+            //             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
+            //             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
+            //             ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
+            //             ->leftJoin('quiz_student_score', 'student_classes.student_id', '=', 'quiz_student_score.student_id')
+            //             ->where('student_classes.student_id', $id)
+            //             ->where('quiz_event_status', 1)
+            //             ->whereNull('score')
+            //             ->get();
 
-            /*
-                $pending_quiz = QuizEvent::with([
-                    'classe',
-                    'classe.subject',
-                    'classe.student_class' => function ($q) use($id){
-                        $q->where('student_id', $id);
-                    },
-                    'classe.student_class.student_score'])
-                    ->where('quiz_event_status', 1)
-                    ->get();
-            */
-                    //TODO: hide finished
+            
+            $pending_quiz = QuizEvent::with([
+                'classe',
+                'classe.subject',
+                'classe.student_class' => function ($q) use($id){
+                    $q->where('student_id', $id);
+                },
+                'classe.student_class.student_score'])
+                ->where('quiz_event_status', 1)
+                ->get();
 
             $finished_quiz = QuizEvent::with([
                     'classe',
@@ -118,15 +117,13 @@ class QuizController extends Controller
         
     }
 
-    public function CreateNewQuestionnaire(){
+/*    public function CreateNewQuestionnaire(){
+        $quiz_name = $_POST['quiz_name'];
         $questions = $_POST['question'];
         $question_type = $_POST['question_type'];
 
         //Multiple choices
-        $mc1 = $_POST['mc1'];
-        $mc2 = $_POST['mc2'];
-        $mc3 = $_POST['mc3'];
-        $mc4 = $_POST['mc4'];
+        $mc = $_POST['mc'];
         $c_mc = $_POST['c-mc'];
 
         //Correct True or False
@@ -137,43 +134,55 @@ class QuizController extends Controller
 
 
         DB::table('questionnaires')->insert([//Puts a questionnaire entry
-            ["questionnaire_name" => "$quiz_name"],
+            ["questionnaire_name" => "$quiz_name", "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
         ]);
 
 
-        $questionnaire_id = DB::table('questionnaires')->count();
+            $questionnaire_id = DB::table('questionnaires')->count();
+            $n_mc = 0;
+            $n_mc = 0;
+            $n_tf = 0;
+            $n_identify = 0;
+            
 
-        for($x = 0; $x < count($questions); $x++){
-
-            if($question_type[$x] == 1){//Identification
+            for($x = 0; $x < count($questions); $x++){
+                $answer = "";
                 $choices = "";
-                $answer = $c_identify[$n_identify];
-                $n_identify++;
-            }
-            else if($question_type[$x] == 2){//Multiple Choice
-                $choices = $mc1[$n_mc] . ";" . $mc2[$n_mc] . ";" . $mc3[$n_mc] . ";" . $mc4[$n_mc];
-                $answer = $c_mc[$n_mc];
-                $n_mc++;
-            }
-            else if($question_type[$x] == 3){//True or False
-                $choices = "";
-                $answer = $c_tf[$n_tf];
-                $n_tf++;
+
+                if($question_type[$x] == 1){//Identification
+                    $choices = "";
+                    $answer = $c_identify[$n_identify];
+                    $n_identify++;
+                }
+                else if($question_type[$x] == 2){//Multiple Choice
+                    $choices = $mc[$x][0] . ";" . $mc[$x][1] . ";" . $mc[$x][2] . ";" . $mc[$x][3];
+                    $answer = $c_mc[$n_mc];
+                    $n_mc++;
+                }
+                else if($question_type[$x] == 3){//True or False
+                    $choices = "";
+                    $answer = $c_tf[$n_tf];
+                    $n_tf++;
+                }   
+
+                DB::table('questions')->insert([
+                    [
+                        "questionnaire_id" => $questionnaire_id,
+                        "question_name" => "$questions[$x]",
+                        "question_type" => $question_type[$x],
+                        "choices" => "$choices",
+                        "answer" => "$answer"
+                    ]
+                ]);
             }
 
-            DB::table('questions')->insert([
-                [
-                    "questionnaire_id" => $questionnaire_id,
-                    "question_name" => "$questions[$x]",
-                    "question_type" => $question_type[$x],
-                    "choices" => "$choices",
-                    "answer" => "$answer"
-                ]
-            ]);
+            $qid = $questionnaire_id;
+        }elseif($_POST['q_type'] == 2){
+            $qid = $_POST['q_id'];
         }
-
-        return $questionnaire_id;
+        return redirect('panel');
     }
+*/
 
     public function CreateQuizEvent(){
         $qid = -1;
@@ -216,7 +225,7 @@ class QuizController extends Controller
                     $n_identify++;
                 }
                 else if($question_type[$x] == 2){//Multiple Choice
-                    $choices = $mc[$n_mc][0] . ";" . $mc[$n_mc][1] . ";" . $mc[$n_mc][2] . ";" . $mc[$n_mc][3];
+                    $choices = $mc[$x][0] . ";" . $mc[$x][1] . ";" . $mc[$x][2] . ";" . $mc[$x][3];
                     $answer = $c_mc[$n_mc];
                     $n_mc++;
                 }
@@ -286,16 +295,16 @@ class QuizController extends Controller
             return abort(403, 'Quiz already taken');
         }
 
-        // $verify_quiz = DB::table('quiz_events')
-        //                 ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
-        //                 ->where('student_id', $id)
-        //                 ->where('quiz_event_id', $quiz_id)
-        //                 ->where('quiz_event_status', 1)
-        //                 ->get();
+        $verify_quiz = DB::table('quiz_events')
+                        ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
+                        ->where('student_id', $id)
+                        ->where('quiz_event_id', $quiz_id)
+                        ->where('quiz_event_status', 1)
+                        ->get();
 
-        $verify_quiz = QuizEvent::with('student_class')
-                        ->get()
-                        ->where('quiz_event_id', $quiz_id);
+        // $verify_quiz = QuizEvent::with('student_class', 'classe')
+        //                 ->get()
+        //                 ->where('quiz_event_id', $quiz_id);
                         //return $verify_quiz;
 
         if ($verify_quiz->count() < 1){
@@ -342,38 +351,38 @@ class QuizController extends Controller
         if ($check_exisiting > 0){
             abort(403, 'You already took the quiz.');
         }
+        //TEMPORAY DISABLED FOR DEBUG
         for($x = 1; $x <= count($question_ids); $x++){
-            DB::table('quiz_student_answers')->insert(
-                [
-                    "student_id" => $student_id,
-                    "quiz_event_id" => $quiz_event_id,
-                    "question_id" => $question_ids[$x],
-                    "student_answer" => $answers[$x],
-                ]
-            );
+            StudentAnswer::create([
+                'student_id' => $student_id,
+                'quiz_event_id' => $quiz_event_id,
+                'question_id' => $question_ids[$x],
+                'student_answer' => $answers[$x]
+            ]);
         }
 
-        $answers = DB::table('questions')
-                ->select('question_name as question', 'student_answer as stud_ans', 'answer as correct_ans', 'points')
-                ->join('quiz_student_answers', 'quiz_student_answers.question_id', '=', 'questions.question_id')
-                ->where('quiz_event_id', $quiz_event_id)
-                ->get();
-
+        // $answers = DB::table('questions')
+        //         ->select('question_name as question', 'student_answer as stud_ans', 'answer as correct_ans', 'points')
+        //         ->join('quiz_student_answers', 'quiz_student_answers.question_id', '=', 'questions.question_id')
+        //         ->where('quiz_event_id', $quiz_event_id)
+        //         ->get();
+        $answers = StudentAnswer::with('question')
+                    ->where('student_id', $student_id)
+                    ->get();
         $score = 0;
         foreach($answers as $answer){
-            if($answer->correct_ans == $answer->stud_ans){
-                $score += $answer->points;
-            }
+            if($answer->student_answer == $answer->question->answer)
+                $score += $answer->question->points;
         }
 
-        DB::table('quiz_student_score')->insert([
-            "student_id" => $student_id,
-            "quiz_event_id" => $quiz_event_id,
-            "score" => $score,
-            "recorded_on" => \Carbon\Carbon::now()
+        StudentScore::create([
+            'student_id' => $student_id,
+            'quiz_event_id' => $quiz_event_id,
+            'score' => $score,
+            'recorded_on' => \Carbon\Carbon::now()
         ]);
-        
-         return "You scored $score in the quiz!";
+     
+        return "You scored $score in the quiz!";
 
     }
 
@@ -444,5 +453,24 @@ class QuizController extends Controller
                     ->first();
 
         return view('manage.quiz', compact('quiz_details'));
+    }
+
+    public function QuizResults($quiz_id){
+        if(Auth::user()->permissions == 1){
+            $results = QuizEvent::with('classe.student_class.student_score', 'classe.student_class.user_profile')
+                    ->where('quiz_event_id', $quiz_id)
+                    ->first();
+            return view('manage.quiz-results', compact('results'));
+        }else{
+            $results = StudentScore::with('quiz_event', 'user_profile')
+                        ->where('student_id', Auth::user()->usr_id)
+                        ->first();
+            return view('quiz.quiz-results', compact('results'));
+           // return $results;
+        }
+        
+        //return $results;
+
+        
     }
 }

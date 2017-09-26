@@ -10,7 +10,12 @@
         <div class="row">
             <div class="col">
                 <h2>New Quiz Event</h2>
-                <p>{{ $quiz['name'] }}</p>
+                <p>Quiz Name: <b>{{ $quiz['name'] }}</b></p>
+                <hr>
+                <div class="form-group">
+                    <label for="timelimit">Time limit</label>
+                    <input type="number" name="time_limit" class="form-control col-3" min="30" max="120">
+                </div>
                 <hr>
                 @if ($quiz['questionnaire'] == 1)
                     <!-- TODO: Display quiz name and subject -->
@@ -35,21 +40,17 @@
                             </div>
                             
                             <div id="multiple-choice{{ $x }}" style="display: none;">
-                                <div class="form-group">
-                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control" placeholder="Choice 1">
+                                <div class="form-group form-inline">
+                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control col-5 mr-auto" placeholder="Choice 1">
+                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control col-5 ml-auto" placeholder="Choice 2">
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control" placeholder="Choice 2">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control" placeholder="Choice 3">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control" placeholder="Choice 4">
+                                <div class="form-group form-inline">
+                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control col-5 mr-auto" placeholder="Choice 3">
+                                    <input type="text" name="mc[{{ $x - 1 }}][]"  class="form-control col-5 ml-auto" placeholder="Choice 4">
                                 </div>
                             </div>
 
-                            <div class="form-group" id="c-identify{{ $x }}" style="display: none">
+                            <div class="form-group" id="c-identify{{ $x }}">
                                 <label for="">Correct answer</label>
                                 <input type="text" class="form-control" id="c-identify[]" name="c-identify[]" placeholder="Correct answer here...">
                             </div>
@@ -70,11 +71,6 @@
                                     <option value="3">Choice 3</option>
                                     <option value="4">Choice 4</option>
                                 </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="timelimit">Time limit</label>
-                                <input type="number" name="time_limit" class="form-control" min="30" max="120">
                             </div>
                             
                             <hr>

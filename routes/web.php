@@ -23,7 +23,7 @@ Route::get('/panel', 'QuizController@RedirectToAppropriatePanel')->middleware('a
 Route::get('/quiz/{quiz_id}', 'QuizController@TakeQuiz')->middleware('auth');//Take quiz
 Route::get('/manage/class/{class_id}', 'QuizController@ViewClass')->middleware('auth');//View class
 Route::get('manage/quiz/{quiz_id}', 'QuizController@ManageQuizEvent')->middleware('auth');//Manage quiz
-
+Route::get('/quiz/results/{quiz_id}', 'QuizController@QuizResults')->middleware('auth');
 
 Route::post('/quiz/changestatus', 'QuizController@ChangeQuizEventStatus')->middleware('auth');//Change quiz event status
 Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');//sends student's answers
