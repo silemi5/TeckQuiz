@@ -117,73 +117,6 @@ class QuizController extends Controller
         
     }
 
-/*    public function CreateNewQuestionnaire(){
-        $quiz_name = $_POST['quiz_name'];
-        $questions = $_POST['question'];
-        $question_type = $_POST['question_type'];
-
-        //Multiple choices
-        $mc = $_POST['mc'];
-        $c_mc = $_POST['c-mc'];
-
-        //Correct True or False
-        $c_tf = $_POST['c-tf'];
-
-        //Correct Identification
-        $c_identify = $_POST['c-identify'];
-
-
-        DB::table('questionnaires')->insert([//Puts a questionnaire entry
-            ["questionnaire_name" => "$quiz_name", "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-        ]);
-
-
-            $questionnaire_id = DB::table('questionnaires')->count();
-            $n_mc = 0;
-            $n_mc = 0;
-            $n_tf = 0;
-            $n_identify = 0;
-            
-
-            for($x = 0; $x < count($questions); $x++){
-                $answer = "";
-                $choices = "";
-
-                if($question_type[$x] == 1){//Identification
-                    $choices = "";
-                    $answer = $c_identify[$n_identify];
-                    $n_identify++;
-                }
-                else if($question_type[$x] == 2){//Multiple Choice
-                    $choices = $mc[$x][0] . ";" . $mc[$x][1] . ";" . $mc[$x][2] . ";" . $mc[$x][3];
-                    $answer = $c_mc[$n_mc];
-                    $n_mc++;
-                }
-                else if($question_type[$x] == 3){//True or False
-                    $choices = "";
-                    $answer = $c_tf[$n_tf];
-                    $n_tf++;
-                }   
-
-                DB::table('questions')->insert([
-                    [
-                        "questionnaire_id" => $questionnaire_id,
-                        "question_name" => "$questions[$x]",
-                        "question_type" => $question_type[$x],
-                        "choices" => "$choices",
-                        "answer" => "$answer"
-                    ]
-                ]);
-            }
-
-            $qid = $questionnaire_id;
-        }elseif($_POST['q_type'] == 2){
-            $qid = $_POST['q_id'];
-        }
-        return redirect('panel');
-    }
-*/
-
     public function CreateQuizEvent(){
         $qid = -1;
         if($_POST['q_type'] == 1){
@@ -351,7 +284,7 @@ class QuizController extends Controller
         if ($check_exisiting > 0){
             abort(403, 'You already took the quiz.');
         }
-        //TEMPORAY DISABLED FOR DEBUG
+
         for($x = 1; $x <= count($question_ids); $x++){
             StudentAnswer::create([
                 'student_id' => $student_id,
@@ -361,11 +294,6 @@ class QuizController extends Controller
             ]);
         }
 
-        // $answers = DB::table('questions')
-        //         ->select('question_name as question', 'student_answer as stud_ans', 'answer as correct_ans', 'points')
-        //         ->join('quiz_student_answers', 'quiz_student_answers.question_id', '=', 'questions.question_id')
-        //         ->where('quiz_event_id', $quiz_event_id)
-        //         ->get();
         $answers = StudentAnswer::with('question')
                     ->where('student_id', $student_id)
                     ->get();
@@ -382,7 +310,7 @@ class QuizController extends Controller
             'recorded_on' => \Carbon\Carbon::now()
         ]);
      
-        return "You scored $score in the quiz!";
+        return redirect('/quiz/results/' . $quiz_event_id);
 
     }
 
@@ -472,5 +400,13 @@ class QuizController extends Controller
         //return $results;
 
         
+    }
+
+    public function ManageQuestionnaire($qid){
+        $q = Questionnaire::with('question')
+                        ->where('questionnaire_id', $qid)
+                        ->first();
+        // return $q;
+        return view('manage.questionnaires', compact('q'));
     }
 }

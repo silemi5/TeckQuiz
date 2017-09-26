@@ -24,6 +24,6 @@ class Question extends Model
     }
 
     public function questionnaire(){
-        
+        $this->belongsTo('App\Questionnaire', 'questionnaire_id', 'questionnaire_id');
     }
 }
