@@ -49,15 +49,35 @@
                                     @endphp
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm"
-                                        data-qid="{{ $qe->question_id }}" 
-                                        data-question="{{ $qe->question_name }}" 
-                                        data-question-type="{{ $qe->question_type }}"
-                                        data-choices="{{ $qe->choices }}"
-                                        data-correct-ans="{{ $qe->question_answer }}"
-                                        data-points="{{ $qe->points }}"
-                                        data-toggle="modal" data-target="#editQuestion">Edit
-                                    </button>
+                                    @if($qe->question_type == 1)
+                                        <button class="btn btn-primary btn-sm"
+                                            data-qid="{{ $qe->question_id }}" 
+                                            data-question="{{ $qe->question_name }}" 
+                                            data-question-type="{{ $qe->question_type }}"
+                                            data-correct-ans="{{ $qe->answer }}"
+                                            data-points="{{ $qe->points }}"
+                                            data-toggle="modal" data-target="#editQuestion">Edit
+                                        </button>
+                                    @elseif($qe->question_type == 2)
+                                        <button class="btn btn-primary btn-sm"
+                                            data-qid="{{ $qe->question_id }}" 
+                                            data-question="{{ $qe->question_name }}" 
+                                            data-question-type="{{ $qe->question_type }}"
+                                            data-choices="{{ $qe->choices }}"
+                                            data-correct-ans="{{ $qe->answer }}"
+                                            data-points="{{ $qe->points }}"
+                                            data-toggle="modal" data-target="#editQuestion">Edit
+                                        </button>
+                                    @elseif($qe->question_type == 3)
+                                        <button class="btn btn-primary btn-sm"
+                                            data-qid="{{ $qe->question_id }}" 
+                                            data-question="{{ $qe->question_name }}" 
+                                            data-question-type="{{ $qe->question_type }}"
+                                            data-correct-ans="{{ $qe->answer }}"
+                                            data-points="{{ $qe->points }}"
+                                            data-toggle="modal" data-target="#editQuestion">Edit
+                                        </button>
+                                    @endif
                                     <button class="btn btn-primary btn-sm btn-danger" 
                                         data-qid="{{ $qe->question_id }}" 
                                         data-toggle="modal" 
@@ -128,8 +148,8 @@
                     <div class="form-group" id="cf-tf" style="display: none">
                         <label for="">Correct choice</label>
                         <select id="c-tf" class="form-control" name="c-tf">
-                            <option value="0">True</option>
-                            <option value="1">False</option>
+                            <option value="1">True</option>
+                            <option value="0">False</option>
                         </select>
                     </div>
 
@@ -186,22 +206,17 @@
         modal.find('#opt').val(qtype)
         $("#opt").trigger("change")
 
-        // modal.find("#cf-identify").css("display: none");
-        // modal.find("#f-multiple-choice").css("display: none");
-        // modal.find("#fc-mc").css("display: none");
-        // modal.find("#fc-tf").css("display: none");
-
-        if ($("#opt").val() == 1){
+        if ($("#opt").val() == 1){//Identification
             console.log("Identify")
             modal.find("#c-identify").val(ans)
-        }else if ($("#opt").val() == 2){
+        }else if ($("#opt").val() == 2){//Multiple Choice
             console.log("MC")
             var ch = choices.split(";");
             $("#mc0").val(ch[0])
             $("#mc1").val(ch[1])
             $("#mc2").val(ch[2])
             $("#mc3").val(ch[3])
-        }else if ($("#opt").val() == 3) {
+        }else if ($("#opt").val() == 3){//True or False
             console.log(ans)
             modal.find("#c-tf").val(ans)
         }

@@ -23,7 +23,7 @@ class QuizEventSeeder extends Seeder
             'quiz_event_id' => 2,
             'quiz_event_name' => 'System Development Lifecycle',
             'questionnaire_id' => 2,
-            'quiz_event_status' => 1,//pending quiz
+            'quiz_event_status' => 0,//pending quiz
             'class_id' => 2,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now()
