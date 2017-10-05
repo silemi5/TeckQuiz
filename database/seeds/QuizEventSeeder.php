@@ -16,7 +16,7 @@ class QuizEventSeeder extends Seeder
             'quiz_event_name' => 'Relationships',
             'questionnaire_id' => 1,
             'quiz_event_status' => 1,//pending quiz
-            'class_id' => 1,
+            'class_id' => "4KMMR",
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now()
         ],[
@@ -24,7 +24,7 @@ class QuizEventSeeder extends Seeder
             'quiz_event_name' => 'System Development Lifecycle',
             'questionnaire_id' => 2,
             'quiz_event_status' => 0,//pending quiz
-            'class_id' => 2,
+            'class_id' => "3KMMR",
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now()
         ]]);

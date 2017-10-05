@@ -19,11 +19,11 @@
 <body>
     <div class="container card">
         <div class="card-body">
-            <h3 class="card-title">Initial Setup</h3>
+            <h2 class="card-title">Initial Setup</h2>
             <div class="row">
-                <div class="col-6">
+                <div class="col">
                     <div class="form">
-                        <h4>Subject</h4>
+                        <h5 class="card-subtitle text-muted">Subject</h5>
                         <div class="form-group">
                             <label for="">Subject Code</label>
                             <input type="text" class="form-control">
@@ -33,6 +33,11 @@
                             <input type="text" class="form-control">
                         </div>
                         <hr>
+                        <h5 class="card-subtitle text-muted">Class</h5>
+                        <div class="form-group">
+                            <label for="">Course and Section</label>
+                            <input type="text" class="form-control">
+                        </div>
                     </div>
                 </div>
             </div>

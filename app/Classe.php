@@ -9,6 +9,7 @@ class Classe extends Model
     protected $table = "classes";
     protected $primaryKey = "class_id";
     public $timestamps = false;
+    public $incrementing = false;
 
     protected $fillable = [
         'instructor_id',

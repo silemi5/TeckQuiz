@@ -14,7 +14,7 @@ class CreateStudentClassesTable extends Migration
     public function up()
     {
         Schema::create('student_classes', function (Blueprint $table) {
-            $table->integer('class_id')->unsigned();
+            $table->string('class_id', 5);
             $table->integer('student_id')->unsigned();  //student ID comes from users table
         });
         Schema::table('student_classes', function(Blueprint $table){

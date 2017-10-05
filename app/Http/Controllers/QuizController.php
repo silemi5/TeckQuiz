@@ -27,6 +27,7 @@ class QuizController extends Controller
             return view('home');
         }
     }
+
     public function InitialSetup(){
         return view('initial-setup');
     }
