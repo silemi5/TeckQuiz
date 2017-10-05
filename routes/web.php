@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'QuizController@Home');
 
 Auth::routes();
 
@@ -25,6 +23,7 @@ Route::get('/manage/class/{class_id}', 'QuizController@ViewClass')->middleware('
 Route::get('manage/quiz/{quiz_id}', 'QuizController@ManageQuizEvent')->middleware('auth');//Manage quiz
 Route::get('/quiz/results/{quiz_id}', 'QuizController@QuizResults')->middleware('auth');//Sees result of quiz
 Route::get('/manage/questionnaire/{qid}', 'QuizController@ManageQuestionnaire')->middleware('auth');
+Route::get('/setup', 'QuizController@InitialSetup');
 
 Route::post('/quiz/changestatus', 'QuizController@ChangeQuizEventStatus')->middleware('auth');//Change quiz event status
 Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');//sends student's answers

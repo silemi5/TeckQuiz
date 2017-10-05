@@ -20,7 +20,20 @@ use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
 {
-    public function RedirectToAppropriatePanel(){
+    public function Home(){
+        if (Subject::count() == 0 ){
+            return redirect('setup');
+        }else{
+            return view('home');
+        }
+    }
+    public function InitialSetup(){
+        return view('initial-setup');
+    }
+
+    public function RedirectToAppropriatePanel(){    
+        //TODO: Disable adding of class if no subject
+        //TODO: initial setup
         $id = Auth::user()->usr_id;//gets the id of the user
         if (Auth::user()->permissions == 1){//The user is a teacher
             $classes = Classe::with('subject')
@@ -47,7 +60,7 @@ class QuizController extends Controller
                     ->get()
                     ->where('classe', '!=', '');
             
-            return view('quiz-admin-panel', compact('classes', 'quiz_events', 'finished_quiz_events'));
+            return view('quiz-admin-panel', compact('classes', 'quiz_events', 'finished_quiz_events', 'subjects'));
         }
         else{//The user is a student
             $upcoming_quiz = QuizEvent::with([
