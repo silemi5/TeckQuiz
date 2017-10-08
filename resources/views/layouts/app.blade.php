@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <header>
         <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
             <a class="navbar-brand" href="/">TeckQuiz</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -75,11 +75,8 @@
 
             </div>
         </nav>
-
-        @yield('content')
-        
-    </div>
-
+    </header>
+    @yield('content')
     <!-- Scripts -->
     
     <script src="{{ asset('assets/js/popper.js') }}"></script>

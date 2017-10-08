@@ -37,6 +37,7 @@ class QuizController extends Controller
         //TODO: initial setup
         $id = Auth::user()->usr_id;//gets the id of the user
         if (Auth::user()->permissions == 1){//The user is a teacher
+            $subjects = Subject::all();
             $classes = Classe::with('subject')
                             ->where('instructor_id', $id)
                             ->where('class_active', true)
@@ -422,5 +423,21 @@ class QuizController extends Controller
                         ->first();
         // return $q;
         return view('manage.questionnaires', compact('q'));
+    }
+
+    public function CreateClasse(){
+        $i_id = Auth::user()->usr_id;//gets the id of the user
+        $course_sec = $_POST['course_sec'];
+        $sub_id = $_POST['sub_id'];
+
+        Classe::create([
+                'class_id' => str_random(5),
+                'instructor_id' => $i_id,
+                'course_sec' => $course_sec,
+                'subject_id' => $sub_id,
+                'class_active' => 1
+        ]);
+
+        return redirect('/panel');
     }
 }

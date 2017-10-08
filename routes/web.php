@@ -30,6 +30,7 @@ Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');
 Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('auth');//Update student profile
 Route::post('/new/quiz', 'QuizController@NewQuizEventForm')->middleware('auth');//creates new quiz form
 Route::post('/new/quiz/add', 'QuizController@CreateQuizEvent')->middleware('auth');//adds new quiz event
+Route::post('/new/class', 'QuizController@CreateClasse')->middleware('auth');//adds new quiz event
 
 Route::get('/changelog', function (){
     return view('changelog');

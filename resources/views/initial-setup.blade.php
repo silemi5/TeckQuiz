@@ -17,11 +17,18 @@
 </head>
 
 <body>
-    <div class="container card">
+    <div class="container">
+            <h1>
+                TeckQuiz
+            </h1>
+            <p class="lead">An Online Quiz System built for the Web.</p>
+        
+        
+    <div class="card">
         <div class="card-body">
-            <h2 class="card-title">Initial Setup</h2>
+            <h3 class="card-title">Initial Setup</h3>
             <div class="row">
-                <div class="col">
+                <div class="col-6">
                     <div class="form">
                         <h5 class="card-subtitle text-muted">Subject</h5>
                         <div class="form-group">
@@ -42,6 +49,8 @@
                 </div>
             </div>
         </div>
+    </div>
+        
         
     </div>
     <script src="{{ asset('assets/js/jquery-3.2.0.min.js') }}"></script>

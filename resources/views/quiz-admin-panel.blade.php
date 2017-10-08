@@ -51,7 +51,7 @@
                         
                     </script>
                     <h1 class="text-left">Quiz Events</h1>
-                    <div class="col-10">
+                    <div class="col-12">
                         <h4>Current Quizzes</h4>
                         <table class="table table-hover">
                             <thead>
@@ -147,7 +147,7 @@
             </div>
         </main>
         
-        <!-- Modal -->
+        <!-- New Quiz Modal -->
         <div class="modal fade" id="NewQuizEventModal" tabindex="-1" role="dialog" aria-labelledby="NewQuizEventModal" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <form class="modal-content form" action="/new/quiz" method="POST">
@@ -187,9 +187,10 @@
             </div>
         </div>
 
+        <!-- New Class Modal -->
         <div class="modal fade" id="NewClassModal" tabindex="-1" role="dialog" aria-labelledby="NewClassModal" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form class="modal-content form" action="/test" method="POST">
+                <form class="modal-content form" action="/new/class" method="POST">
                      {{ csrf_field() }}
                     <div class="modal-header">
                         <h5 class="modal-title" id="ModalTitle">New Class</h5>
@@ -200,12 +201,20 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="">Class Name</label>
-                            <input type="text" class="form-control">
+                            <input name="course_sec" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Subject</label>
+                            <select name="sub_id" id="" class="form-control">
+                                @foreach($subjects as $s)
+                                    <option value="{{ $s->subject_id }}">{{$s->subject_code}}: {{$s->subject_desc}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Next</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>

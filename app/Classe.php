@@ -12,6 +12,7 @@ class Classe extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'class_id',
         'instructor_id',
         'course_sec',
         'subject_id',
