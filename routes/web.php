@@ -12,10 +12,11 @@
 */
 
 Route::get('/', 'QuizController@Home');
+Route::get('/old', function (){
+    return view('home-old');
+});
 
 Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/panel', 'QuizController@RedirectToAppropriatePanel')->middleware('auth');//Redirect to appropriate panel
 Route::get('/quiz/{quiz_id}', 'QuizController@TakeQuiz')->middleware('auth');//Take quiz

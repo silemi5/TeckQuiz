@@ -3,8 +3,16 @@
 @section('title', 'TeckQuiz - An Online Quiz Management System')
 @section('content')
     <style>
+            /* Add the below transitions to allow a smooth color change similar to lyft */
+            .navbar {
+                -webkit-transition: all 0.6s ease-out;
+                -moz-transition: all 0.6s ease-out;
+                -o-transition: all 0.6s ease-out;
+                -ms-transition: all 0.6s ease-out;
+                transition: all 0.6s ease-out;
+            }
             body {
-                padding-top: 50px;
+                padding-top: 0px;
             }
             .app-title-container {
                 background: url('./assets/img/study-map.jpg') center center no-repeat;
@@ -127,4 +135,25 @@
             </div>
         </div>
     </div>
+    <script src="/assets/js/jquery-3.2.0.min.js"></script>
+    <script>
+        /**
+        * Listen to scroll to change header opacity class
+        */
+        function checkScroll(){
+            var startY = $('.navbar').height() * 2; //The point where the navbar changes in px
+
+            if($(window).scrollTop() > startY){
+                $('.navbar').addClass("bg-dark");
+            }else{
+                $('.navbar').removeClass("bg-dark");
+            }
+        }
+
+        if($('.navbar').length > 0){
+            $(window).on("scroll load resize", function(){
+                checkScroll();
+            });
+        }
+    </script>
 @endsection

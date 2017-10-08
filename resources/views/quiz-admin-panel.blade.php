@@ -6,11 +6,15 @@
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link {{ $classes->count() == 0 ? 'disabled' : 'active' }}" id="v-pills-home-tab" data-toggle="pill" href="#quiz-events" role="tab" aria-controls="v-pills-home"
+                    <a class="nav-link active" id="v-pills-dashboard" data-toggle="pill" href="#dashboard" role="tab" aria-controls="v-pills-dashboard"
+                        aria-expanded="true">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ $classes->count() == 0 ? 'disabled' : '' }}" id="v-pills-home-tab" data-toggle="pill" href="#quiz-events" role="tab" aria-controls="v-pills-home"
                         aria-expanded="true">Quiz Events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $classes->count() == 0 ? 'active' : '' }} " id="v-pills-profile-tab" data-toggle="pill" href="#my-classes" role="tab" aria-controls="v-pills-profile"
+                    <a class="nav-link {{ $classes->count() == 0 ? '' : '' }} " id="v-pills-profile-tab" data-toggle="pill" href="#my-classes" role="tab" aria-controls="v-pills-profile"
                         aria-expanded="true">My Classes</a>
                 </li>
                 <li class="nav-item">
@@ -22,7 +26,19 @@
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
             <div class="tab-content container" id="v-pills-tabContent">
-                <div class="tab-pane fade {{ $classes->count() == 0 ? '' : 'show active' }}" id="quiz-events" role="tabpanel" aria-labelledby="quiz-events">
+                <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard">
+                    <h1 class="align-left">Dashboard</h1><hr>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="card text-white bg-primary">
+                                <div class="card-body">
+                                    <span>{{ $quiz_events->count() }} quiz{{ $quiz_events->count() <= 1 ? '' : 'zes' }} available!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade {{ $classes->count() == 0 ? '' : '' }}" id="quiz-events" role="tabpanel" aria-labelledby="quiz-events">
                     <script>
                         $.ajaxSetup({
                                 headers: {
@@ -115,7 +131,7 @@
                     <button class="btn btn-secondary" data-toggle="modal" data-target="">View finished quiz events</button>
                 </div>
 
-                <div class="tab-pane fade {{ $classes->count() == 0 ? 'show active' : '' }}" id="my-classes" role="tabpanel" aria-labelledby="my-classes"><!-- Manage Class -->
+                <div class="tab-pane fade {{ $classes->count() == 0 ? '' : '' }}" id="my-classes" role="tabpanel" aria-labelledby="my-classes"><!-- Manage Class -->
                     <!-- Fetch instructor's subjects -->
                     <h3>My Classes</h3>
                     <div class="col container row mb-2">
