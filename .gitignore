@@ -11,3 +11,4 @@ npm-debug.log
 yarn-error.log
 .env
 /.vscode
+sc.sh
