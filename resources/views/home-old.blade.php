@@ -144,9 +144,9 @@
             var startY = $('.navbar').height() * 2; //The point where the navbar changes in px
 
             if($(window).scrollTop() > startY){
-                $('.navbar').addClass("bg-dark");
-            }else{
                 $('.navbar').removeClass("bg-dark");
+            }else{
+                $('.navbar').addClass("bg-dark");
             }
         }
 
