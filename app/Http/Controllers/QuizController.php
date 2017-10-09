@@ -424,6 +424,12 @@ class QuizController extends Controller
         // return $q;
         return view('manage.questionnaires', compact('q'));
     }
+    
+    public function ManageSubjects(){
+        $subjects = Subject::all();
+        return $subjects;
+        return view('manage.subjects', compact('subjects'));
+    }
 
     public function CreateClasse(){
         $i_id = Auth::user()->usr_id;//gets the id of the user

@@ -104,7 +104,7 @@
                                             <td>{{ $qe->quiz_event_name }}</td>
                                             <td>{{ $qe->classe->subject->subject_desc }}</td>
                                             <td>{{ $qe->classe->course_sec}}</td>
-                                            <td><button class="btn btn-sm btn-primary">See results</button></td>
+                                            <td><a class="btn btn-sm btn-primary" href="/quiz/results/{{ $qe->quiz_event_id }}">See results</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -112,7 +112,6 @@
                         </div>
                     @endif
                     <button class="btn btn-primary" data-toggle="modal" data-target="#NewQuizEventModal">New quiz event</button>
-                    <button class="btn btn-secondary" data-toggle="modal" data-target="">View finished quiz events</button>
                 </div>
 
                 <div class="tab-pane fade {{ $classes->count() == 0 ? 'show active' : '' }}" id="my-classes" role="tabpanel" aria-labelledby="my-classes"><!-- Manage Class -->
@@ -140,8 +139,21 @@
                 </div>
 
                 <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings">
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum, dignissimos.</p>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#classmodal">New quiz event</button>
+                    <h3>Advanced Settings</h3>
+                        <div class="card" style="width: 40rem;">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <button class="btn btn-primary" style="float: right">Manage subjects</button>
+                                    <strong>Manage subjects</strong>
+                                    <p>This will allow you to edit subjects to serve as basis for the classes.</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <button class="btn btn-danger" style="float: right">Delete this class</button>
+                                    <strong>Delete this class</strong>
+                                    <p>Once you delete this class, there is no turning back.</p>
+                                </li>
+                            </ul>
+                        </div>
                 </div>
 
             </div>

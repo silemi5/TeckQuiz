@@ -65,8 +65,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // $u_p = new UserProfile;
-        // $u_p->
         $out = User::create([
             'usr' => $data['usr'],
             'permissions' => 0,
@@ -76,7 +74,7 @@ class RegisterController extends Controller
         $usr = User::select('usr_id')->where('usr', $data['usr'])->first();
         
         UserProfile::create([
-            'usr_id' => $usr->usr_id,//DB::table('users')->select('usr_id')->where('usr', $data['usr'])->first(),
+            'usr_id' => $usr->usr_id,
             'given_name' => $data['n_given'],
             'family_name' => $data['n_family'],
             'middle_name' => $data['n_middle'],
@@ -89,7 +87,5 @@ class RegisterController extends Controller
         ]);
 
         return $out;
-        // return User::find($usr->$usr_id);
-        //return 
     }
 }
