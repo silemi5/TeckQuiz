@@ -5,9 +5,10 @@
     }
 </style>
 <div class="container">
+    <h1>Subjects</h1>
     <div class="row">
-        <div class="col-8">
-            <h1>Subjects</h1>
+        <div class="col-9">
+            
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -19,22 +20,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>CSIT 000</td>
-                        <td>Web Development</td>
-                        <td>1</td>
+                    @foreach($subjects as $s)
+                        <tr>
+                            <th scope="row">{{ $s->subject_id }}</th>
+                            <td>{{$s->subject_code}}</td>
+                            <td>{{$s->subject_desc}}</td>
+                            <td>{{$s->classe->count()}}</td>
                         <td><a href="" class="btn btn-primary btn-sm">Edit</a> <a href="" class="btn btn-danger btn-sm">Delete</a></td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>CSIT 000</td>
-                        <td>Lorem, ipsum dolor.</td>
-                        <td>5</td>
-                        <td></td>
-                    </tr>
+
+                    @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="">Add new subject</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

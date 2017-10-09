@@ -20,7 +20,7 @@ class Classe extends Model
     ];
 
     public function subject(){
-        return $this->hasOne('App\Subject', 'subject_id', 'subject_id');
+        return $this->belongsTo('App\Subject', 'subject_id', 'subject_id');
     }
 
     public function student_class(){

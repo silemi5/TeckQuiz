@@ -14,4 +14,8 @@ class Subject extends Model
         'subject_code',
         'subject_desc'
     ];
+
+    public function classe(){
+        return $this->hasMany('App\Subject', 'subject_id', 'subject_id');
+    }
 }
