@@ -11,13 +11,21 @@
             h1.home-title {
                 font-size: 72px;
             }
+            .logo {
+                background-image: url('/assets/img/logo.png');
+                background-position: center;
+                background-size: cover;
+                height: 400px;
+                width: 400px;
+            }
         </style>
+        
         <div class="jumbotron">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 col-md-12 text-left">
-                        <h1 class="home-title">TeckQuiz</h1>
-                        <p class="home-lead">
+                        <div class="logo" style="margin: 0 auto;"></div>
+                        <p class="home-lead text-center" style="margin-top: -100px;">
                             An Online Quiz System built for the Web.
                         </p>
                     </div>
