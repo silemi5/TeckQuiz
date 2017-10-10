@@ -409,12 +409,7 @@ class QuizController extends Controller
                         ->where('student_id', Auth::user()->usr_id)
                         ->first();
             return view('quiz.quiz-results', compact('results'));
-           // return $results;
         }
-        
-        //return $results;
-
-        
     }
 
     public function ManageQuestionnaire($qid){
