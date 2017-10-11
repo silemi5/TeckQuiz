@@ -110,109 +110,6 @@ class QuizController extends Controller
         }
     }
 
-    public function NewQuizEventForm(){
-        $quiz = [
-                "name" => $_POST['quiz_name'],
-                "num" => $_POST['questions'],
-                "class_id" => $_POST['class_id'],
-                "questionnaire" => $_POST['questionnaire']
-            ];
-        if ($quiz["questionnaire"] == 2){
-            $quiz = [
-                "name" => $_POST['quiz_name'],
-                "num" => $_POST['questions'],
-                "class_id" => $_POST['class_id'],
-                "questionnaire" => $_POST['questionnaire']
-            ];
-            $questionnaires = Questionnaire::all();
-            return view('create.quiz-event', compact('quiz', 'questionnaires'));
-        }else{
-            return view('create.quiz-event', compact('quiz'));
-        }
-        
-    }
-
-    public function CreateQuizEvent(){
-        $qid = -1;
-        if($_POST['q_type'] == 1){
-            $quiz_name = $_POST['quiz_name'];
-            $class_id = $_POST['class_id'];
-            $questions = $_POST['question'];
-            $question_type = $_POST['question_type'];
-
-            //Multiple choices
-            $mc = $_POST['mc'];
-            $c_mc = $_POST['c-mc'];
-
-            //Correct True or False
-            $c_tf = $_POST['c-tf'];
-
-            //Correct Identification
-            $c_identify = $_POST['c-identify'];
-
-
-            DB::table('questionnaires')->insert([//Puts a questionnaire entry
-                ["questionnaire_name" => "$quiz_name", "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ]);
-
-
-            $questionnaire_id = DB::table('questionnaires')->count();
-            $n_mc = 0;
-            $n_mc = 0;
-            $n_tf = 0;
-            $n_identify = 0;
-            
-
-            for($x = 0; $x < count($questions); $x++){
-                $answer = "";
-                $choices = "";
-
-                if($question_type[$x] == 1){//Identification
-                    $choices = "";
-                    $answer = $c_identify[$n_identify];
-                    $n_identify++;
-                }
-                else if($question_type[$x] == 2){//Multiple Choice
-                    $choices = $mc[$x][0] . ";" . $mc[$x][1] . ";" . $mc[$x][2] . ";" . $mc[$x][3];
-                    $answer = $c_mc[$n_mc];
-                    $n_mc++;
-                }
-                else if($question_type[$x] == 3){//True or False
-                    $choices = "";
-                    $answer = $c_tf[$n_tf];
-                    $n_tf++;
-                }   
-
-                DB::table('questions')->insert([
-                    [
-                        "questionnaire_id" => $questionnaire_id,
-                        "question_name" => "$questions[$x]",
-                        "question_type" => $question_type[$x],
-                        "choices" => "$choices",
-                        "answer" => "$answer"
-                    ]
-                ]);
-            }
-
-            $qid = $questionnaire_id;
-        }elseif($_POST['q_type'] == 2){
-            $qid = $_POST['q_id'];
-        }
-        
-        
-        DB::table('quiz_events')->insert([
-            [
-                "quiz_event_name" => "$quiz_name",
-                "questionnaire_id" => $qid,
-                "class_id" => $class_id,
-                "quiz_event_status" => 0,
-                "created_at" => \Carbon\Carbon::now(),
-                "updated_at" => \Carbon\Carbon::now()
-            ]
-        ]);
-        return redirect('panel');
-    }
-
     public function ChangeQuizEventStatus(){
         $quiz_event_id = $_POST['quiz_event_id'];
         $q_status = $_POST['quiz_status'];
@@ -352,21 +249,6 @@ class QuizController extends Controller
         }catch(Exception $e){
             return json_encode(["status" => 1, "message" => "$e"]);
         }
-    }
-
-    public function ManageQuizEvent($quiz_id){
-        $id = Auth::user()->usr_id;
-        
-        $quiz_details = QuizEvent::with([
-                    'classe' => function($q) use($id){
-                        $q->where('instructor_id', $id);
-                    },
-                    'classe.subject',
-                    'questionnaire'])
-                    ->where('quiz_event_id', $quiz_id)
-                    ->first();
-
-        return view('manage.quiz', compact('quiz_details'));
     }
 
     public function QuizResults($quiz_id){
