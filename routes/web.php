@@ -32,7 +32,7 @@ Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('
 
 
 //TO BE REPLACED BY BELOW RESOURCE
-Route::get('manage/quiz/{quiz_id}', 'QuizController@ManageQuizEvent')->middleware('auth');//Manage quiz
+// Route::get('manage/quiz/{quiz_id}', 'QuizController@ManageQuizEvent')->middleware('auth');//Manage quiz
 Route::post('/new/quiz', 'QuizController@NewQuizEventForm')->middleware('auth');//creates new quiz form
 Route::post('/new/quiz/add', 'QuizController@CreateQuizEvent')->middleware('auth');//adds new quiz event
 

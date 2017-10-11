@@ -8,6 +8,8 @@ use App\Questionnaire;
 use App\Question;
 use App\QuizEvent;
 
+use Auth;
+
 class QuizEventController extends Controller
 {
     /**
@@ -21,7 +23,7 @@ class QuizEventController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new quiz event.
      *
      * @return \Illuminate\Http\Response
      */
@@ -31,7 +33,7 @@ class QuizEventController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created quiz event in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -93,14 +95,24 @@ class QuizEventController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays the specified quiz event.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id){
+        $usr_id = Auth::user()->usr_id;
+        
+        $quiz_details = QuizEvent::with([
+                    'classe' => function($q) use($usr_id){
+                        $q->where('instructor_id', $usr_id);
+                    },
+                    'classe.subject',
+                    'questionnaire'])
+                    ->where('quiz_event_id', $id)
+                    ->first();
+
+        return view('manage.quiz', compact('quiz_details'));
     }
 
     /**

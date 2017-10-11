@@ -88,13 +88,13 @@
                                         @if($qe->quiz_event_status == 0)
                                             <td id="buttonPanel{{ $qe->quiz_event_id }}">
                                                 <button href="" onclick="javascript:ChangeQuizStatus({{ $qe->quiz_event_id }}, 1)" class="btn btn-sm btn-primary">Enable Quiz</button>
-                                                <a href="/manage/quiz/{{ $qe->quiz_event_id }}" class="btn btn-sm btn-primary">Manage Quiz</a>
+                                                <a href="/quiz/{{ $qe->quiz_event_id }}" class="btn btn-sm btn-primary">Manage Quiz</a>
                                             </td>
                                         @elseif($qe->quiz_event_status == 1)
                                             <td id="buttonPanel{{ $qe->quiz_event_id }}">
                                                 <button href="" onclick="javascript:ChangeQuizStatus({{ $qe->quiz_event_id }}, 0)" class="btn btn-sm btn-primary">Disable Quiz</button>
                                                 <button href="" onclick="javascript:ChangeQuizStatus({{ $qe->quiz_event_id }}, 2)" class="btn btn-sm btn-primary">End Quiz</button>
-                                                <a href="/manage/quiz/{{ $qe->quiz_event_id }}" class="btn btn-sm btn-primary">Manage Quiz</a>
+                                                <a href="/quiz/{{ $qe->quiz_event_id }}" class="btn btn-sm btn-primary">Manage Quiz</a>
                                             </td>
                                         @endif
                                     </tr>
