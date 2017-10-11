@@ -159,7 +159,7 @@
                         <div class="card" style="width: 40rem;">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <button class="btn btn-primary" style="float: right">Manage subjects</button>
+                                    <a class="btn btn-primary" href="/manage/subjects" style="float: right">Manage subjects</a>
                                     <strong>Manage subjects</strong>
                                     <p>This will allow you to edit subjects to serve as basis for the classes.</p>
                                 </li>

@@ -43,13 +43,7 @@
             </table>
         </div>
         <div class="col-3">
-            <div class="card">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <a href="">Add new subject</a>
-                    </li>
-                </ul>
-            </div>
+            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddSubjectModal">Add new subject</button>
         </div>
     </div>
     <div class="modal fade" id="ModifySubjectModal" tabindex="-1" role="dialog" aria-labelledby="ModifySubjectModalLabel" aria-hidden="true">
@@ -65,19 +59,49 @@
                     <form class="form">
                         <input type="hidden" id="usrid" value="-1">
                         <div class="form-group">
-                            <label>Name:</label>
-                            <div class="form-inline">
-                                <input type="text" class="form-control m-1" placeholder="Family Name" id="f-name" style="width:12rem">
-                                <input type="text" class="form-control m-1" placeholder="Given Name" id="g-name" style="width:12rem">
-                                <input type="text" class="form-control m-1" placeholder="M.I." id="mi-name" style="width:4rem">
-                                <input type="text" class="form-control m-1" placeholder="Extension Name" id="ne-name" style="width:12rem">
+                            <div class="form-group">
+                                <label for="">Subject Code</label>
+                                <input type="text" class="form-control" placeholder=""></div>
+                            <div class="form-group">
+                                <label for="">Subject Description</label>
+                                <input type="text" class="form-control" placeholder=""></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="UpdateProfile">Update Class</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="AddSubjectModal" tabindex="-1" role="dialog" aria-labelledby="AddSubjectModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Subject</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form">
+                        <input type="hidden" id="usrid" value="-1">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="">Subject Code</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Subject Description</label>
+                                <input type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="UpdateProfile">Update Profile</button>
+                    <button type="button" class="btn btn-primary" id="UpdateProfile">Add Class</button>
                 </div>
             </div>
         </div>
