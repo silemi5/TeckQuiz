@@ -8,7 +8,7 @@
 </style>
 <div class="container">
     <h2>Create Quiz Event</h2>
-    <form action="/test" method="POST" class="form">
+    <form action="/quiz" method="POST" class="form">
         {{ csrf_field() }}
         <div class="col-6">
             <div class="form-group">
