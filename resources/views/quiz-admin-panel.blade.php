@@ -141,7 +141,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $classe->subject->subject_code }}: {{ $classe->subject->subject_desc }}</h4>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
-                                    <a href="/manage/class/{{ $classe->class_id }}" class="btn btn-outline-primary">Manage Class</a>
+                                    <a href="/class/view/{{ $classe->class_id }}" class="btn btn-outline-primary">Manage Class</a>
                                     <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
                                 </div>
                             </div>
@@ -218,7 +218,7 @@
         <!-- New Class Modal -->
         <div class="modal fade" id="NewClassModal" tabindex="-1" role="dialog" aria-labelledby="NewClassModal" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form class="modal-content form" action="/new/class" method="POST">
+                <form class="modal-content form" action="/class" method="POST">
                      {{ csrf_field() }}
                     <div class="modal-header">
                         <h5 class="modal-title" id="ModalTitle">New Class</h5>

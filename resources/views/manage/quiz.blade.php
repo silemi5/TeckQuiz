@@ -13,7 +13,7 @@
         <div class="col-lg-9">
             <h3>{{ $quiz_details->quiz_event_name }}</h3>
             <p>This is some basic information about the quiz.</p>
-            <p>Class: <b><a href="/manage/class/{{ $quiz_details->class_id }}"></a>{{ $quiz_details->classe->course_sec }}</b></p>
+            <p>Class: <b><a href="/manage/class/view{{ $quiz_details->class_id }}"></a>{{ $quiz_details->classe->course_sec }}</b></p>
             <p>Subject: <b>{{ $quiz_details->classe->subject->subject_desc }}</b></p>
             <p>Questionnaire: <b><a href="/manage/questionnaire/{{ $quiz_details->questionnaire->questionnaire_id }}">{{ $quiz_details->questionnaire->questionnaire_name }}</a></b></p>
         </div>

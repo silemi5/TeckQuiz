@@ -329,31 +329,6 @@ class QuizController extends Controller
 
     }
 
-    public function ViewClass($class_id){
-        if (Auth::user()->permissions == 0){
-            abort(403, 'Unauthorized access');
-        }
-        $quiz_events = DB::table('quiz_events')
-                            ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
-                            ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
-                            ->where('classes.class_id', $class_id)
-                            ->get();
-
-        $quiz_class = DB::table('classes')
-                    ->join('subjects', 'classes.subject_id', '=', 'subjects.subject_id')
-                    ->where('instructor_id', Auth::user()->usr_id)
-                    ->where('classes.class_id', $class_id)
-                    ->first();
-
-        $students = DB::table('student_classes')
-                    ->join('user_profiles', 'student_classes.student_id', '=', 'user_profiles.usr_id')
-                    ->where('class_id', $class_id)
-                    ->orderBy('family_name', 'asc')
-                    ->get();
-                    
-        return view('manage.classes', compact('students', 'quiz_class', 'quiz_events'));
-    }
-
     public function UpdateStudentInfo(){
         $n = [
                 "g" => $_POST['g'],
@@ -377,10 +352,6 @@ class QuizController extends Controller
         }catch(Exception $e){
             return json_encode(["status" => 1, "message" => "$e"]);
         }
-    }
-
-    public function ListClass($class_id){
-        //
     }
 
     public function ManageQuizEvent($quiz_id){
@@ -424,21 +395,5 @@ class QuizController extends Controller
         $subjects = Subject::with('classe')->get();
         //return $subjects;
         return view('manage.subjects', compact('subjects'));
-    }
-
-    public function CreateClasse(){
-        $i_id = Auth::user()->usr_id;//gets the id of the user
-        $course_sec = $_POST['course_sec'];
-        $sub_id = $_POST['sub_id'];
-
-        Classe::create([
-                'class_id' => str_random(5),
-                'instructor_id' => $i_id,
-                'course_sec' => $course_sec,
-                'subject_id' => $sub_id,
-                'class_active' => 1
-        ]);
-
-        return redirect('/panel');
     }
 }
