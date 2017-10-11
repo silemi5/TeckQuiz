@@ -15,6 +15,7 @@
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/teckquiz.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/js/jquery-3.2.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
 </head>
 
 <body>
@@ -84,6 +85,7 @@
     <script src="{{ asset('assets/js/popper.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/teckquiz.js') }}"></script>
+    
 </body>
 
 </html>

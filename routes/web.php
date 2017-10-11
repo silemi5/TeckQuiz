@@ -19,7 +19,7 @@ Route::get('/old', function (){
 Auth::routes();
 
 Route::get('/panel', 'QuizController@RedirectToAppropriatePanel')->middleware('auth');//Redirect to appropriate panel
-Route::get('/quiz/{quiz_id}', 'QuizController@TakeQuiz')->middleware('auth');//Take quiz
+// Route::get('/quiz/{quiz_id}', 'QuizController@TakeQuiz')->middleware('auth');//Take quiz
 
 Route::get('manage/subjects', 'QuizController@ManageSubjects')->middleware('auth');//Manage subject
 Route::get('/quiz/results/{quiz_id}', 'QuizController@QuizResults')->middleware('auth');//Sees result of quiz

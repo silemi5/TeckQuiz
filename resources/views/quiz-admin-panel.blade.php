@@ -127,7 +127,8 @@
                             </table>
                         </div>
                     @endif
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#NewQuizEventModal">New quiz event</button>
+                    {{--  <button class="btn btn-primary" data-toggle="modal" data-target="#NewQuizEventModal">New quiz event</button>  --}}
+                    <a class="btn btn-primary" href="/quiz/create">New quiz event</a>
                 </div>
 
                 <div class="tab-pane fade {{ $classes->count() == 0 ? '' : '' }}" id="my-classes" role="tabpanel" aria-labelledby="my-classes"><!-- Manage Class -->

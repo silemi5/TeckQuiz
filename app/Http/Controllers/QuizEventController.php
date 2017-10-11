@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Classe;
 
 class QuizEventController extends Controller
 {
@@ -21,26 +22,9 @@ class QuizEventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
-        $quiz = [
-                "name" => $_POST['quiz_name'],
-                "num" => $_POST['questions'],
-                "class_id" => $_POST['class_id'],
-                "questionnaire" => $_POST['questionnaire']
-            ];
-        if ($quiz["questionnaire"] == 2){
-            $quiz = [
-                "name" => $_POST['quiz_name'],
-                "num" => $_POST['questions'],
-                "class_id" => $_POST['class_id'],
-                "questionnaire" => $_POST['questionnaire']
-            ];
-            $questionnaires = Questionnaire::all();
-            return view('create.quiz-event', compact('quiz', 'questionnaires'));
-        }else{
-            return view('create.quiz-event', compact('quiz'));
-        }
+    public function create(){
+        $classes = Classe::all();
+        return view('create.quiz-event-2', compact('classes'));
     }
 
     /**
