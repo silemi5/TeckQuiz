@@ -2,7 +2,7 @@
 
 @section('title', 'TeckQuiz - An Online Quiz Management System')
 @section('content')
-    <div class="main">
+    <main>
         <style>
             p.home-lead {
                 font-size: 26px;
@@ -23,17 +23,21 @@
         <div class="jumbotron">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-7 col-md-12 text-left">
-                        <div class="logo" style="margin: 0 auto;"></div>
-                        <p class="home-lead text-center" style="margin-top: -100px;">
+                    <div class="col-lg-6 col-md-12 text-left mr-auto">
+                        <img src="/assets/img/logo.png" alt="" class="img-fluid">
+                        <p class="home-lead text-center" style="margin-top: -100px; font-size: 2rem">
                             An Online Quiz System built for the Web.
                         </p>
                     </div>
                     @if (Auth::guest())
                     <div class="col-lg-5 col-md-12 col-sm-12">
                         <div class="card">
-                            <!-- <div class="card-header">Register</div> -->
                             <div class="card-body">
+                                <p class="text-center text-muted">
+                                    Already have an account and just want to join to a class?
+                                    <a href="">Click here</a> to join!
+                                </p>
+                                <hr>
                                 @if($errors->has('usr'))
                                     <strong>{{ $errors->first('usr') }}</strong>
                                 @endif
@@ -44,11 +48,11 @@
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <label for="">Name</label>
-                                        <div class="form-inline">
-                                            <input name="n_given" id="n_given" type="text" placeholder="Given name" class="form-control form-inline m-1" style="width: 128px">
-                                            <input name="n_middle" id="n_middle" type="text" placeholder="M.I." class="form-control form-inline m-1" style="width: 52px">
-                                            <input name="n_family" id="n_family" type="text" placeholder="Family name" class="form-control form-inline m-1" style="width: 128px">
-                                            <input name="n_ext" id="n_ext" type="text" placeholder="Ext." class="form-control form-inline m-1" style="width: 52px">
+                                        <div class="form">
+                                            <input name="n_given" id="n_given" type="text" placeholder="Given name" class="form-control mb-2">
+                                            <input name="n_middle" id="n_middle" type="text" placeholder="M.I." class="form-control mb-2">
+                                            <input name="n_family" id="n_family" type="text" placeholder="Family name" class="form-control mb-2">
+                                            <input name="n_ext" id="n_ext" type="text" placeholder="Ext." class="form-control mb-2">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -90,6 +94,25 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-12">
+                    <h3 class="text-muted">TeckQuiz</h3>
+                    <p class="text-muted">An Online Quiz System built for the Web.</p>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <ul class="list-unstyled">
+                        <li><a href="">Home</a></li>
+                        <li><a href="">Changelog</a></li>
+                        <li><a href="">Report a bug</a></li>
+                        <li><a href="">About us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </footer>
     
 @endsection

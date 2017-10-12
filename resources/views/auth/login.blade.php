@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <title>Login to TeckQuiz</title>
 
@@ -17,24 +17,21 @@
         .login{
             max-width: 512px;
         }
-        .container{
-            margin: 7rem;
+        .container-fluid{
+            padding-top: 7rem;
         }
     </style>
-    <div class="container">
+    <div class="container-fluid">
         <h3 class="text-center">Login to TeckQuiz</h3>
         @if($errors->has('usr'))
-        <div class="row justify-content-center">
-            <div class="col-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="alert alert-danger" role="alert">
                     {{ $errors->first('usr') }}
                 </div>
             </div>
-        </div>
             
         @endif
-        <div class="row justify-content-center">
-            <div class="col-4 card">
+            <div class="col-lg-4 col-md-6 col-sm-12 mx-auto card">
                 <div class="card-body">
                     <form action="{{ route('login') }}" method="POST">
                         {{ csrf_field() }}
@@ -51,17 +48,14 @@
                         </div>
                     </form>
                 </div>
-            </div>
             
         </div>
-        <div class="row justify-content-center mt-3">
-            <div class="col-4 card">
+            <div class="col-lg-4 col-md-6 col-sm-12 mt-2 mx-auto card">
                 <div class="card-body">
                     <p class="text-center text-muted">
                         Don't have an account? <a href="">Contact your teacher</a>
                     </p>
                 </div>
-        </div>
     </div>
 </body>
 

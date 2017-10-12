@@ -126,7 +126,7 @@ class QuizController extends Controller
         }
     }
 
-     public function TakeQuiz($quiz_id){
+    public function TakeQuiz($quiz_id){
         $id = Auth::user()->usr_id;
 
         $user_profile = UserProfile::find($id);
