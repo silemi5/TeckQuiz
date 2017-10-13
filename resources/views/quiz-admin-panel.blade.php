@@ -54,8 +54,7 @@
                                     <tr>
                                         <th>Topic</th>
                                         <th>Subject</th>
-                                        <th>Class</th>
-                                        <th></th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -109,7 +108,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title">{{ $classe->subject->subject_code }}: {{ $classe->subject->subject_desc }}</h4>
                                         <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
-                                        <a href="/class/view/{{ $classe->class_id }}" class="btn btn-outline-primary">Manage Class</a>
+                                        <a href="/class/{{ $classe->class_id }}" class="btn btn-outline-primary">View Class</a>
                                         <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
                                     </div>
                                 </div>

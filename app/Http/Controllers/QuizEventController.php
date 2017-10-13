@@ -123,7 +123,7 @@ class QuizEventController extends Controller
             $results = StudentScore::with('quiz_event', 'user_profile')
                         ->where('student_id', Auth::user()->usr_id)
                         ->first();
-            return view('quiz.quiz-results', compact('results'));
+            return view('quiz.results', compact('results'));
         }
         
     }

@@ -19,14 +19,12 @@ Route::get('/old', function (){
 Auth::routes();
 
 Route::get('/panel', 'QuizController@RedirectToAppropriatePanel')->middleware('auth');//Redirect to appropriate panel
-Route::get('/take/{quiz_id}', 'QuizController@TakeQuiz')->middleware('auth');//Take quiz
+
 
 Route::get('manage/subjects', 'QuizController@ManageSubjects')->middleware('auth');//Manage subject
-Route::get('/quiz/results/{quiz_id}', 'QuizController@QuizResults')->middleware('auth');//Sees result of quiz
 Route::get('/manage/questionnaire/{qid}', 'QuizController@ManageQuestionnaire')->middleware('auth');
 Route::get('/setup', 'QuizController@InitialSetup');
 
-Route::post('/quiz/changestatus', 'QuizController@ChangeQuizEventStatus')->middleware('auth');//Change quiz event status
 Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');//sends student's answers
 Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('auth');//Update student profile
 
@@ -34,9 +32,12 @@ Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('
 //     'create', 'store', 'show', 'put'
 // ]]);
 
-Route::resource('quiz', 'QuizEventController');
+//Route::get('/take/{quiz_id}', 'QuizController@TakeQuiz')->middleware('auth');//Take quiz
 
-Route::resource('class', 'ClassController',  ['only' => [
+Route::resource('quiz', 'QuizEventController'); //Related to Quiz Events
+Route::resource('take', 'TakeQuizController'); //Related to taking of quiz
+
+Route::resource('class', 'ClassController',  ['only' => [//Related to class
     'store', 'show', 
 ]]);
 

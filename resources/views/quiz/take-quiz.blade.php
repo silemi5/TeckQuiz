@@ -49,7 +49,7 @@
                     {{ csrf_field() }}
                 </form>
                 <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-                    <form class="tab-content col" id="v-pills-tabContent" action="/quiz/submit" method="POST">
+                    <form class="tab-content col" id="v-pills-tabContent" action="/take" method="POST">
                         {{ csrf_field() }}
                         <div class="tab-pane fade show active" id="welcome" role="tabpanel" aria-labelledby="welcome">
                             <h1>Welcome!</h1>
@@ -78,7 +78,10 @@
                                 @elseif($qc->question_type == 2)
                                     <h1>Question #{{ $questionNum }}</h1><span class="badge badge-info">Multiple Choice</span><hr>
                                     <p style="font-size: 1.5rem">{{ $qc->question_name }}</p>
-                                    <?php $choices = explode(";", $qc->choices); $choicenum = 0; ?>
+                                    @php
+                                        $choices = explode(";", $qc->choices);
+                                        $choicenum = 0;
+                                    @endphp
                                     <div class="form-group">
                                         <h5>Choices</h5>
                                         <div class="form-inline container">
@@ -100,13 +103,13 @@
                                     <div class="form-group">
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" value="T">
+                                                    <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" value="1">
                                                     True
                                                 </label>
                                         </div>
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" value="F">
+                                                    <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" value="0">
                                                     False
                                                 </label>
                                         </div>
@@ -114,9 +117,14 @@
                                 @endif
                                 <hr>
                                 <div class="form-group">
-                                    @if ($questionNum > 1) <button type="button" class="btn btn-primary" onclick="MoveQuestion({{ $questionNum - 1 }})">Previous</button> @endif
-                                    @if ($questionNum < count($quiz_content))<button type="button" class="btn btn-primary" onclick="MoveQuestion({{ ++$questionNum }})">Next</button>
-                                    @else <button type="submit" class="btn btn-primary" onclick="">Submit</button> @endif
+                                    @if ($questionNum > 1)
+                                        <button type="button" class="btn btn-primary" onclick="MoveQuestion({{ $questionNum - 1 }})">Previous</button>
+                                    @endif
+                                    @if ($questionNum < count($quiz_content))
+                                        <button type="button" class="btn btn-primary" onclick="MoveQuestion({{ ++$questionNum }})">Next</button>
+                                    @else
+                                        <button type="submit" class="btn btn-primary" onclick="">Submit</button>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach

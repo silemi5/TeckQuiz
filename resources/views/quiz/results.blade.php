@@ -31,12 +31,12 @@
                 {{$results->user_profile->middle_name }}
             </b>
         </p>
-        <br><br>
+        <br>
         <p>
             The above mentioned student got a score of <b>{{ $results->score }}</b>.
         </p>
         <p>
-            This is a computer generated report.
+            This is a computer generated report. <a href="/panel">Go back to home.</a>
         </p>
     </div>
 </body>
