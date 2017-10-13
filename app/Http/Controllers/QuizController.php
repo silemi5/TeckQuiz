@@ -110,22 +110,6 @@ class QuizController extends Controller
         }
     }
 
-    public function ChangeQuizEventStatus(){
-        $quiz_event_id = $_POST['quiz_event_id'];
-        $q_status = $_POST['quiz_status'];
-
-        try{
-            $q_e = QuizEvent::find($quiz_event_id);
-            $q_e->quiz_event_status = $q_status;
-            //$q_e->updated_at = \Carbon\Carbon::now();
-            $q_e->save();
-
-            return json_encode(["status" => 0]);
-        }catch(Exception $e){
-            return json_encode(["status" => 1, "message" => "$e"]);
-        }
-    }
-
     public function TakeQuiz($quiz_id){
         $id = Auth::user()->usr_id;
 
@@ -222,7 +206,7 @@ class QuizController extends Controller
             'recorded_on' => \Carbon\Carbon::now()
         ]);
      
-        return redirect('/quiz/results/' . $quiz_event_id);
+        return redirect('/quiz/' . $quiz_event_id);
 
     }
 

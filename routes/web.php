@@ -30,9 +30,11 @@ Route::post('/quiz/changestatus', 'QuizController@ChangeQuizEventStatus')->middl
 Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');//sends student's answers
 Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('auth');//Update student profile
 
-Route::resource('quiz', 'QuizEventController', ['only' => [
-    'create', 'store', 'show'
-]]);
+// Route::resource('quiz', 'QuizEventController', ['only' => [
+//     'create', 'store', 'show', 'put'
+// ]]);
+
+Route::resource('quiz', 'QuizEventController');
 
 Route::resource('class', 'ClassController',  ['only' => [
     'store', 'show', 

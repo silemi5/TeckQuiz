@@ -40,40 +40,14 @@
                                     <div class="card-body">
                                         <span>{{ $quiz_events->count() }} quiz{{ $quiz_events->count() <= 1 ? '' : 'zes' }} available!</span>
                                     </div>
+                                    <a class="card-footer text-white clearfix small z-1" href="">See quiz</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade {{ $classes->count() == 0 ? '' : '' }}" id="quiz-events" role="tabpanel" aria-labelledby="quiz-events">
-                        <script>
-                            $.ajaxSetup({
-                                    headers: {
-                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                    }
-                            });
-                            
-                            function ChangeQuizStatus(quiz_event_id, quiz_status){
-                                $.post("/quiz/changestatus", {quiz_event_id, quiz_status}, function(data){
-                                    var response = jQuery.parseJSON(data)
-                                    var qid = quiz_event_id
-                                    if (response.status == 0){
-                                        if (quiz_status == 0){//Disables the quiz
-                                            $("#buttonPanel" + qid).html("<button href=\"\" onclick=\"javascript:ChangeQuizStatus(" + quiz_event_id + ", 1)\" class=\"btn btn-sm btn-primary\">Enable Quiz</button> <button class=\"btn btn-sm btn-primary\">Manage Quiz</button>");
-                                        }else if(quiz_status == 1){//Enables the quiz
-                                            $("#buttonPanel" + qid).html("<button href=\"\" onclick=\"javascript:ChangeQuizStatus(" + quiz_event_id + ", 0)\" class=\"btn btn-sm btn-primary\">Disable Quiz</button> <button href=\"\" onclick=\"javascript:ChangeQuizStatus(" + quiz_event_id + ", 2)\" class=\"btn btn-sm btn-primary\">End Quiz</button> <button href=\"\" class=\"btn btn-sm btn-primary\">Manage Quiz</button>");
-                                        }else if(quiz_status == 2){//Ends the quiz
-                                            $("#quiz_entry" + qid).html("");
-                                            $("#quiz_entry" + qid).hide();
-                                        }
-                                    }else{
-                                        alert("Something happened! Quiz not started!");
-                                    }
-                                });
-                            }
-                            
-                        </script>
                         <h1 class="text-left">Quiz Events</h1>
-                        <div class="col-12">
+                        <div class="col-10">
                             <h4>Current Quizzes</h4>
                             <table class="table table-hover">
                                 <thead>
@@ -87,22 +61,9 @@
                                 <tbody>
                                     @foreach($quiz_events as $qe)
                                         <tr id="quiz_entry{{ $qe->quiz_event_id }}">
-                                            <td>{{ $qe->quiz_event_name }}</td>
+                                            <td><a href="/quiz/{{ $qe->quiz_event_id }}">{{ $qe->quiz_event_name }}</a></td>
                                             <td>{{ $qe->classe->subject->subject_desc }}</td>
                                             <td>{{ $qe->classe->course_sec}}</td>
-                                            
-                                            @if($qe->quiz_event_status == 0)
-                                                <td id="buttonPanel{{ $qe->quiz_event_id }}">
-                                                    <button href="" onclick="javascript:ChangeQuizStatus({{ $qe->quiz_event_id }}, 1)" class="btn btn-sm btn-primary">Enable Quiz</button>
-                                                    <a href="/quiz/{{ $qe->quiz_event_id }}" class="btn btn-sm btn-primary">Manage Quiz</a>
-                                                </td>
-                                            @elseif($qe->quiz_event_status == 1)
-                                                <td id="buttonPanel{{ $qe->quiz_event_id }}">
-                                                    <button href="" onclick="javascript:ChangeQuizStatus({{ $qe->quiz_event_id }}, 0)" class="btn btn-sm btn-primary">Disable Quiz</button>
-                                                    <button href="" onclick="javascript:ChangeQuizStatus({{ $qe->quiz_event_id }}, 2)" class="btn btn-sm btn-primary">End Quiz</button>
-                                                    <a href="/quiz/{{ $qe->quiz_event_id }}" class="btn btn-sm btn-primary">Manage Quiz</a>
-                                                </td>
-                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -123,10 +84,10 @@
                                     <tbody>
                                         @foreach($finished_quiz_events as $qe)
                                             <tr>
-                                                <td>{{ $qe->quiz_event_name }}</td>
+                                                <td><a href="/quiz/{{ $qe->quiz_event_id }}">{{ $qe->quiz_event_name }}</a></td>
                                                 <td>{{ $qe->classe->subject->subject_desc }}</td>
                                                 <td>{{ $qe->classe->course_sec}}</td>
-                                                <td><a class="btn btn-sm btn-primary" href="/quiz/results/{{ $qe->quiz_event_id }}">See results</a></td>
+                                                
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -170,11 +131,11 @@
                                         <strong>Manage subjects</strong>
                                         <p>This will allow you to edit subjects to serve as basis for the classes.</p>
                                     </li>
-                                    <li class="list-group-item">
+                                    {{--  <li class="list-group-item">
                                         <button class="btn btn-danger" style="float: right">Delete this class</button>
                                         <strong>Delete this class</strong>
                                         <p>Once you delete this class, there is no turning back.</p>
-                                    </li>
+                                    </li>  --}}
                                 </ul>
                             </div>
                     </div>

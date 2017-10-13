@@ -7,6 +7,7 @@ use App\Classe;
 use App\Questionnaire;
 use App\Question;
 use App\QuizEvent;
+use App\StudentScore;
 
 use Auth;
 
@@ -101,18 +102,30 @@ class QuizEventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        $usr_id = Auth::user()->usr_id;
+        if(Auth::user()->permissions == 1){
+            $usr_id = Auth::user()->usr_id;
         
-        $quiz_details = QuizEvent::with([
-                    'classe' => function($q) use($usr_id){
-                        $q->where('instructor_id', $usr_id);
-                    },
-                    'classe.subject',
-                    'questionnaire'])
+            $quiz_details = QuizEvent::with([
+                        'classe' => function($q) use($usr_id){
+                            $q->where('instructor_id', $usr_id);
+                        },
+                        'classe.subject',
+                        'questionnaire'])
+                        ->where('quiz_event_id', $id)
+                        ->first();
+
+            $results = QuizEvent::with('classe.student_class.student_score', 'classe.student_class.user_profile')
                     ->where('quiz_event_id', $id)
                     ->first();
 
-        return view('manage.quiz', compact('quiz_details'));
+            return view('manage.quiz', compact('quiz_details', 'results'));
+        }else{
+            $results = StudentScore::with('quiz_event', 'user_profile')
+                        ->where('student_id', Auth::user()->usr_id)
+                        ->first();
+            return view('quiz.quiz-results', compact('results'));
+        }
+        
     }
 
     /**
@@ -133,7 +146,10 @@ class QuizEventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        //
+        $quiz = QuizEvent::find($id);
+        $quiz->quiz_event_status = $request->input('quiz_status');
+        $quiz->save();
+        //return "ID: $id" . "\n" . $request->input('quiz_status');
     }
 
     /**
