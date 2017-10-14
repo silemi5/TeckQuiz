@@ -134,14 +134,6 @@ class QuizController extends Controller
             return json_encode(["status" => 1, "message" => "$e"]);
         }
     }
-
-    public function ManageQuestionnaire($qid){
-        $q = Questionnaire::with('question')
-                        ->where('questionnaire_id', $qid)
-                        ->first();
-        // return $q;
-        return view('manage.questionnaires', compact('q'));
-    }
     
     public function ManageSubjects(){
         $subjects = Subject::with('classe')->get();

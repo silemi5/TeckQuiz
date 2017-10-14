@@ -20,7 +20,7 @@
             </p>
             <p>Questionnaire:
                 <b>
-                    <a href="/manage/questionnaire/{{ $quiz_details->questionnaire->questionnaire_id }}">{{ $quiz_details->questionnaire->questionnaire_name }}</a>
+                    <a href="/questionnaire/{{ $quiz_details->questionnaire->questionnaire_id }}">{{ $quiz_details->questionnaire->questionnaire_name }}</a>
                 </b>
             </p>
         </div>
