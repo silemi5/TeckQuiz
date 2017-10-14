@@ -22,7 +22,7 @@ class CreateQuizEventsTable extends Migration
             $table->timestamps();
         });
         Schema::table('quiz_events', function(Blueprint $table){
-            $table->foreign('class_id')->references('class_id')->on('classes');
+            $table->foreign('class_id')->references('class_id')->on('classes')->onDelete('cascade');
             $table->foreign('questionnaire_id')->references('questionnaire_id')->on('questionnaires');
         });
     }

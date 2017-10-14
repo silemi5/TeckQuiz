@@ -202,8 +202,6 @@
 
     function DeleteSubject() {
         var s_id = $('#sub_id_del').val();
-        var s_code = $('#s_code_new').val();
-        var s_des = $('#s_desc_new').val();
 
         $.ajax({
             url: '/subjects/' + s_id,

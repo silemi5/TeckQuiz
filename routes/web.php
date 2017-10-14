@@ -31,7 +31,7 @@ Route::resource('quiz', 'QuizEventController'); //Related to Quiz Events
 Route::resource('take', 'TakeQuizController'); //Related to taking of quiz
 
 Route::resource('class', 'ClassController',  ['only' => [//Related to class
-    'store', 'show', 
+    'store', 'show', 'destroy'
 ]]);
 
 Route::resource('question', 'QuestionController', ['only' => [

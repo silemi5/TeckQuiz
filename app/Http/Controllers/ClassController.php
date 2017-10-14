@@ -42,11 +42,11 @@ class ClassController extends Controller
         $sub_id = $request->input('sub_id');
 
         Classe::create([
-                'class_id' => str_random(5),
-                'instructor_id' => $i_id,
-                'course_sec' => $course_sec,
-                'subject_id' => $sub_id,
-                'class_active' => 1
+            'class_id' => str_random(5),
+            'instructor_id' => $i_id,
+            'course_sec' => $course_sec,
+            'subject_id' => $sub_id,
+            'class_active' => 1
         ]);
 
         return redirect('/panel');
@@ -65,11 +65,16 @@ class ClassController extends Controller
                         ->where('classes.class_id', $id)
                         ->get();
 
-        $quiz_class = DB::table('classes')
-                    ->join('subjects', 'classes.subject_id', '=', 'subjects.subject_id')
-                    ->where('instructor_id', Auth::user()->usr_id)
-                    ->where('classes.class_id', $id)
-                    ->first();
+        // $quiz_class = DB::table('classes')
+        //             ->join('subjects', 'classes.subject_id', '=', 'subjects.subject_id')
+        //             ->where('instructor_id', Auth::user()->usr_id)
+        //             ->where('classes.class_id', $id)
+        //             ->first();
+
+        $quiz_class = Classe::with('subject')
+                        ->where('instructor_id', Auth::user()->usr_id)
+                        ->where('class_id', $id)
+                        ->first();
 
         $students = DB::table('student_classes')
                     ->join('user_profiles', 'student_classes.student_id', '=', 'user_profiles.usr_id')
@@ -77,6 +82,7 @@ class ClassController extends Controller
                     ->orderBy('family_name', 'asc')
                     ->get();
                         
+        //return $quiz_class;
         return view('manage.classes', compact('students', 'quiz_class', 'quiz_events'));
     }
 
@@ -108,6 +114,6 @@ class ClassController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        //TODO: Delete a class
+        Classe::destroy($id);
     }
 }

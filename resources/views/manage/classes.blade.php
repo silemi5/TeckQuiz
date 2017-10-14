@@ -30,7 +30,7 @@
             </nav>
 
             <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">             
-                <h3>{{ $quiz_class->subject_code }}: {{ $quiz_class->subject_desc }}</h3>
+                <h3>{{ $quiz_class->subject->subject_code }}: {{ $quiz_class->subject->subject_desc }}</h3>
                 <h5><span class="badge badge-primary">{{ $quiz_class->course_sec }}</span></h5>
                 <hr>
 
@@ -134,19 +134,13 @@
                     </div>
 
                     <div class="tab-pane fade" id="settings-tab" role="tabpanel" aria-labelledby="settings-tab">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum, dignissimos.</p>
                         <h4>Advanced Settings</h4>
                         <div class="card" style="width: 40rem;">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <button class="btn btn-warning" style="float: right">Disable this class</button>
-                                    <strong>Disable this class</strong>
-                                    <p>If your class has move up to another grade, you can disable the class here. Disabling will make the class read-only.</p>
-                                </li>
-                                <li class="list-group-item">
-                                    <button class="btn btn-danger" style="float: right">Delete this class</button>
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteClass" style="float: right">Delete this class</button>
                                     <strong>Delete this class</strong>
-                                    <p>Once you delete this class, there is no turning back.</p>
+                                    <p>Once you delete this class, all quiz events that refers to this class will also be deleted.</p>
                                 </li>
                             </ul>
                         </div>
@@ -181,6 +175,26 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" id="UpdateProfile">Update Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="deleteClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete class</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure to delete this class? Any references to this class will also be deleted. This is <b>irreversible</b>.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteClass('{{ $quiz_class->class_id }}')">Delete class</button>
                         </div>
                     </div>
                 </div>
@@ -253,6 +267,23 @@
                         }
                     });
                 });
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                function deleteClass(id){
+                    $.ajax({
+                        url: '/class/' + id,
+                        type: 'DELETE', //type is any HTTP method
+                        success: function () {
+                            window.location = "/panel"
+                        }
+                    });
+                }
+
             </script>
         </div>
     </div>

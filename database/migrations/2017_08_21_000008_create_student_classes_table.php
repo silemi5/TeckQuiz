@@ -19,7 +19,7 @@ class CreateStudentClassesTable extends Migration
         });
         Schema::table('student_classes', function(Blueprint $table){
             $table->foreign('student_id')->references('usr_id')->on('users');
-            $table->foreign('class_id')->references('class_id')->on('classes');
+            $table->foreign('class_id')->references('class_id')->on('classes')->onDelete('cascade');;
         });
     }
 
