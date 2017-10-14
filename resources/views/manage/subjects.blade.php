@@ -36,7 +36,7 @@
                                 data-dscr="{{ $s->subject_desc }}">
                                 Edit
                             </button>
-                            <button class="btn btn-danger btn-sm {{ $s->classe->count() > 0 ? 'disabled' : '' }}" data-subid="{{ $s->subject_id }}" data-toggle="modal" data-target="#deleteSubject">Delete</button>
+                            <button class="btn btn-danger btn-sm" data-subid="{{ $s->subject_id }}" data-toggle="modal" data-target="#deleteSubject" {{ $s->classe->count() > 0 ? 'disabled' : '' }}>Delete</button>
                         </td>
                     </tr>
 

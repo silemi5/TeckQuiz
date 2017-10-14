@@ -11,7 +11,7 @@
             <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" id="v-pills-class" data-toggle="pill" href="#class-tab" role="tab" aria-controls="v-pills-class"
+                        <a class="nav-link active" id="v-pills-class" data-toggle="pill" href="#class-tab" role="tab" aria-controls="v-pills-class"
                             aria-expanded="true">Class</a>
                     </li>
                     <li class="nav-item">
@@ -19,7 +19,7 @@
                             aria-expanded="true">Quizzes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" id="v-pills-students" data-toggle="pill" href="#students-tab" role="tab" aria-controls="v-pills-students"
+                        <a class="nav-link" id="v-pills-students" data-toggle="pill" href="#students-tab" role="tab" aria-controls="v-pills-students"
                             aria-expanded="true">Students</a>
                     </li>
                     <li class="nav-item">
@@ -35,7 +35,7 @@
                 <hr>
 
                 <div class="tab-content col" id="v-pills-tabContent">
-                    <div class="tab-pane fade" id="class-tab" role="tabpanel" aria-labelledby="class-tab">
+                    <div class="tab-pane fade show active row" id="class-tab" role="tabpanel" aria-labelledby="class-tab">
                         <h4>Statistics</h4>
                     </div>
 
@@ -69,7 +69,7 @@
                         </table>
                     </div> 
 
-                    <div class="tab-pane fade show active row" id="students-tab" role="tabpanel" aria-labelledby="students-tab">
+                    <div class="tab-pane fade" id="students-tab" role="tabpanel" aria-labelledby="students-tab">
                         <div class="col-8">
                             <h2 class="text-left">Classlist</h2>
                             <table class="table table-hover">
