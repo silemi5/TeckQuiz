@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Administrator\'s Dashboard - TeckQuiz')
+@section('title', 'Quiz Dashboard - TeckQuiz')
 @section('content')
 <style>
     main{
@@ -130,11 +130,11 @@
                                         <strong>Manage subjects</strong>
                                         <p>This will allow you to edit subjects to serve as basis for the classes.</p>
                                     </li>
-                                    <li class="list-group-item">
-                                        <button class="btn btn-primary" href="/teachers" style="float: right">Manage teachers</button>
-                                        <strong>Manage teachers</strong>
-                                        <p>This will allow you to add teachers to use this system.</p>
-                                    </li>
+                                    {{--  <li class="list-group-item">
+                                        <button class="btn btn-danger" style="float: right">Delete this class</button>
+                                        <strong>Delete this class</strong>
+                                        <p>Once you delete this class, there is no turning back.</p>
+                                    </li>  --}}
                                 </ul>
                             </div>
                     </div>

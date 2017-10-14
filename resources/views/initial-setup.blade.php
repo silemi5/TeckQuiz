@@ -18,40 +18,43 @@
 
 <body>
     <div class="container">
-            <h1>
-                TeckQuiz
-            </h1>
-            <p class="lead">An Online Quiz System built for the Web.</p>
-        
-        
-    <div class="card">
-        <div class="card-body">
-            <h3 class="card-title">Initial Setup</h3>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form">
-                        <h5 class="card-subtitle text-muted">Subject</h5>
-                        <div class="form-group">
-                            <label for="">Subject Code</label>
-                            <input type="text" class="form-control">
+        <h1>TeckQuiz</h1>
+        <p class="lead">An Online Quiz System built for the Web.</p>
+
+        <div class="card">
+            <form action="" class="form">
+                <div class="card-body">
+                    <h3 class="card-title">Initial Setup</h3>
+                    <div class="row">
+                        <div class="col-6">
+                            <h5 class="card-subtitle text-muted">Subject</h5>
+                            <div class="form-group">
+                                <label for="">Subject Code</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Description</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <hr>
                         </div>
-                        <div class="form-group">
-                            <label for="">Description</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <hr>
-                        <h5 class="card-subtitle text-muted">Class</h5>
-                        <div class="form-group">
-                            <label for="">Course and Section</label>
-                            <input type="text" class="form-control">
+                        <div class="col-6">
+                            <h5 class="card-subtitle text-muted">Teacher's Account</h5>
+                            <div class="form-group">
+                                <label for="">Username</label>
+                                <input type="text" class="form-control">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
         </div>
-    </div>
-        
-        
+
+
     </div>
     <script src="{{ asset('assets/js/jquery-3.2.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.js') }}"></script>

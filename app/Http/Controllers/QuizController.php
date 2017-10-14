@@ -22,7 +22,8 @@ class QuizController extends Controller
 {
     public function Home(){
         if (Subject::count() == 0 ){
-            return redirect('setup');
+            // return redirect('setup');
+            return view('home');
         }else{
             return view('home');
         }
@@ -36,7 +37,31 @@ class QuizController extends Controller
         //TODO: Disable adding of class if no subject
         //TODO: initial setup
         $id = Auth::user()->usr_id;//gets the id of the user
-        if (Auth::user()->permissions == 1){//The user is a teacher
+        if (Auth::user()->permissions == 0){//The user is the administrator
+            $subjects = Subject::all();
+            $classes = Classe::with('subject')
+                            ->where('instructor_id', $id)
+                            ->where('class_active', true)
+                            ->get();
+                            
+            $quiz_events = QuizEvent::with([
+                    'classe',
+                    'classe.subject'])
+                    ->where('quiz_event_status', 0)
+                    ->orWhere('quiz_event_status',1)
+                    ->get()
+                    ->where('classe', '!=', null);
+
+            $finished_quiz_events = QuizEvent::with([
+                    'classe',
+                    'classe.subject'])
+                    ->where('quiz_event_status', 2)
+                    ->get()
+                    ->where('classe', '!=', '');
+            
+            return view('quiz-admin-panel', compact('classes', 'quiz_events', 'finished_quiz_events', 'subjects'));
+        }
+        else if (Auth::user()->permissions == 1){//The user is a teacher
             $subjects = Subject::all();
             $classes = Classe::with('subject')
                             ->where('instructor_id', $id)
@@ -62,9 +87,9 @@ class QuizController extends Controller
                     ->get()
                     ->where('classe', '!=', '');
             
-            return view('quiz-admin-panel', compact('classes', 'quiz_events', 'finished_quiz_events', 'subjects'));
+            return view('quiz-teacher-panel', compact('classes', 'quiz_events', 'finished_quiz_events', 'subjects'));
         }
-        else{//The user is a student
+        else if (Auth::user()->permissions == 2){//The user is a student
             $upcoming_quiz = QuizEvent::with([
                     'classe',
                     'classe.student_class' => function ($q) use($id){
@@ -72,19 +97,7 @@ class QuizController extends Controller
                     },
                     'classe.subject'])
                     ->where('quiz_event_status', 0)
-                    ->get();    
-                            
-            // $pending_quiz = DB::table('quiz_events')//Gets pending quiz (quiz_event_status = 1)
-            //             ->select('quiz_event_name', 'subject_desc', 'quiz_events.quiz_event_id')
-            //             ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
-            //             ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
-            //             ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
-            //             ->leftJoin('quiz_student_score', 'student_classes.student_id', '=', 'quiz_student_score.student_id')
-            //             ->where('student_classes.student_id', $id)
-            //             ->where('quiz_event_status', 1)
-            //             ->whereNull('score')
-            //             ->get();
-
+                    ->get();
             
             $pending_quiz = QuizEvent::with([
                 'classe',

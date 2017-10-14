@@ -14,13 +14,6 @@ class UserSeeder extends Seeder
         //Initialize Users
         DB::table('users')->insert([
             [
-                'usr_id' => 1,
-                'usr' => 'Teacher',
-                'password' => '$2y$10$Lk/DDdqtE5Pc5mtuO7dumuwQSWb2I8JqCKsfVAFIpC5w0NokYX3Tm',
-                'permissions' => 1,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],[
                 'usr_id' => 2,
                 'usr' => 'JoEM',
                 'password' => '$2y$10$Lk/DDdqtE5Pc5mtuO7dumuwQSWb2I8JqCKsfVAFIpC5w0NokYX3Tm',
