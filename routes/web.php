@@ -41,7 +41,9 @@ Route::resource('class', 'ClassController',  ['only' => [//Related to class
     'store', 'show', 
 ]]);
 
-Route::resource('question', 'QuestionController'); //Related to taking of quiz
+Route::resource('question', 'QuestionController', ['only' => [
+    'store', 'update',  'destroy',
+]]); //Related to taking of quiz
 
 Route::get('/changelog', function (){
     return view('changelog');
