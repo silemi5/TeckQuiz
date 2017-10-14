@@ -33,10 +33,17 @@
         </p>
         <br>
         <p>
-            The above mentioned student got a score of <b>{{ $results->score }}</b>.
+            The above mentioned student got a rating of
+            <b>
+            @php
+                $ave = $results->score / $sum;
+                echo (number_format($ave, 2) * 100) . "%";
+            @endphp
+            </b> ({{ $results->score }}/{{$sum}} pts.).
         </p>
         <p>
-            This is a computer generated report. <a href="/panel">Go back to home.</a>
+            This is a computer generated report. 
         </p>
+        <a href="/panel">Go back to home</a>
     </div>
 </body>

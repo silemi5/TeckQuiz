@@ -118,12 +118,19 @@ class QuizEventController extends Controller
                     ->where('quiz_event_id', $id)
                     ->first();
 
-            return view('manage.quiz', compact('quiz_details', 'results'));
+            $qtn_id = QuizEvent::find($id)->questionnaire_id;
+            $sum = Question::where('questionnaire_id', $qtn_id)->sum('points');
+
+            return view('manage.quiz', compact('quiz_details', 'results', 'sum'));
         }else{
             $results = StudentScore::with('quiz_event', 'user_profile')
                         ->where('student_id', Auth::user()->usr_id)
                         ->first();
-            return view('quiz.results', compact('results'));
+
+            $qtn_id = QuizEvent::find($id)->questionnaire_id;
+            $sum = Question::where('questionnaire_id', $qtn_id)->sum('points');
+
+            return view('quiz.results', compact('results', 'sum'));
         }
         
     }

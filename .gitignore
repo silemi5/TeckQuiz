@@ -12,3 +12,4 @@ yarn-error.log
 .env
 /.vscode
 sc.sh
+*.todel

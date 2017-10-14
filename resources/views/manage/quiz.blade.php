@@ -60,6 +60,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Score</th>
+                        <th>Rating</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,7 +71,14 @@
                         <td>
                             @if(is_null($result->student_score))
                             <i>not taken</i>
-                            @else {{ $result->student_score->score }} @endif
+                            @else {{ $result->student_score->score }} / {{$sum}}@endif
+                        </td>
+                        <td>
+                        @php
+                            try{$ave = $result->student_score->score / $sum;}catch(Exception $e){$ave = 0;}
+                                        
+                            echo (number_format($ave, 2) * 100) . "%";
+                        @endphp
                         </td>
                     </tr>
                     @endforeach

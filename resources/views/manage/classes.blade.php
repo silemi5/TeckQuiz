@@ -36,7 +36,26 @@
 
                 <div class="tab-content col" id="v-pills-tabContent">
                     <div class="tab-pane fade show active row" id="class-tab" role="tabpanel" aria-labelledby="class-tab">
-                        <h4>Statistics</h4>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="card text-white bg-primary">
+                                    <div class="card-body">
+                                        <p class="h1 text-center">{{ $quiz_events->count() }}</p>
+                                        <p class="text-center"> Quiz{{ $quiz_events->count() <= 1 ? '' : 'zes' }}</p>
+                                    </div>
+                                    <a class="card-footer text-white clearfix small z-1 text-center" href="">View quiz</a>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card text-white bg-success">
+                                    <div class="card-body">
+                                        <p class="h1 text-center">{{ $students->count() }}</p>
+                                        <p class="text-center"> Student{{ $quiz_events->count() < 1 ? '' : 's' }}</p>
+                                    </div>
+                                    <a class="card-footer text-white clearfix small z-1 text-center" href="">View student list</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="quiz-tab" role="tabpanel" aria-lavelledby="quiz-tab">
