@@ -134,10 +134,4 @@ class QuizController extends Controller
             return json_encode(["status" => 1, "message" => "$e"]);
         }
     }
-    
-    public function ManageSubjects(){
-        $subjects = Subject::with('classe')->get();
-        //return $subjects;
-        return view('manage.subjects', compact('subjects'));
-    }
 }
