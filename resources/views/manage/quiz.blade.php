@@ -32,7 +32,6 @@
             });
 
             function ChangeQuizStatus(quiz_event_id, quiz_status) {
-
                 $.ajax({
                     url: '/quiz/' + quiz_event_id, //Your api url
                     type: 'PUT', //type is any HTTP method

@@ -18,7 +18,7 @@ class CreateQuestions extends Migration
             $table->integer('questionnaire_id')->unsigned();
             $table->string('question_name');
             $table->integer('question_type');
-            $table->string('choices');
+            $table->string('choices')->nullable();
             $table->string('answer')->nullable();
             $table->integer('points')->default(1);
         });
