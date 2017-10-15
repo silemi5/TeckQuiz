@@ -112,7 +112,7 @@ class QuizController extends Controller
             return view('quiz-student-panel', compact('pending_quiz', 'upcoming_quiz', 'finished_quiz'));
         }
     }
-
+/* DISABLED
     public function UpdateStudentInfo(){
         $n = [
                 "g" => $_POST['g'],
@@ -137,4 +137,5 @@ class QuizController extends Controller
             return json_encode(["status" => 1, "message" => "$e"]);
         }
     }
+*/
 }

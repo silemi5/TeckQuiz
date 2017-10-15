@@ -129,7 +129,7 @@
                                         <p>This will allow you to add teachers to use this system.</p>
                                     </li>
                                     <li class="list-group-item">
-                                        <button class="btn btn-primary" data-toggle="modal" data-target="#changePassword" style="float: right">Change password</button>
+                                        <button class="btn btn-danger" data-toggle="modal" data-target="#changePassword" style="float: right">Change password</button>
                                         <strong>Change password</strong>
                                         <p>This will allow you to change your password.</p>
                                     </li>

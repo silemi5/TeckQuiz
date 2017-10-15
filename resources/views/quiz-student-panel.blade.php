@@ -63,14 +63,99 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum, dignissimos.</p>
+                        <h3>Advanced Settings</h3>
+                            <div class="card" style="width: 40rem;">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <button class="btn btn-danger" data-toggle="modal" data-target="#changePassword" style="float: right">Change password</button>
+                                        <strong>Change password</strong>
+                                        <p>This will allow you to change your password.</p>
+                                    </li>
+                                </ul>
+                            </div>
                     </div>
                 </div>
             </main>
         </div>
     </div>
 </main>
+<!-- Change password modal -->
+<div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="changePassword" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Current password</label>
+                    <input id="pwd" type="password" class="form-control">
+                    <div class="invalid-feedback">
+                        Input your correct password.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">New password</label>
+                    <input id="pwd_new" type="password" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="changePassword()">Change password</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Change password Success Modal -->
+<div class="modal fade" id="changePasswordSuccess" tabindex="-1" role="dialog" aria-labelledby="changePasswordSuccess"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Password changed successfully!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    function changePassword(){
+        var oldPass = $('#pwd').val();
+        var newPass = $('#pwd_new').val();
+        var update_type = 0;
 
+         $.ajax({
+            url: '/account/' + {{Auth::id()}},
+            type: 'PUT', //type is any HTTP method
+            data: {
+                update_type, oldPass, newPass
+            }, //Data as js object
+            success: function () {
+                $('#changePassword').modal('hide')
+                $('#changePasswordSuccess').modal('show')
+            },
+            error: function(data){
+                $('#pwd').addClass('is-invalid');
+            }
+        });
+    }
+</script>
 
 
 @endsection

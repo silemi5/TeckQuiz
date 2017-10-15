@@ -320,8 +320,6 @@
                     $('#resetStudentPasswordSuccess').modal('show')
                 }
             });
-        
-        alert(s_id);
     }
 
 </script>
