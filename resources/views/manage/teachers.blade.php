@@ -62,7 +62,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="/teachers">
+                    <form method="POST" action="/account">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="">Name</label>
@@ -86,6 +86,7 @@
                             <button type="submit" onclick="" class="btn btn-success btn-block">Register</button>
                             <small class="form-text text-muted text-center">By clicking "Register", the teacher agree to our terms of service and privacy policy.</small>
                         </div>
+                        <input type="hidden" name="permission" id="permission" value="1">
                     </form>
                 </div>
             </div>
@@ -184,12 +185,13 @@
 
     function ResetTeacherPassword() {
         var t_id = $('#t_id').val();
+        var password = "password";
         var update_type = 1;
         $.ajax({
-            url: '/teachers/' + t_id,
+            url: '/account/' + t_id,
             type: 'PUT', //type is any HTTP method
             data: {
-                update_type
+                update_type, password
             }, //Data as js object
             success: function () {
                 $('#resetTeacherPassword').modal('hide')
@@ -201,7 +203,7 @@
     function DeleteTeacher() {
             var t_id = $('#tid_del').val();
             $.ajax({
-                url: '/teachers/' + t_id,
+                url: '/account/' + t_id,
                 type: 'DELETE', //type is any HTTP method
                 success: function () {
                     window.location.reload(true);

@@ -40,6 +40,8 @@ Route::resource('question', 'QuestionController', ['only' => [
 Route::resource('subjects', 'SubjectController');
 Route::resource('teachers', 'TeacherController');
 
+Route::resource('account', 'AccountController');
+
 Route::resource('questionnaire', 'QuestionnaireController', ['only' => [
     'show',
 ]]);

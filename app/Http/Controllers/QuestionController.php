@@ -9,7 +9,7 @@ use App\Question;
 class QuestionController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created question in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -22,8 +22,6 @@ class QuestionController extends Controller
         $question->choices = $request->input('choices');
         $question->answer = $request->input('q_ans');
         $question->save();
-        return "DONE";
-        // return $request->input('questionnaire_id');
     }
 
     /**

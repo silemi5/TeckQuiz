@@ -108,7 +108,6 @@
                                         <h4 class="card-title">{{ $classe->subject->subject_code }}: {{ $classe->subject->subject_desc }}</h4>
                                         <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
                                         <a href="/class/{{ $classe->class_id }}" class="btn btn-outline-primary">View Class</a>
-                                        <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
                                     </div>
                                 </div>
                                 @endforeach
@@ -125,15 +124,10 @@
                             <div class="card" style="width: 40rem;">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
-                                        <a class="btn btn-primary" href="" style="float: right">Change password</a>
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#changePassword" style="float: right">Change password</a>
                                         <strong>Change password</strong>
                                         <p>This will allow you to change your password.</p>
                                     </li>
-                                    {{--  <li class="list-group-item">
-                                        <button class="btn btn-danger" style="float: right">Delete this class</button>
-                                        <strong>Delete this class</strong>
-                                        <p>Once you delete this class, there is no turning back.</p>
-                                    </li>  --}}
                                 </ul>
                             </div>
                     </div>
@@ -141,82 +135,164 @@
                 </div>
             </main>
             
-            <!-- New Quiz Modal -->
-            <div class="modal fade" id="NewQuizEventModal" tabindex="-1" role="dialog" aria-labelledby="NewQuizEventModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <form class="modal-content form" action="/new/quiz" method="POST">
-                        {{ csrf_field() }}
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="ModalTitle">New Quiz Event</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group"><label for="">Quiz Name</label><input name="quiz_name" type="text" class="form-control"></div>
-                            <div class="form-group">
-                                <label for="">Class</label>
-                                <select name="class_id" id="class_id" class="form-control">
-                                    @foreach ($classes as $classe)
-                                        <option value="{{ $classe->class_id }}">{{ $classe->subject->subject_desc }} ({{ $classe->course_sec }})</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group"><label for="">Questions</label><input name="questions" type="number" min="1" class="form-control"></div>
-                            <!-- TODO: Time limit -->
-                            <div class="form-group">
-                                <label for="">Questionnaire to use</label>
-                                <select name="questionnaire" id="questionnaire" class="form-control">
-                                    <option value="1">Create new questionnaire</option>
-                                    <option value="2">Use existing questionnaire</option>
-                                </select>
-                            </div>
-                            <input type="hidden" name="valid" value="1">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Next</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- New Class Modal -->
-            <div class="modal fade" id="NewClassModal" tabindex="-1" role="dialog" aria-labelledby="NewClassModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <form class="modal-content form" action="/class" method="POST">
-                        {{ csrf_field() }}
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="ModalTitle">New Class</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="">Class Name</label>
-                                <input name="course_sec" type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Subject</label>
-                                <select name="sub_id" id="" class="form-control">
-                                    @foreach($subjects as $s)
-                                        <option value="{{ $s->subject_id }}">{{$s->subject_code}}: {{$s->subject_desc}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            
         </div>
     </div>
 </main>
 
+<!-- New Quiz Modal -->
+<div class="modal fade" id="NewQuizEventModal" tabindex="-1" role="dialog" aria-labelledby="NewQuizEventModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form class="modal-content form" action="/new/quiz" method="POST">
+            {{ csrf_field() }}
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalTitle">New Quiz Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Quiz Name</label>
+                    <input name="quiz_name" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Class</label>
+                    <select name="class_id" id="class_id" class="form-control">
+                        @foreach ($classes as $classe)
+                        <option value="{{ $classe->class_id }}">{{ $classe->subject->subject_desc }} ({{ $classe->course_sec }})</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Questions</label>
+                    <input name="questions" type="number" min="1" class="form-control">
+                </div>
+                <!-- TODO: Time limit -->
+                <div class="form-group">
+                    <label for="">Questionnaire to use</label>
+                    <select name="questionnaire" id="questionnaire" class="form-control">
+                        <option value="1">Create new questionnaire</option>
+                        <option value="2">Use existing questionnaire</option>
+                    </select>
+                </div>
+                <input type="hidden" name="valid" value="1">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Next</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- New Class Modal -->
+<div class="modal fade" id="NewClassModal" tabindex="-1" role="dialog" aria-labelledby="NewClassModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form class="modal-content form" action="/class" method="POST">
+            {{ csrf_field() }}
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalTitle">New Class</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Class Name</label>
+                    <input name="course_sec" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Subject</label>
+                    <select name="sub_id" id="" class="form-control">
+                        @foreach($subjects as $s)
+                        <option value="{{ $s->subject_id }}">{{$s->subject_code}}: {{$s->subject_desc}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Change password modal -->
+<div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="changePassword" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Current password</label>
+                    <input id="pwd" type="password" class="form-control">
+                    <div class="invalid-feedback">
+                        Input your correct password.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">New password</label>
+                    <input id="pwd_new" type="password" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="changePassword()">Change password</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Change password Success Modal -->
+<div class="modal fade" id="changePasswordSuccess" tabindex="-1" role="dialog" aria-labelledby="changePasswordSuccess"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Password changed successfully!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    function changePassword(){
+        var oldPass = $('#pwd').val();
+        var newPass = $('#pwd_new').val();
+        var update_type = 0;
+
+         $.ajax({
+            url: '/account/' + {{Auth::id()}},
+            type: 'PUT', //type is any HTTP method
+            data: {
+                update_type, oldPass, newPass
+            }, //Data as js object
+            success: function () {
+                $('#changePassword').modal('hide')
+                $('#changePasswordSuccess').modal('show')
+            },
+            error: function(data){
+                $('#pwd').addClass('is-invalid');
+            }
+        });
+    }
+</script>
 
 @endsection

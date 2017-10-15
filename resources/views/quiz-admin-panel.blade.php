@@ -20,7 +20,7 @@
                             aria-expanded="true">Quiz Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ $classes->count() == 0 ? '' : '' }} " id="v-pills-profile-tab" data-toggle="pill" href="#classes" role="tab" aria-controls="v-pills-profile"
+                        <a class="nav-link {{ $classes->count() == 0 ? 'disabled' : '' }} " id="v-pills-profile-tab" data-toggle="pill" href="#classes" role="tab" aria-controls="v-pills-profile"
                             aria-expanded="true">Classes</a>
                     </li>
                     <li class="nav-item">
@@ -45,8 +45,8 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="tab-pane fade {{ $classes->count() == 0 ? '' : '' }}" id="quiz-events" role="tabpanel" aria-labelledby="quiz-events">
+
+                    <div class="tab-pane fade" id="quiz-events" role="tabpanel" aria-labelledby="quiz-events">
                         <h1 class="text-left">Quiz Events</h1>
                         <div class="col-10">
                             <h4>Current Quizzes</h4>
@@ -107,7 +107,6 @@
                                         <h4 class="card-title">{{ $classe->subject->subject_code }}: {{ $classe->subject->subject_desc }}</h4>
                                         <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
                                         <a href="/class/{{ $classe->class_id }}" class="btn btn-outline-primary">View Class</a>
-                                        <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ManageQuiz">Add new student</a>
                                     </div>
                                 </div>
                                 @endforeach
@@ -129,6 +128,11 @@
                                         <strong>Manage teachers</strong>
                                         <p>This will allow you to add teachers to use this system.</p>
                                     </li>
+                                    <li class="list-group-item">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#changePassword" style="float: right">Change password</button>
+                                        <strong>Change password</strong>
+                                        <p>This will allow you to change your password.</p>
+                                    </li>
                                 </ul>
                             </div>
                     </div>
@@ -138,6 +142,82 @@
         </div>
     </div>
 </main>
+<!-- Change password modal -->
+<div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="changePassword" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Current password</label>
+                    <input id="pwd" type="password" class="form-control">
+                    <div class="invalid-feedback">
+                        Input your correct password.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">New password</label>
+                    <input id="pwd_new" type="password" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="changePassword()">Change password</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Change password Success Modal -->
+<div class="modal fade" id="changePasswordSuccess" tabindex="-1" role="dialog" aria-labelledby="changePasswordSuccess"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Password changed successfully!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    function changePassword(){
+        var oldPass = $('#pwd').val();
+        var newPass = $('#pwd_new').val();
+        var update_type = 0;
 
+         $.ajax({
+            url: '/account/' + {{Auth::id()}},
+            type: 'PUT', //type is any HTTP method
+            data: {
+                update_type, oldPass, newPass
+            }, //Data as js object
+            success: function () {
+                $('#changePassword').modal('hide')
+                $('#changePasswordSuccess').modal('show')
+            },
+            error: function(data){
+                $('#pwd').addClass('is-invalid');
+            }
+        });
+    }
+</script>
 
 @endsection
