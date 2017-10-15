@@ -51,18 +51,19 @@ class QuizEventController extends Controller
         $c_mc = $request->input('c-mc'); //Correct choice
         $tf = $request->input('tf'); //Correct answer for true or false
 
+        $p = $request->input('points'); //Question point
+
         Questionnaire::create([
             'questionnaire_name' => $quiz_name,
         ]);
 
         $q_id = Questionnaire::count(); //Questionnaire id.
 
-        
-
         for($x = 0; $x < count($questions); $x++){
             $question = $questions[$x];
             $choices = ""; //For multiple choice use.
             $answer = null; //Obviously.
+            $points = $p[$x];
 
             if($types[$x] == 0){
                 //ERROR
@@ -75,13 +76,16 @@ class QuizEventController extends Controller
                 $answer = $tf[$x];
             }
 
+            if(trim($question) == "" || is_null($question))
+                continue;
+
             Question::create([
                 'questionnaire_id' => $q_id,
                 'question_name' => $question,
                 'question_type' => $types[$x],
                 'choices' => $choices,
                 'answer' => $answer,
-                'points' => 2
+                'points' => $points
             ]);
         }
 

@@ -43,8 +43,12 @@
                             <option value="3">True or False</option>
                         </select>
                     </div>
-                    <div class="form-group" id="removeOnAdd">
-                        <button type="button" class="btn btn-primary btn-sm" onclick="addQuestion()">Add</button>
+                    <div class="form-group form-inline">
+                        <label for="" class="pr-2">Points:</label><input type="number" class="form-control" min="1" value="1" name="points[]" style="max-width: 100px">
+                        
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary btn-block btn-sm ml-1" onclick="addQuestion()">Add Another Question</button>
                     </div>
                 </div>
                 
@@ -124,8 +128,12 @@
                             <option value="3">True or False</option>
                         </select>
                     </div>
-                    <div class="form-group" id="removeOnAdd">
-                        <button type="button" class="btn btn-primary btn-sm" onclick="addQuestion()">Add</button>
+                    <div class="form-group form-inline">
+                        <label for="" class="pr-2">Points:</label><input type="number" class="form-control" min="1" name="points[]" value="1" style="max-width: 100px">
+                        
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary btn-block btn-sm ml-1" onclick="addQuestion()">Add Another Question</button>
                     </div>
                 </div>
                 
