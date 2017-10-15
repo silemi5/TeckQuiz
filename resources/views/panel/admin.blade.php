@@ -35,7 +35,7 @@
                     <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard">
                         <h1 class="align-left">Dashboard</h1><hr>
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-lg-3 col-sm-12">
                                 <div class="card text-white bg-primary">
                                     <div class="card-body">
                                         <span>{{ $quiz_events->count() }} quiz{{ $quiz_events->count() <= 1 ? '' : 'zes' }} available!</span>
@@ -116,7 +116,7 @@
 
                     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings">
                         <h3>Advanced Settings</h3>
-                            <div class="card" style="width: 40rem;">
+                            <div class="card col-12" style="max-width: 40rem;">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <a class="btn btn-primary" href="/subjects" style="float: right">Manage subjects</a>

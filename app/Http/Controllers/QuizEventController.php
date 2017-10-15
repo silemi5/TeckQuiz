@@ -25,7 +25,7 @@ class QuizEventController extends Controller
      */
     public function create(){
         $classes = Classe::all();
-        return view('create.quiz-event-2', compact('classes'));
+        return view('create.quiz-event', compact('classes'));
     }
 
     /**

@@ -20,11 +20,6 @@ use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     public function Home(){
         return view('home');
     }
@@ -54,7 +49,7 @@ class QuizController extends Controller
                     ->get()
                     ->where('classe', '!=', '');
             
-            return view('quiz-admin-panel', compact('classes', 'quiz_events', 'finished_quiz_events', 'subjects'));
+            return view('panel.admin', compact('classes', 'quiz_events', 'finished_quiz_events', 'subjects'));
         }
         else if (Auth::user()->permissions == 1){//The user is a teacher
             $subjects = Subject::all();
@@ -82,7 +77,7 @@ class QuizController extends Controller
                     ->get()
                     ->where('classe', '!=', '');
             
-            return view('quiz-teacher-panel', compact('classes', 'quiz_events', 'finished_quiz_events', 'subjects'));
+            return view('panel.teacher', compact('classes', 'quiz_events', 'finished_quiz_events', 'subjects'));
         }
         else if (Auth::user()->permissions == 2){//The user is a student
             $upcoming_quiz = QuizEvent::with([
@@ -114,7 +109,7 @@ class QuizController extends Controller
                     ->where('quiz_event_status', 2)
                     ->get();
 
-            return view('quiz-student-panel', compact('pending_quiz', 'upcoming_quiz', 'finished_quiz'));
+            return view('panel.student', compact('pending_quiz', 'upcoming_quiz', 'finished_quiz'));
         }
     }
 /* DISABLED

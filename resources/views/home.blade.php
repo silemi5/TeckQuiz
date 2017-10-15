@@ -38,39 +38,45 @@
                                     <a href="">Click here</a> to join!
                                 </p>
                                 <hr>
-                                @if($errors->has('usr'))
-                                    <strong>{{ $errors->first('usr') }}</strong>
-                                @endif
-                                 @if($errors->has('password'))
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                @endif
                                 <form method="POST" action="{{ route('register') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <label for="">Name</label>
                                         <div class="form">
-                                            <input name="n_given" id="n_given" type="text" placeholder="Given name" class="form-control mb-2">
-                                            <input name="n_middle" id="n_middle" type="text" placeholder="M.I." class="form-control mb-2">
-                                            <input name="n_family" id="n_family" type="text" placeholder="Family name" class="form-control mb-2">
-                                            <input name="n_ext" id="n_ext" type="text" placeholder="Ext." class="form-control mb-2">
+                                            <input name="n_given" id="n_given" type="text" placeholder="Given name" class="form-control mb-2" value="{{ old('n_given') }}">
+                                            <input name="n_middle" id="n_middle" type="text" placeholder="M.I." class="form-control mb-2" value="{{ old('n_middle') }}">
+                                            <input name="n_family" id="n_family" type="text" placeholder="Family name" class="form-control mb-2" value="{{ old('n_family') }}">
+                                            <input name="n_ext" id="n_ext" type="text" placeholder="Ext." class="form-control mb-2" value="{{ old('n_ext') }}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Username</label>
-                                        <input name="usr" id="usr" type="text" class="form-control">
+                                        <input name="usr" id="usr" type="text" class="form-control {{ $errors->has('usr') ? 'is-invalid' : '' }}" value="{{ old('usr') }}">
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('usr') }}
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Password</label>
-                                        <input name="password" id="password" type="password" class="form-control">
+                                        <input name="password" id="password" type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}">
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('password') }}
+                                        </div>
                                         <small class="form-text text-muted">At least 8 characters</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Confirm Password</label>
-                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                        <input id="password-confirm" type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" name="password_confirmation" required>
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('password') }}
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Class Code</label>
-                                        <input name="class_code" id="class_code" type="text" class="form-control">
+                                        <input name="class_code" id="class_code" type="text" class="form-control {{ $errors->has('class_code') ? 'is-invalid' : '' }}" value="{{ old('class_code') }}">
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('class_code') }}
+                                        </div>
                                         <small class="form-text text-muted">Ask your teacher for the code</small>
                                     </div>
                                     <div class="form-group">

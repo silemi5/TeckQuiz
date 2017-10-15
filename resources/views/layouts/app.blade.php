@@ -14,8 +14,6 @@
     <!-- Styles -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/teckquiz.css') }}" rel="stylesheet">
-    <script src="{{ asset('assets/js/jquery-3.2.0.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
 </head>
 
 <body>
@@ -43,7 +41,6 @@
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Report a bug</a>
                     </li>
-
                 </ul>
                 <!-- Login here -->
                 @if(Auth::guest())
@@ -81,7 +78,8 @@
     </header>
     @yield('content')
     <!-- Scripts -->
-    
+        <script src="{{ asset('assets/js/jquery-3.2.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/teckquiz.js') }}"></script>

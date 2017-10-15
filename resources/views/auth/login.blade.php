@@ -17,15 +17,20 @@
         .login {
             max-width: 512px;
         }
-
+        img.logo{
+            margin: 0 auto;
+        }
         /* .container-fluid {
             padding-top: 7rem;
         } */
     </style>
+    <header class="mt-4">
+        <img src="assets/img/navbar-logo.png" width="100px" height="auto" alt="" style="display: block; margin: auto;">
+    </header>
     <div class="container-fluid">
         <div class="col-lg-4 col-md-6 col-sm-12 mx-auto">
-            <img src="assets/img/navbar-logo.png" max-height="100px" width="auto" alt="" class="img-fluid">
-            <h3 class="text-center">Login to TeckQuiz</h3>
+            
+            <h5 class="text-center">Login to TeckQuiz</h5>
         </div>
         
         @if($errors->has('usr'))
@@ -59,7 +64,7 @@
             <div class="card-body">
                 <p class="text-center text-muted">
                     Don't have an account?
-                    <a href="">Contact your teacher</a>
+                    <a href="/">Register here!</a>
                 </p>
             </div>
         </div>
