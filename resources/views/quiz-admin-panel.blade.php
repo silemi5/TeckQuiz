@@ -20,8 +20,8 @@
                             aria-expanded="true">Quiz Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ $classes->count() == 0 ? '' : '' }} " id="v-pills-profile-tab" data-toggle="pill" href="#my-classes" role="tab" aria-controls="v-pills-profile"
-                            aria-expanded="true">My Classes</a>
+                        <a class="nav-link {{ $classes->count() == 0 ? '' : '' }} " id="v-pills-profile-tab" data-toggle="pill" href="#classes" role="tab" aria-controls="v-pills-profile"
+                            aria-expanded="true">Classes</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#settings" role="tab" aria-controls="v-pills-settings"
@@ -45,6 +45,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="tab-pane fade {{ $classes->count() == 0 ? '' : '' }}" id="quiz-events" role="tabpanel" aria-labelledby="quiz-events">
                         <h1 class="text-left">Quiz Events</h1>
                         <div class="col-10">
@@ -93,13 +94,10 @@
                                 </table>
                             </div>
                         @endif
-                        {{--  <button class="btn btn-primary" data-toggle="modal" data-target="#NewQuizEventModal">New quiz event</button>  --}}
-                        <a class="btn btn-primary" href="/quiz/create">New quiz event</a>
                     </div>
 
-                    <div class="tab-pane fade {{ $classes->count() == 0 ? '' : '' }}" id="my-classes" role="tabpanel" aria-labelledby="my-classes"><!-- Manage Class -->
-                        <!-- Fetch instructor's subjects -->
-                        <h3>My Classes</h3>
+                    <div class="tab-pane fade" id="classes" role="tabpanel" aria-labelledby="classes"><!-- Manage Class -->
+                        <h3>Classes</h3>
                         <div class="col container row mb-2">
                             <!-- Quiz event entry -->
                             <div class="col quiz-event">
@@ -115,10 +113,6 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="col">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#NewClassModal">New class</button>
-                        </div>
-
                     </div>
 
                     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings">
@@ -140,81 +134,7 @@
                     </div>
 
                 </div>
-            </main>
-            
-            <!-- New Quiz Modal -->
-            <div class="modal fade" id="NewQuizEventModal" tabindex="-1" role="dialog" aria-labelledby="NewQuizEventModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <form class="modal-content form" action="/new/quiz" method="POST">
-                        {{ csrf_field() }}
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="ModalTitle">New Quiz Event</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group"><label for="">Quiz Name</label><input name="quiz_name" type="text" class="form-control"></div>
-                            <div class="form-group">
-                                <label for="">Class</label>
-                                <select name="class_id" id="class_id" class="form-control">
-                                    @foreach ($classes as $classe)
-                                        <option value="{{ $classe->class_id }}">{{ $classe->subject->subject_desc }} ({{ $classe->course_sec }})</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group"><label for="">Questions</label><input name="questions" type="number" min="1" class="form-control"></div>
-                            <!-- TODO: Time limit -->
-                            <div class="form-group">
-                                <label for="">Questionnaire to use</label>
-                                <select name="questionnaire" id="questionnaire" class="form-control">
-                                    <option value="1">Create new questionnaire</option>
-                                    <option value="2">Use existing questionnaire</option>
-                                </select>
-                            </div>
-                            <input type="hidden" name="valid" value="1">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Next</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- New Class Modal -->
-            <div class="modal fade" id="NewClassModal" tabindex="-1" role="dialog" aria-labelledby="NewClassModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <form class="modal-content form" action="/class" method="POST">
-                        {{ csrf_field() }}
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="ModalTitle">New Class</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="">Class Name</label>
-                                <input name="course_sec" type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Subject</label>
-                                <select name="sub_id" id="" class="form-control">
-                                    @foreach($subjects as $s)
-                                        <option value="{{ $s->subject_id }}">{{$s->subject_code}}: {{$s->subject_desc}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            
+            </main>      
         </div>
     </div>
 </main>

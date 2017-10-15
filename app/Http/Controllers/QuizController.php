@@ -21,16 +21,7 @@ use Illuminate\Support\Facades\DB;
 class QuizController extends Controller
 {
     public function Home(){
-        if (Subject::count() == 0 ){
-            // return redirect('setup');
-            return view('home');
-        }else{
-            return view('home');
-        }
-    }
-
-    public function InitialSetup(){
-        return view('initial-setup');
+        return view('home');
     }
 
     public function RedirectToAppropriatePanel(){    
@@ -40,7 +31,6 @@ class QuizController extends Controller
         if (Auth::user()->permissions == 0){//The user is the administrator
             $subjects = Subject::all();
             $classes = Classe::with('subject')
-                            ->where('instructor_id', $id)
                             ->where('class_active', true)
                             ->get();
                             

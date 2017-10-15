@@ -102,7 +102,7 @@ class QuizEventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(Auth::user()->permissions == 1){
+        if(Auth::user()->permissions < 2){
             $usr_id = Auth::user()->usr_id;
         
             $quiz_details = QuizEvent::with([

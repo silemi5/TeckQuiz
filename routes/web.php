@@ -22,7 +22,6 @@ Route::get('/panel', 'QuizController@RedirectToAppropriatePanel')->middleware('a
 
 //Route::get('manage/subjects', 'QuizController@ManageSubjects')->middleware('auth');//Manage subject
 Route::get('/manage/questionnaire/{qid}', 'QuizController@ManageQuestionnaire')->middleware('auth');
-Route::get('/setup', 'QuizController@InitialSetup');
 
 // Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');//sends student's answers
 Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('auth');//Update student profile

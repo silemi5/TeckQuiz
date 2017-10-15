@@ -1,4 +1,6 @@
-@extends('layouts.app') @section('title', 'Teachers - TeckQuiz') @section('content')
+@extends('layouts.app')
+@section('title', 'Teachers - TeckQuiz')
+@section('content')
 <style>
     body {
         padding-top: 70px;
@@ -37,9 +39,6 @@
                                 data-tid="{{ $t->usr_id }}">
                                 Reset Password
                             </button>
-                            {{--
-                            <button class="btn btn-danger btn-sm" data-tid="{{ $t->ysr_id }}" data-toggle="modal"
-                                data-target="#deleteTeacher" {{ $t->classe->count() > 0 ? 'disabled' : '' }}>Delete</button> --}}
                         </td>
                     </tr>
                     @endforeach
@@ -167,19 +166,6 @@
         }
     });
 
-    $('#editSubject').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var s_id = button.data('subid')
-        var s_code = button.data('code')
-        var s_des = button.data('dscr')
-
-
-        var modal = $(this)
-        modal.find('#sub_code').val(s_code)
-        modal.find('#sub_des').val(s_des)
-        modal.find('#sub_id').val(s_id);
-    });
-
     $('#deleteTeacher').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var t_id = button.data('tid')
@@ -195,25 +181,6 @@
         var modal = $(this)
         modal.find('#t_id').val(t_id)
     });
-
-    function UpdateSubject() {
-        var s_id = $('#sub_id').val();
-        var s_code = $('#sub_code').val();
-        var s_des = $('#sub_des').val();
-
-
-        $.ajax({
-            url: '/subject/' + s_id,
-            type: 'PUT', //type is any HTTP method
-            data: {
-                s_code,
-                s_des
-            }, //Data as js object
-            success: function () {
-                window.location.reload(true);
-            }
-        });
-    }
 
     function ResetTeacherPassword() {
         var t_id = $('#t_id').val();
