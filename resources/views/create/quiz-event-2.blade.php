@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-8">
                     <label for="">Question</label>
-                    <textarea class="form-control"name="question[0]" id="" cols="30" rows="5" placeholder="Input question here..."></textarea>
+                    <textarea class="form-control"name="question[0]" id="question[0]" cols="30" rows="5" placeholder="Input question here..."></textarea>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
@@ -44,7 +44,7 @@
                         </select>
                     </div>
                     <div class="form-group" id="removeOnAdd">
-                        <button type="button" class="btn btn-primary btn-sm" onclick="addQuestion(0)">Add</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="addQuestion()">Add</button>
                     </div>
                 </div>
                 
@@ -106,6 +106,7 @@
     </form>
 </div>
 <script>
+    var newId = 1;
     var template = jQuery.validator.format(`
         <div class="row">
                 <div class="col-8">
@@ -124,7 +125,7 @@
                         </select>
                     </div>
                     <div class="form-group" id="removeOnAdd">
-                        <button type="button" class="btn btn-primary btn-sm" onclick="addQuestion(1)">Add</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="addQuestion()">Add</button>
                     </div>
                 </div>
                 
@@ -180,10 +181,9 @@
         </div>
         <hr>
     `);
-    function addQuestion(id){
-        var newId = id + 1;
-        // $('#removeOnAdd').remove();
+    function addQuestion(){
         $('#question').append(template(newId));
+        newId++;
     }
 </script>
 
