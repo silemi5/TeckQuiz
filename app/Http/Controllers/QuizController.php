@@ -20,6 +20,11 @@ use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function Home(){
         return view('home');
     }

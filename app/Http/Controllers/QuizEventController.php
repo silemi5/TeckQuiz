@@ -13,16 +13,11 @@ use Auth;
 
 class QuizEventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('auth');
     }
-
+    
     /**
      * Show the form for creating a new quiz event.
      *
@@ -140,16 +135,6 @@ class QuizEventController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id){
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -161,15 +146,5 @@ class QuizEventController extends Controller
         $quiz->quiz_event_status = $request->input('quiz_status');
         $quiz->save();
         //return "ID: $id" . "\n" . $request->input('quiz_status');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id){
-        //
     }
 }

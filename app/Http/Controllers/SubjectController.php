@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,15 +22,6 @@ class SubjectController extends Controller
         $subjects = Subject::with('classe')->get();
         //return $subjects;
         return view('manage.subjects', compact('subjects'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(){
-        //
     }
 
     /**
@@ -39,16 +35,6 @@ class SubjectController extends Controller
         $subject->subject_code = $request->input('s_code');
         $subject->subject_desc = $request->input('s_des');
         $subject->save();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id){
-        //
     }
 
     /**

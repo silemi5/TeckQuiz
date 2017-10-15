@@ -8,6 +8,11 @@ use App\Question;
 
 class QuestionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Store a newly created question in storage.
      *

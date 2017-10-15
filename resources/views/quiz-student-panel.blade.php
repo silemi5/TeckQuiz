@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Quiz - TeckQuiz')
-
 @section('content')
 <style>
     main{
@@ -21,7 +20,7 @@
                             aria-expanded="true">Upcoming Quiz</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" id="v-pills-settings-tab" data-toggle="pill" href="#settings" role="tab" aria-controls="v-pills-settings"
+                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#settings" role="tab" aria-controls="v-pills-settings"
                             aria-expanded="true">Settings</a>
                     </li>
                 </ul>
@@ -149,6 +148,7 @@
             success: function () {
                 $('#changePassword').modal('hide')
                 $('#changePasswordSuccess').modal('show')
+                $('#pwd').removeClass('is-invalid');
             },
             error: function(data){
                 $('#pwd').addClass('is-invalid');
@@ -156,6 +156,4 @@
         });
     }
 </script>
-
-
 @endsection

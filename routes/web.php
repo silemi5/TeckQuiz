@@ -10,50 +10,56 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'QuizController@Home');
-Route::get('/old', function (){
-    return view('home-old');
-});
-
 Auth::routes();
 
-Route::get('/panel', 'QuizController@RedirectToAppropriatePanel')->middleware('auth');//Redirect to appropriate panel
+Route::get('/', 'QuizController@Home');
 
-//Route::get('manage/subjects', 'QuizController@ManageSubjects')->middleware('auth');//Manage subject
-Route::get('/manage/questionnaire/{qid}', 'QuizController@ManageQuestionnaire')->middleware('auth');
+Route::get('/old', function (){return view('home-old');});
 
-// Route::post('/quiz/submit', 'QuizController@SubmitAnswers')->middleware('auth');//sends student's answers
-Route::post('/student/update', 'QuizController@UpdateStudentInfo')->middleware('auth');//Update student profile
+Route::get('/panel', 'QuizController@RedirectToAppropriatePanel');//Redirect to appropriate panel
 
-Route::resource('quiz', 'QuizEventController'); //Related to Quiz Events
-Route::resource('take', 'TakeQuizController'); //Related to taking of quiz
+Route::post('/student/update', 'QuizController@UpdateStudentInfo');//Update student profile, deprecated
 
-Route::resource('class', 'ClassController',  ['only' => [//Related to class
+Route::resource('quiz', 'QuizEventController', ['only' => [//Quiz Events
+    'create', 'store', 'show', 'update'
+]]); 
+
+Route::resource('take', 'TakeQuizController', ['only' => [//Related to taking of quiz
+    'store', 'show'
+]]); 
+
+Route::resource('class', 'ClassController',  ['only' => [//Class
     'store', 'show', 'destroy'
 ]]);
 
-Route::resource('question', 'QuestionController', ['only' => [
+Route::resource('question', 'QuestionController', ['only' => [//Question
     'store', 'update',  'destroy',
-]]); //Related to taking of quiz
+]]); 
 
-Route::resource('subjects', 'SubjectController');
-Route::resource('teachers', 'TeacherController');
-
-Route::resource('account', 'AccountController');
-
-Route::resource('questionnaire', 'QuestionnaireController', ['only' => [
-    'show',
+Route::resource('subjects', 'SubjectController', ['only' => [//Subject
+    'index', 'store', 'update', 'destroy'
 ]]);
 
-Route::get('/changelog', function (){
-    return view('changelog');
-});
+Route::resource('teachers', 'TeacherController', ['only' => [//Teacher list
+    'show'
+]]);
 
-Route::post('/test', function (){
-    return $_POST;
-});
+Route::resource('account', 'AccountController', ['only' => [//Account management
+    'store', 'update', 'destroy'
+]]);
 
-Route::get('/{any}', function(){
-    abort(404);
-});
+Route::resource('questionnaire', 'QuestionnaireController', ['only' => [//Questionnaire
+    'show', 
+]]);
+
+// Route::get('/changelog', function (){
+//     return view('changelog');
+// });
+
+// Route::post('/test', function (){
+//     return $_POST;
+// });
+
+// Route::get('/{any}', function(){
+//     abort(404);
+// });

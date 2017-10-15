@@ -3,11 +3,15 @@ An Online Quiz Management System built on Laravel.
 
 ## Features
 - Manage quiz with ease. No more checking of papers. No more writing too. Just click, click, type, type, enter. You only worry if the electricity is stable. (*heh heh*)
-- Many class sections with the same subject? Reuse those questionnaires for others.
+
 - Randomized order of question makes cheating (*teamwork*, they say) a bit hassle.
 - Get results after conclusion of quiz. Save time from checking manually the answers. (But you could do that, if you want.)
 - Works on anything by utilizing the power of the Web!
     - Mobile site is still buggy. (But why would you allow them to use their phone in a quiz?)
+
+## Limitations
+- You can not yet reuse an questionnaire used in an another class.
+- Either find a hosting server or host it locally.
 
 ## Prerequisites
 - PHP 7.0
@@ -18,7 +22,8 @@ OR
 - [Laravel Homestead](https://laravel.com/docs/5.4/homestead)
 
 ## Installation
-1. Go to the folder where you will serve the web app, preferrably `htdocs` or `www` folder of your development enviroment.
+1. Go to the folder where you will serve the web app, preferrably `htdocs` or `www` folder 
+of your development enviroment.
 
 2. Clone the repository.
     ```bash
@@ -66,4 +71,10 @@ OR
     ```
     192.168.10.10  homestead.app
     ```
-- Go to the [web app](http://techquiz.app)!
+- Go to the [web app](http://techquiz.app) and logon to the Administrator account using `Administrator` as username and `password` as password.
+
+## Upcoming features
+- Many class sections with the same subject? Reuse those questionnaires for others.
+- Improve UI because it looks plain.
+- Image support!
+- Graphs of progress!
