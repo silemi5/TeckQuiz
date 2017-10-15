@@ -20,7 +20,7 @@
                             aria-expanded="true">Quiz Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ $classes->count() == 0 ? '' : '' }} " id="v-pills-profile-tab" data-toggle="pill" href="#my-classes" role="tab" aria-controls="v-pills-profile"
+                        <a class="nav-link {{ $subjects->count() == 0 ? 'disabled' : '' }} " id="v-pills-profile-tab" data-toggle="pill" href="#my-classes" role="tab" aria-controls="v-pills-profile"
                             aria-expanded="true">My Classes</a>
                     </li>
                     <li class="nav-item">
@@ -86,7 +86,6 @@
                                                 <td><a href="/quiz/{{ $qe->quiz_event_id }}">{{ $qe->quiz_event_name }}</a></td>
                                                 <td>{{ $qe->classe->subject->subject_desc }}</td>
                                                 <td>{{ $qe->classe->course_sec}}</td>
-                                                
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -126,9 +125,9 @@
                             <div class="card" style="width: 40rem;">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
-                                        <a class="btn btn-primary" href="/subjects" style="float: right">Manage subjects</a>
-                                        <strong>Manage subjects</strong>
-                                        <p>This will allow you to edit subjects to serve as basis for the classes.</p>
+                                        <a class="btn btn-primary" href="" style="float: right">Change password</a>
+                                        <strong>Change password</strong>
+                                        <p>This will allow you to change your password.</p>
                                     </li>
                                     {{--  <li class="list-group-item">
                                         <button class="btn btn-danger" style="float: right">Delete this class</button>

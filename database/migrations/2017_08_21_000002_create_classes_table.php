@@ -22,7 +22,7 @@ class CreateClassesTable extends Migration
             $table->primary('class_id');
         });
         Schema::table('classes', function(Blueprint $table){
-            $table->foreign('instructor_id')->references('usr_id')->on('users');
+            $table->foreign('instructor_id')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('subject_id')->references('subject_id')->on('subjects');
         });
     }

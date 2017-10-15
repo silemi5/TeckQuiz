@@ -39,9 +39,24 @@ class TeacherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $out = User::create([
+            'usr' => $request->input('usr'),
+            'permissions' => 1,
+            'password' => bcrypt($request->input('password')),
+        ]);
+
+        $usr = User::select('usr_id')->where('usr', $request->input('usr'))->first();
+        
+        UserProfile::create([
+            'usr_id' => $usr->usr_id,
+            'given_name' => $request->input('n_given'),
+            'family_name' => $request->input('n_family'),
+            'middle_name' => $request->input('n_middle'),
+            'ext_name' => $request->input('n_ext'),
+        ]);
+
+        return redirect('/teachers');
     }
 
     /**
@@ -73,9 +88,12 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+        if ($request->input('update_type') == 1){
+            $user = User::find($id);
+            $user->password = bcrypt("password");
+            $user->save();
+        }
     }
 
     /**
@@ -84,8 +102,7 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id){
+        User::destroy($id);
     }
 }
