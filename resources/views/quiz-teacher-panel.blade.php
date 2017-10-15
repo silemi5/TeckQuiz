@@ -124,7 +124,7 @@
                             <div class="card" style="width: 40rem;">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
-                                        <button class="btn btn-primary" data-toggle="modal" data-target="#changePassword" style="float: right">Change password</a>
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#changePassword" style="float: right">Change password</button>
                                         <strong>Change password</strong>
                                         <p>This will allow you to change your password.</p>
                                     </li>
