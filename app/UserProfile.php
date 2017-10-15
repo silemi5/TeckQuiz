@@ -17,4 +17,8 @@ class UserProfile extends Model
         'middle_name',
         'ext_name'
     ];
+
+    public function user(){
+        return $this->belongsTo('App\User', 'usr_id', 'usr_id');
+    }
 }

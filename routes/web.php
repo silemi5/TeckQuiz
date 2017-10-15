@@ -39,6 +39,7 @@ Route::resource('question', 'QuestionController', ['only' => [
 ]]); //Related to taking of quiz
 
 Route::resource('subjects', 'SubjectController');
+Route::resource('teachers', 'TeacherController');
 
 Route::resource('questionnaire', 'QuestionnaireController', ['only' => [
     'show',

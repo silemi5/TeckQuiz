@@ -131,7 +131,7 @@
                                         <p>This will allow you to edit subjects to serve as basis for the classes.</p>
                                     </li>
                                     <li class="list-group-item">
-                                        <button class="btn btn-primary" href="/teachers" style="float: right">Manage teachers</button>
+                                        <a class="btn btn-primary" href="/teachers" style="float: right">Manage teachers</a>
                                         <strong>Manage teachers</strong>
                                         <p>This will allow you to add teachers to use this system.</p>
                                     </li>
