@@ -15,16 +15,16 @@
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/teckquiz.css') }}" rel="stylesheet">
 </head>
-    <style>
-        .sidebar{
-            position: fixed;
-            top: 0px;
-        }
-    </style>
+<style>
+    .sidebar{
+        position: fixed;
+        top: 0px;
+    }
+</style>
 
 <body>
     <div id="app">
-        <?php $questionNum = 1 ?>
+        @php $questionNum = 1; @endphp
         <div class="container-fluid">
             <div class="row">
                 <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
@@ -43,7 +43,7 @@
                             </li>
                         @endforeach
                     </ul>
-                    <?php $questionNum = 1 ?>
+                    @php $questionNum = 1; @endphp
                 </nav>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     {{ csrf_field() }}

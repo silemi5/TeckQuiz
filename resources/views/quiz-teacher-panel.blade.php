@@ -38,9 +38,9 @@
                             <div class="col-3">
                                 <div class="card text-white bg-primary">
                                     <div class="card-body">
-                                        <span>{{ $quiz_events->count() }} quiz{{ $quiz_events->count() <= 1 ? '' : 'zes' }} available!</span>
+                                        <span>{{ $quiz_events->count() }} quiz{{ $quiz_events->count() <= 1 ? '' : 'zes' }} on queue!</span>
                                     </div>
-                                    <a class="card-footer text-white clearfix small z-1" href="">See quiz</a>
+                                    <a class="card-footer text-white clearfix small z-1" href="javascript:goToQuizPanel()">See quiz</a>
                                 </div>
                             </div>
                         </div>
@@ -98,20 +98,22 @@
 
                     <div class="tab-pane fade {{ $classes->count() == 0 ? '' : '' }}" id="my-classes" role="tabpanel" aria-labelledby="my-classes"><!-- Manage Class -->
                         <!-- Fetch instructor's subjects -->
-                        <h3>My Classes</h3>
-                        <div class="col container row mb-2">
+                        <h1>My Classes</h1>
+                        <div class="row">
                             <!-- Quiz event entry -->
-                            <div class="col quiz-event">
-                                @foreach ($classes as $classe)
-                                <div class="card mb-2">
-                                    <div class="card-body">
-                                        <h4 class="card-title">{{ $classe->subject->subject_code }}: {{ $classe->subject->subject_desc }}</h4>
-                                        <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
-                                        <a href="/class/{{ $classe->class_id }}" class="btn btn-outline-primary">View Class</a>
+                            @foreach ($classes as $classe)
+                                <div class="col-xl-3 col-sm-6 mb-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{ $classe->subject->subject_code }}: {{ $classe->subject->subject_desc }}</h4>
+                                            <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
+                                            <h3 class="text-center">{{ $classe->class_id }}</h3>
+                                        </div>
+                                        <a href="/class/{{ $classe->class_id }}" class="card-footer text-center">View Class</a>
                                     </div>
                                 </div>
-                                @endforeach
-                            </div>
+                            @endforeach
+                            
                         </div>
                         <div class="col">
                             <button class="btn btn-primary" data-toggle="modal" data-target="#NewClassModal">New class</button>
@@ -293,6 +295,10 @@
             }
         });
     }
+    function goToQuizPanel(){
+        $('.nav-item a[href="#quiz-events"]').tab('show');
+    }
+    
 </script>
 
 @endsection
