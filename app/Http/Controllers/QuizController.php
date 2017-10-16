@@ -84,15 +84,26 @@ class QuizController extends Controller
                     ->where('quiz_event_status', 0)
                     ->get();
             
-            $pending_quiz = QuizEvent::with([
-                'classe',
-                'classe.subject',
-                'classe.student_class' => function ($q) use($id){
-                    $q->where('student_id', $id);
-                },
-                'classe.student_class.student_score'])
+            /*$pending_quiz = QuizEvent::with([
+                    'classe',
+                    'classe.subject',
+                    'classe.student_class' => function ($q) use($id){
+                        $q->where('student_id', $id);
+                    },
+                    'classe.student_class.student_score'])
                 ->where('quiz_event_status', 1)
-                ->whereNotNull('student_class')
+                ->get();*/
+            
+
+            $pending_quiz = DB::table('quiz_events')//Gets pending quiz (quiz_event_status = 1)
+                ->select('quiz_event_name', 'subject_desc', 'quiz_events.quiz_event_id')
+                ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
+                ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
+                ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
+                ->leftJoin('quiz_student_score', 'student_classes.student_id', '=', 'quiz_student_score.student_id')
+                ->where('student_classes.student_id', $id)
+                ->where('quiz_event_status', 1)
+                ->whereNull('score')
                 ->get();
 
             $finished_quiz = QuizEvent::with([
@@ -105,7 +116,7 @@ class QuizController extends Controller
                     ->where('quiz_event_status', 2)
                     ->get();
 
-            return $pending_quiz;
+            // return $pending_quiz;
             return view('panel.student', compact('pending_quiz', 'upcoming_quiz', 'finished_quiz'));
         }
     }
