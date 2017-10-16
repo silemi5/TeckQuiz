@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-12 text-left mr-auto">
                         <img src="/assets/img/logo.png" alt="" class="img-fluid">
-                        <p class="home-lead text-center" style="margin-top: -100px; font-size: 2rem">
+                        <p class="lead text-center" style="margin-top: -8rem; font-size: 2rem">
                             An Online Quiz System built for the Web.
                         </p>
                     </div>

@@ -48,95 +48,96 @@
             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addSubject">Add new subject</button>
         </div>
     </div>
-
-    <!-- Edit Subject Modal -->
-    <div class="modal fade" id="editSubject" tabindex="-1" role="dialog" aria-labelledby="EditSubjectModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Subject</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class="form">
-                        <input type="hidden" id="usrid" value="-1">
-                        <div class="form-group">
-                            <div class="form-group">
-                                <label for="">Subject Code</label>
-                                <input id="sub_code" type="text" class="form-control" placeholder=""></div>
-                            <div class="form-group">
-                                <label for="">Subject Description</label>
-                                <input id="sub_des" type="text" class="form-control" placeholder="">
-                            </div>
-                            <input type="hidden" id="sub_id">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="UpdateSubject()">Update Class</button>
-                </div>
+</div>
+<!-- Edit Subject Modal -->
+<div class="modal fade" id="editSubject" tabindex="-1" role="dialog" aria-labelledby="EditSubjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Subject</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
-    </div>
-
-    <!-- Add Subject Modal -->
-    <div class="modal fade" id="addSubject" tabindex="-1" role="dialog" aria-labelledby="AddSubjectModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Subject</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class="form">
-                        <input type="hidden" id="usrid" value="-1">
+            <div class="modal-body">
+                <form class="form">
+                    <input type="hidden" id="usrid" value="-1">
+                    <div class="form-group">
                         <div class="form-group">
-                            <div class="form-group">
-                                <label for="">Subject Code</label>
-                                <input id="s_code_new" type="text" class="form-control" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Subject Description</label>
-                                <input id="s_desc_new" type="text" class="form-control" placeholder="">
-                            </div>
+                            <label for="">Subject Code</label>
+                            <input id="sub_code" type="text" class="form-control" placeholder="">
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="AddSubject()">Add Subject</button>
-                </div>
+                        <div class="form-group">
+                            <label for="">Subject Description</label>
+                            <input id="sub_des" type="text" class="form-control" placeholder="">
+                        </div>
+                        <input type="hidden" id="sub_id">
+                    </div>
+                </form>
             </div>
-        </div>
-    </div>
-
-    <!-- Delete Subject Confirmation Modal -->
-    <div class="modal fade" id="deleteSubject" tabindex="-1" role="dialog" aria-labelledby="DeleteSubjectModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirm deletion of question</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this class? This is irreversible!
-                    <input type="hidden" id="sub_id_del" value="">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" onclick="DeleteSubject()">Delete Question</button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateSubject()">Update Subject</button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Add Subject Modal -->
+<div class="modal fade" id="addSubject" tabindex="-1" role="dialog" aria-labelledby="AddSubjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Subject</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form">
+                    <input type="hidden" id="usrid" value="-1">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="">Subject Code</label>
+                            <input id="s_code_new" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Subject Description</label>
+                            <input id="s_desc_new" type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="AddSubject()">Add Subject</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Subject Confirmation Modal -->
+<div class="modal fade" id="deleteSubject" tabindex="-1" role="dialog" aria-labelledby="DeleteSubjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Warning!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this subject? This is irreversible!
+                <input type="hidden" id="sub_id_del" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="DeleteSubject()">Delete Subject</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $.ajaxSetup({
         headers: {
@@ -172,7 +173,7 @@
 
 
         $.ajax({
-            url: '/subject/' + s_id,
+            url: '/subjects/' + s_id,
             type: 'PUT', //type is any HTTP method
             data: {
                 s_code, s_des

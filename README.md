@@ -11,14 +11,16 @@ An Online Quiz Management System built on Laravel.
 
 ## Limitations
 - You can not yet reuse an questionnaire used in an another class.
+- Hardheaded users may create many accounts that makes the teacher work a hassle.
 - Either find a hosting server or host it locally.
+- To be correct in identification, the answer must be **the same** as the answer stored in questions.
 
 ## Prerequisites
+### Clustered way
 - PHP 7.0
 - Composer
 
-OR
-
+### Laravel way
 - [Laravel Homestead](https://laravel.com/docs/5.4/homestead)
 
 ## Installation
@@ -78,3 +80,4 @@ of your development enviroment.
 - Improve UI because it looks plain.
 - Image support!
 - Graphs of progress!
+- Disable joining of classes option. No more smurf accounts.

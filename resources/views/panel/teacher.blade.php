@@ -35,12 +35,40 @@
                     <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard">
                         <h1 class="align-left">Dashboard</h1><hr>
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-lg-3 col-sm-12 pb-3">
                                 <div class="card text-white bg-primary">
                                     <div class="card-body">
-                                        <span>{{ $quiz_events->count() }} quiz{{ $quiz_events->count() <= 1 ? '' : 'zes' }} on queue!</span>
+                                        <h1 class="align-left display-4">{{ $quiz_events->count() }}</h1>
+                                        <p class="lead align-left">Quizzes on queue</p>
                                     </div>
-                                    <a class="card-footer text-white clearfix small z-1" href="javascript:goToQuizPanel()">See quiz</a>
+                                    <a class="card-footer text-white clearfix small z-1 align-left" href="">View quizzes</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-12 pb-3">
+                                <div class="card text-white bg-secondary">
+                                    <div class="card-body">
+                                        <h1 class="align-left display-4">{{ $finished_quiz_events->count() }}</h1>
+                                        <p class="lead align-left">Quizzes finished</p>
+                                    </div>
+                                    <a class="card-footer text-white clearfix small z-1 align-left" href="">View quizzes</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-12 pb-3">
+                                <div class="card text-white bg-info">
+                                    <div class="card-body">
+                                        <h1 class="align-left display-4" >{{ $classes->count() }}</h1>
+                                        <p class="lead align-left">Classes</p>
+                                    </div>
+                                    <a class="card-footer text-white clearfix small z-1 align-left" href="">View subjects</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-12 pb-3">
+                                <div class="card text-white bg-success">
+                                    <div class="card-body">
+                                        <h1 class="align-left display-4" >{{ $subjects->count() }}</h1>
+                                        <p class="lead align-left">Subjects</p>
+                                    </div>
+                                    <a class="card-footer text-white clearfix small z-1 align-left" href="">View subjects</a>
                                 </div>
                             </div>
                         </div>

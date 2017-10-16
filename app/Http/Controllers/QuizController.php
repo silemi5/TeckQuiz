@@ -15,6 +15,7 @@ use App\StudentScore;
 use App\Subject;
 use App\UserProfile;
 use App\StudentAnswer;
+use App\User;
 
 use Illuminate\Support\Facades\DB;
 
@@ -48,8 +49,9 @@ class QuizController extends Controller
                     ->where('quiz_event_status', 2)
                     ->get()
                     ->where('classe', '!=', '');
-            
-            return view('panel.admin', compact('classes', 'quiz_events', 'finished_quiz_events', 'subjects'));
+            $teachers = User::where('permissions', 1)->count();
+            $students = User::where('permissions', 2)->count();
+            return view('panel.admin', compact('classes', 'quiz_events', 'finished_quiz_events', 'subjects', 'teachers', 'students'));
         }
         else if (Auth::user()->permissions == 1){//The user is a teacher
             $subjects = Subject::all();

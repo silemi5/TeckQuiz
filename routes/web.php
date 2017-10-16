@@ -41,7 +41,7 @@ Route::resource('subjects', 'SubjectController', ['only' => [//Subject
 ]]);
 
 Route::resource('teachers', 'TeacherController', ['only' => [//Teacher list
-    'show'
+    'index'
 ]]);
 
 Route::resource('account', 'AccountController', ['only' => [//Account management
