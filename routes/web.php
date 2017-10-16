@@ -52,6 +52,8 @@ Route::resource('questionnaire', 'QuestionnaireController', ['only' => [//Questi
     'show', 
 ]]);
 
+Route::post('join', 'QuizController@JoinClass');
+
 // Route::get('/changelog', function (){
 //     return view('changelog');
 // });

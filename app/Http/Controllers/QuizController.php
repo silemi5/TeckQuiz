@@ -7,15 +7,10 @@ use Illuminate\Http\Request;
 use Auth;
 
 use App\Classe;
-use App\Question;
-use App\Questionnaire;
 use App\QuizEvent;
-use App\StudentClass;
-use App\StudentScore;
 use App\Subject;
-use App\UserProfile;
-use App\StudentAnswer;
 use App\User;
+use App\StudentClass;
 
 use Illuminate\Support\Facades\DB;
 
@@ -26,8 +21,6 @@ class QuizController extends Controller
     }
 
     public function RedirectToAppropriatePanel(){    
-        //TODO: Disable adding of class if no subject
-        //TODO: initial setup
         $id = Auth::user()->usr_id;//gets the id of the user
         if (Auth::user()->permissions == 0){//The user is the administrator
             $subjects = Subject::all();
@@ -99,6 +92,7 @@ class QuizController extends Controller
                 },
                 'classe.student_class.student_score'])
                 ->where('quiz_event_status', 1)
+                ->whereNotNull('student_class')
                 ->get();
 
             $finished_quiz = QuizEvent::with([
@@ -111,9 +105,29 @@ class QuizController extends Controller
                     ->where('quiz_event_status', 2)
                     ->get();
 
+            return $pending_quiz;
             return view('panel.student', compact('pending_quiz', 'upcoming_quiz', 'finished_quiz'));
         }
     }
+    
+    public function JoinClass(Request $request){
+        $request->validate([
+            'class_code' => 'exists:classes,class_id|string',
+        ]);
+
+        $is_joined = StudentClass::where('class_id', $request->input('class_code'))
+                        ->where('student_id', Auth::user()->usr_id)
+                        ->count();
+        if($is_joined){
+            return response('Already joined!', 422);
+        }else{
+            StudentClass::create([
+                'student_id' => Auth::user()->usr_id,
+                'class_id' => $request->input('class_code'),
+            ]);
+        }
+    }
+
 /* DISABLED
     public function UpdateStudentInfo(){
         $n = [

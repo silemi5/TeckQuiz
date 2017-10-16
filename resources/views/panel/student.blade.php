@@ -70,6 +70,11 @@
                                         <strong>Change password</strong>
                                         <p>This will allow you to change your password.</p>
                                     </li>
+                                    <li class="list-group-item">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#joinClass" style="float: right">Join another class</button>
+                                        <strong>Join another class</strong>
+                                        <p>This will allow you to join an existing class in order to take that class' quizzes.</p>
+                                    </li>
                                 </ul>
                             </div>
                     </div>
@@ -104,6 +109,32 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" onclick="changePassword()">Change password</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Change password modal -->
+<div class="modal fade" id="joinClass" tabindex="-1" role="dialog" aria-labelledby="joinClass" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Join class</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Class Code</label>
+                    <input id="class_code" type="text" class="form-control">
+                    <div class="invalid-feedback">
+                        Either this is an invalid class code or you have already joined.
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="joinClass()">Join Class</button>
             </div>
         </div>
     </div>
@@ -152,6 +183,23 @@
             },
             error: function(data){
                 $('#pwd').addClass('is-invalid');
+            }
+        });
+    }
+    function joinClass(){
+        var class_code = $('#class_code').val();
+         $.ajax({
+            url: '/join',
+            type: 'POST', //type is any HTTP method
+            data: {
+                class_code
+            }, //Data as js object
+            success: function () {
+                $('#class_code').removeClass('is-invalid');
+                window.location.reload(true);
+            },
+            error: function(){
+                $('#class_code').addClass('is-invalid');
             }
         });
     }
