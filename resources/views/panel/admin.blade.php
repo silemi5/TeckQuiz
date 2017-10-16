@@ -41,7 +41,6 @@
                                         <h1 class="align-left display-4">{{ $classes->count() }}</h1>
                                         <p class="lead align-left">Classes</p>
                                     </div>
-                                    <a class="card-footer text-white clearfix small z-1 align-left" href="">View classes</a>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-12 pb-3">
@@ -50,7 +49,7 @@
                                         <h1 class="align-left display-4" >{{ $subjects->count() }}</h1>
                                         <p class="lead align-left">Subjects</p>
                                     </div>
-                                    <a class="card-footer text-white clearfix small z-1 align-left" href="">View subjects</a>
+                                    <a class="card-footer text-white clearfix small z-1 align-left" href="/subjects">View subjects</a>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-12 pb-3">
@@ -59,7 +58,7 @@
                                         <h1 class="align-left display-4">{{ $teachers }}</h1>
                                         <p class="lead align-left">Teachers</p>
                                     </div>
-                                    <a class="card-footer text-white clearfix small z-1 align-left" href="">View teachers</a>
+                                    <a class="card-footer text-white clearfix small z-1 align-left" href="/teachers">View teachers</a>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-12 pb-3">
@@ -125,19 +124,19 @@
 
                     <div class="tab-pane fade" id="classes" role="tabpanel" aria-labelledby="classes"><!-- Manage Class -->
                         <h3>Classes</h3>
-                        <div class="col container row mb-2">
-                            <!-- Quiz event entry -->
-                            <div class="col quiz-event">
-                                @foreach ($classes as $classe)
-                                <div class="card mb-2">
-                                    <div class="card-body">
-                                        <h4 class="card-title">{{ $classe->subject->subject_code }}: {{ $classe->subject->subject_desc }}</h4>
-                                        <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
-                                        <a href="/class/{{ $classe->class_id }}" class="btn btn-outline-primary">View Class</a>
+                        <div class="row">
+                            <!-- Class entry -->
+                            @foreach ($classes as $classe)
+                                <div class="col-xl-3 col-sm-6 mb-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{ $classe->subject->subject_code }}: {{ $classe->subject->subject_desc }}</h4>
+                                            <h6 class="card-subtitle mb-2 text-muted">{{ $classe->course_sec }}</h6>
+                                            <h3 class="text-center">{{ $classe->class_id }}</h3>
+                                        </div>
                                     </div>
                                 </div>
-                                @endforeach
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 
@@ -148,12 +147,12 @@
                                     <li class="list-group-item">
                                         <a class="btn btn-primary" href="/subjects" style="float: right">Manage subjects</a>
                                         <strong>Manage subjects</strong>
-                                        <p>This will allow you to edit subjects to serve as basis for the classes.</p>
+                                        <p>This will allow you to manage subjects to serve as basis for the classes.</p>
                                     </li>
                                     <li class="list-group-item">
                                         <a class="btn btn-primary" href="/teachers" style="float: right">Manage teachers</a>
                                         <strong>Manage teachers</strong>
-                                        <p>This will allow you to add teachers to use this system.</p>
+                                        <p>This will allow you to manage teachers to use this system.</p>
                                     </li>
                                     <li class="list-group-item">
                                         <button class="btn btn-danger" data-toggle="modal" data-target="#changePassword" style="float: right">Change password</button>
@@ -199,6 +198,7 @@
         </div>
     </div>
 </div>
+
 <!-- Change password Success Modal -->
 <div class="modal fade" id="changePasswordSuccess" tabindex="-1" role="dialog" aria-labelledby="changePasswordSuccess"
     aria-hidden="true">
@@ -219,6 +219,7 @@
         </div>
     </div>
 </div>
+
 <script>
     $.ajaxSetup({
         headers: {

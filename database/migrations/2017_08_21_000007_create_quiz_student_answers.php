@@ -21,7 +21,7 @@ class CreateQuizStudentAnswers extends Migration
         });
         Schema::table('quiz_student_answers', function(Blueprint $table){
             $table->foreign('student_id')->references('usr_id')->on('users');
-            $table->foreign('quiz_event_id')->references('quiz_event_id')->on('quiz_events');
+            $table->foreign('quiz_event_id')->references('quiz_event_id')->on('quiz_events')->onDelete('cascade');
             $table->foreign('question_id')->references('question_id')->on('questions');
         });
     }

@@ -13,9 +13,6 @@ class StudentClassSeeder extends Seeder
     {
         DB::table('student_classes')->insert([[
                 'class_id' => "4KMMR",
-                'student_id' => 2
-            ],[
-                'class_id' => "4KMMR",
                 'student_id' => 3
             ],[
                 'class_id' => "4KMMR",
@@ -23,9 +20,6 @@ class StudentClassSeeder extends Seeder
             ],[
                 'class_id' => "4KMMR",
                 'student_id' => 5
-            ],[
-                'class_id' => "3KMMR",
-                'student_id' => 2
             ],[
                 'class_id' => "3KMMR",
                 'student_id' => 3

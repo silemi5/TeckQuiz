@@ -128,7 +128,7 @@
                         <!-- Fetch instructor's subjects -->
                         <h1>My Classes</h1>
                         <div class="row">
-                            <!-- Quiz event entry -->
+                            <!-- Class entry -->
                             @foreach ($classes as $classe)
                                 <div class="col-xl-3 col-sm-6 mb-3">
                                     <div class="card">
@@ -247,6 +247,7 @@
         </form>
     </div>
 </div>
+
 <!-- Change password modal -->
 <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="changePassword" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -277,6 +278,7 @@
         </div>
     </div>
 </div>
+
 <!-- Change password Success Modal -->
 <div class="modal fade" id="changePasswordSuccess" tabindex="-1" role="dialog" aria-labelledby="changePasswordSuccess"
     aria-hidden="true">
