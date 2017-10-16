@@ -58,17 +58,17 @@
                             {{ Auth::user()->usr }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <h6 class="dropdown-header">Signed in as: <b>{{ Auth::user()->usr }}</b></h6>
-                                <a class="dropdown-item" href="/profile">Profile</a>
-                                <a class="dropdown-item" href="/panel">User Panel</a>
-                                <a class="dropdown-item" href="#">Preference</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
+                            <h6 class="dropdown-header">Signed in as: <b>{{ Auth::user()->usr }}</b></h6>
+                            <a class="dropdown-item" href="/profile">Profile</a>
+                            <a class="dropdown-item" href="/panel">User Panel</a>
+                            <a class="dropdown-item" href="#">Preference</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
                             </div>
                         </li>
                     </ul>
