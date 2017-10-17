@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+use App\User;
+use Hash;
+
 class CreateUsersTable extends Migration
 {
     /**
@@ -22,15 +25,10 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('users')->insert([
-            [
-                'usr_id' => 0,
-                'usr' => 'Administrator',
-                'password' => '$2y$10$Lk/DDdqtE5Pc5mtuO7dumuwQSWb2I8JqCKsfVAFIpC5w0NokYX3Tm',
-                'permissions' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ]
+        User::create([
+            'usr' => 'Administrator',
+            'permissions' => 0,
+            'password' => Hash::make("password"),
         ]);
     }
 
