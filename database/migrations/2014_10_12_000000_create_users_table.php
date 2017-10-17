@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
 
         DB::table('users')->insert([
             [
-                'usr_id' => 1,
+                'usr_id' => 0,
                 'usr' => 'Administrator',
                 'password' => '$2y$10$Lk/DDdqtE5Pc5mtuO7dumuwQSWb2I8JqCKsfVAFIpC5w0NokYX3Tm',
                 'permissions' => 0,
