@@ -14,10 +14,10 @@ class StudentClassSeeder extends Seeder
     public function run()
     {
         StudentClass::create([
-            'student_id' => 2,
+            'student_id' => 3,
             'class_id' => "4KMMR"
         ]);
-        
+
     //     DB::table('student_classes')->insert([[
     //             'class_id' => "4KMMR",
     //             'student_id' => 3

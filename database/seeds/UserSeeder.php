@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         ]);
         User::create([
             'usr' => 'student',
-            'permissions' => 0,
+            'permissions' => 2,
             'password' => Hash::make("password"),
         ]);
     }
