@@ -1,5 +1,6 @@
 # TeckQuiz
-An Online Quiz Management System built on Laravel.
+An Online Quiz Management System built on Laravel.  
+[Demo](http://damp-tundra-88811.herokuapp.com)
 
 ## Features
 - Manage quiz with ease. No more checking of papers. No more writing too. Just click, click, type, type, enter. You only worry if the electricity is stable. (*heh heh*)
