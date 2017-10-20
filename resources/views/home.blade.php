@@ -87,15 +87,6 @@
                             </div>
                         </div>
                     </div>
-                    @else
-                        <div class="col-lg-5 col-md-12 col-sm-12">
-                        <div class="card">
-                            <!-- <div class="card-header">Register</div> -->
-                            <div class="card-body">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima, modi!
-                            </div>
-                        </div>
-                    </div>
                     @endif
                 </div>
             </div>
@@ -111,7 +102,6 @@
                 <div class="col-lg-8 col-md-12">
                     <ul class="list-unstyled">
                         <li><a href="">Home</a></li>
-                        <li><a href="">Changelog</a></li>
                         <li><a href="">Report a bug</a></li>
                         <li><a href="">About us</a></li>
                     </ul>

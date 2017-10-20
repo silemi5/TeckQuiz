@@ -38,9 +38,6 @@
                         <a class="nav-link" href="/aboutus">About us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/changelog">Changelog</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link disabled" href="#">Report a bug</a>
                     </li>
                 </ul>
@@ -59,9 +56,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <h6 class="dropdown-header">Signed in as: <b>{{ Auth::user()->usr }}</b></h6>
-                                <a class="dropdown-item" href="/profile">Profile</a>
                                 <a class="dropdown-item" href="/panel">User Panel</a>
-                                <a class="dropdown-item" href="#">Preference</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Logout

@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Question;
+
 class QuestionSeeder extends Seeder
 {
     /**
@@ -11,55 +13,49 @@ class QuestionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('questions')->insert([[
-            'question_id' => 1,
+        Question::create([
+            'questionnaire_id' => 1,
+            'question_name' => 'What does HTML stand for?',
+            'question_type' => 2,
+            'choices' => 'Hypertext Marking Language;Hypertext Tool Management Language;Hypertext Markup Language;Hidden Text-Making Language',
+            'answer' => 3,
+            'points' => 1
+        ]);
+
+        Question::create([
+            'questionnaire_id' => 1,
+            'question_name' => 'What is the correct HTML element for the largest heading?',
+            'question_type' => 1,
+            'choices' => null,
+            'answer' => '<h1>',
+            'points' => 2
+        ]);
+
+        Question::create([
+            'questionnaire_id' => 1,
+            'question_name' => '<br> breaks a line.',
+            'question_type' => 3,
+            'choices' => null,
+            'answer' => 1,
+            'points' => 2
+        ]);
+
+        Question::create([
+            'questionnaire_id' => 1,
+            'question_name' => 'Bootstrap is developed by Acme Inc.',
+            'question_type' => 3,
+            'choices' => null,
+            'answer' => 0,
+            'points' => 2
+        ]);
+
+        Question::create([
             'questionnaire_id' => 1,
             'question_name' => 'What is 1 + 1?',
             'question_type' => 2,
-            'choices' => '2;11;Both the indicated numbers;Not listed',
+            'choices' => '2;11;2 and 11;None specified',
             'answer' => 3,
-            'points' => 1
-        ],[
-            'question_id' => 2,
-            'questionnaire_id' => 1,
-            'question_name' => 'Do you love her?',
-            'question_type' => 3,
-            'choices' => '',
-            'answer' => 0,
-            'points' => 1
-        ],[
-            'question_id' => 3,
-            'questionnaire_id' => 1,
-            'question_name' => 'What is love?',
-            'question_type' => 1,
-            'choices' => '',
-            'answer' => 'Love is what?',
-            'points' => 1
-        ],[
-            'question_id' => 4,
-            'questionnaire_id' => 2,
-            'question_name' => 'What is SDLC?',
-            'question_type' => 2,
-            'choices' => 'System Danger Life Cycle;Subject Defined Life Cycle;System Defined Life Cycle;System Development Lifecycle',
-            'answer' => 4,
-            'points' => 1
-        ],[
-            'question_id' => 5,
-            'questionnaire_id' => 2,
-            'question_name' => 'IT is to Computers as CE is to ?',
-            'question_type' => 2,
-            'choices' => 'Ruler;Layout;Square;Building',
-            'answer' => 4,
-            'points' => 1
-        ],[
-            'question_id' => 6,
-            'questionnaire_id' => 2,
-            'question_name' => 'Is it true?',
-            'question_type' => 3,
-            'choices' => '',
-            'answer' => 1,
-            'points' => 10
-        ]
+            'points' => 2
         ]);
     }
 }

@@ -30,14 +30,14 @@
             <div class="row">
                 <div class="col-8">
                     <label for="">Question</label>
-                    <textarea class="form-control"name="question[0]" id="question[0]" cols="30" rows="5" placeholder="Input question here..."></textarea>
+                    <textarea class="form-control"name="question[0]" id="question[0]" cols="30" rows="5" placeholder="Input question here..." required></textarea>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
                         <label for="">Question Type</label>
 
-                        <select name="qt[0]" id="qt-0" class="form-control qt" >
-                            <option value="0">---Select a question type---</option>
+                        <select name="qt[0]" id="qt-0" class="form-control qt" required>
+                            <option value="">---Select a question type---</option>
                             <option value="1">Identification</option>
                             <option value="2">Multiple Choice</option>
                             <option value="3">True or False</option>
@@ -115,14 +115,14 @@
         <div class="row">
                 <div class="col-8">
                     <label for="">Question</label>
-                    <textarea class="form-control"name="question[{0}]" id="" cols="30" rows="5" placeholder="Input question here..."></textarea>
+                    <textarea class="form-control"name="question[{0}]" id="" cols="30" rows="5" placeholder="Input question here..." required></textarea>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
                         <label for="">Question Type</label>
 
-                        <select name="qt[{0}]" id="qt-{0}" class="form-control qt" >
-                            <option value="0">---Select a question type---</option>
+                        <select name="qt[{0}]" id="qt-{0}" class="form-control qt" required>
+                            <option value="">---Select a question type---</option>
                             <option value="1">Identification</option>
                             <option value="2">Multiple Choice</option>
                             <option value="3">True or False</option>

@@ -77,8 +77,8 @@
         <div class="col-md-3">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
                 <a class="nav-link active" id="questions-tab" data-toggle="pill" href="#questions" role="tab" aria-controls="v-pills-profile" aria-expanded="true">Questions</a>
-                <a class="nav-link" id="basic-info-tab" data-toggle="pill" href="#basic-info" role="tab" aria-controls="v-pills-home"
-                    aria-expanded="true">Basic Information</a>
+                {{--  <a class="nav-link" id="basic-info-tab" data-toggle="pill" href="#basic-info" role="tab" aria-controls="v-pills-home"
+                    aria-expanded="true">Basic Information</a>  --}}
             </div>
         </div>
 

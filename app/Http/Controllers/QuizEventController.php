@@ -105,9 +105,7 @@ class QuizEventController extends Controller
             $usr_id = Auth::user()->usr_id;
         
             $quiz_details = QuizEvent::with([
-                        'classe' => function($q) use($usr_id){
-                            $q->where('instructor_id', $usr_id);
-                        },
+                        'classe',
                         'classe.subject',
                         'questionnaire'])
                         ->where('quiz_event_id', $id)

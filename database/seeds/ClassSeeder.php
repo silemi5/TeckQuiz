@@ -12,16 +12,10 @@ class ClassSeeder extends Seeder
     public function run()
     {
         DB::table('classes')->insert([[
-            'class_id' => "4KMMR",
-            'course_sec' => "IT3A",
-            'instructor_id' => 2,
-            'subject_id' => 1,
-            'class_active' => true
-        ],[
             'class_id' => "3KMMR",
             'course_sec' => "IT3A",
             'instructor_id' => 2,
-            'subject_id' => 2,
+            'subject_id' => 1,
             'class_active' => true
         ]]);
     }

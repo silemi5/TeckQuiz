@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 use App\User;
-use Hash;
 
 class CreateUsersTable extends Migration
 {

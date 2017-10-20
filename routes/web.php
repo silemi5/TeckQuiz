@@ -10,15 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+Auth::routes();//Authentication routes, predefined by Laravel
 
-Route::get('/', 'QuizController@Home');
+Route::get('/', 'QuizController@Home');//Returns the home page
 
-Route::get('/old', function (){return view('home-old');});
+Route::get('/aboutus', function(){//Returns the about us page
+    return view('about');
+});
 
 Route::get('/panel', 'QuizController@RedirectToAppropriatePanel');//Redirect to appropriate panel
-
-Route::post('/student/update', 'QuizController@UpdateStudentInfo');//Update student profile, deprecated
 
 Route::resource('quiz', 'QuizEventController', ['only' => [//Quiz Events
     'create', 'store', 'show', 'update'
@@ -54,14 +54,6 @@ Route::resource('questionnaire', 'QuestionnaireController', ['only' => [//Questi
 
 Route::post('join', 'QuizController@JoinClass');
 
-// Route::get('/changelog', function (){
-//     return view('changelog');
-// });
-
-// Route::post('/test', function (){
+// Route::post('/test', function (){//Debugging purposes only
 //     return $_POST;
-// });
-
-// Route::get('/{any}', function(){
-//     abort(404);
 // });

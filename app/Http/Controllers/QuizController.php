@@ -84,17 +84,6 @@ class QuizController extends Controller
                     ->where('quiz_event_status', 0)
                     ->get();
             
-            /*$pending_quiz = QuizEvent::with([
-                    'classe',
-                    'classe.subject',
-                    'classe.student_class' => function ($q) use($id){
-                        $q->where('student_id', $id);
-                    },
-                    'classe.student_class.student_score'])
-                ->where('quiz_event_status', 1)
-                ->get();*/
-            
-
             $pending_quiz = DB::table('quiz_events')//Gets pending quiz (quiz_event_status = 1)
                 ->select('quiz_event_name', 'subject_desc', 'quiz_events.quiz_event_id')
                 ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
@@ -106,7 +95,7 @@ class QuizController extends Controller
                 ->whereNull('score')
                 ->get();
 
-            $finished_quiz = QuizEvent::with([
+            $finished_quiz = QuizEvent::with([//Gets quiz that have been concluded.
                     'classe',
                     'classe.subject',
                     'classe.student_class' => function ($q) use($id){
@@ -116,7 +105,6 @@ class QuizController extends Controller
                     ->where('quiz_event_status', 2)
                     ->get();
 
-            // return $pending_quiz;
             return view('panel.student', compact('pending_quiz', 'upcoming_quiz', 'finished_quiz'));
         }
     }
@@ -138,31 +126,4 @@ class QuizController extends Controller
             ]);
         }
     }
-
-/* DISABLED
-    public function UpdateStudentInfo(){
-        $n = [
-                "g" => $_POST['g'],
-                "f" => $_POST['f'],
-                "mi" => $_POST['mi'],
-                "ne" => $_POST['ne'],
-                "sid" => $_POST['sid'],
-        ];
-
-        try{
-            DB::table('user_profiles')
-            ->where('usr_id', $n['sid'])
-            ->update([
-                'given_name' => $n['g'],
-                'family_name' => $n['f'],
-                'middle_name' => $n['mi'],
-                'ext_name' => $n['ne']
-            ]);
-
-            return json_encode(["status" => 0]);
-        }catch(Exception $e){
-            return json_encode(["status" => 1, "message" => "$e"]);
-        }
-    }
-*/
 }

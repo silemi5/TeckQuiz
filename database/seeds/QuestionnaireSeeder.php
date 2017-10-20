@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Questionnaire;
+
 class QuestionnaireSeeder extends Seeder
 {
     /**
@@ -11,12 +13,8 @@ class QuestionnaireSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('questionnaires')->insert([[
-            'questionnaire_id' => 1,
-            'questionnaire_name' => 'Relationships'
-        ],[
-            'questionnaire_id' => 2,
-            'questionnaire_name' => 'System Development Lifecycle'
-        ]]);
+        Questionnaire::create([
+            'questionnaire_name' => 'HTML Basics'
+        ]);
     }
 }
