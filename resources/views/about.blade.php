@@ -30,8 +30,11 @@
             </div>
             <div class="col-8 pt-4">
                 <h3 class="display-3">Source code</h3>
-                <p>The source code for this web application is available
-                    <a href="https://github.com/silemi5/TeckQuiz">here</a>.</p>
+                <p>
+                    The source code for this web application is available
+                    <a href="https://github.com/silemi5/TeckQuiz">here</a>.
+                </p>
+                <p>This project is licensed under the MIT License.</p>
             </div>
             
         </div>
