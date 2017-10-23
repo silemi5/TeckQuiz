@@ -35,9 +35,7 @@
                 $.ajax({
                     url: '/quiz/' + quiz_event_id, //Your api url
                     type: 'PUT', //type is any HTTP method
-                    data: {
-                        quiz_status,
-                    }, //Data as js object
+                    data: {quiz_status}, //Data as js object
                     success: function () {
                         window.location.reload(true);
                     }
