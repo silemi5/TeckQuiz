@@ -18,13 +18,14 @@ An Online Quiz Management System built on Laravel.
 
 ## Prerequisites
 ### Clustered way
-- PHP 7.0
-- Composer
+- Any AMP server (WAMP, XAMPP) with PHP version updated to **7.1** at least.
+- [Composer](https://getcomposer.org/)
 
-### Laravel way
+### Laravel Homestead way
 - [Laravel Homestead](https://laravel.com/docs/5.4/homestead)
 
 ## Installation
+Assuming that you have already updated PHP7.1 and installed Composer already.
 1. Go to the folder where you will serve the web app, preferrably `htdocs` or `www` folder 
 of your development enviroment.
 
@@ -53,7 +54,10 @@ of your development enviroment.
     ```bash
     php artisan migrate --seed
     ```
-
+7. Generate the application key
+    ```bash
+    php artisan key:generate
+    ``` 
 #### If you are not using Laravel Homestead:
 - Serve the project to start the app on http://localhost:8000
     ```bash
