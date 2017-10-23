@@ -103,7 +103,7 @@
                     <ul class="list-unstyled">
                         <li><a href="">Home</a></li>
                         <li><a href="">Report a bug</a></li>
-                        <li><a href="">About us</a></li>
+                        <li><a href="/aboutus">About us</a></li>
                     </ul>
                 </div>
             </div>
