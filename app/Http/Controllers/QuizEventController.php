@@ -111,7 +111,11 @@ class QuizEventController extends Controller
                         ->where('quiz_event_id', $id)
                         ->first();
 
-            $results = QuizEvent::with('classe.student_class.student_score', 'classe.student_class.user_profile')
+            $results = QuizEvent::with([
+                    'classe.student_class.student_score' => function ($q) use($id){
+                        $q->where('quiz_event_id', $id);
+                    },
+                    'classe.student_class.user_profile'])
                     ->where('quiz_event_id', $id)
                     ->first();
 

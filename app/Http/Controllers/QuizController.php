@@ -89,11 +89,11 @@ class QuizController extends Controller
                 ->join('classes', 'quiz_events.class_id', '=', 'classes.class_id')
                 ->join('subjects', 'subjects.subject_id', '=', 'classes.subject_id')
                 ->join('student_classes', 'student_classes.class_id', '=', 'quiz_events.class_id')
-                ->leftJoin('quiz_student_score', 'student_classes.student_id', '=', 'quiz_student_score.student_id')
                 ->where('student_classes.student_id', $id)
                 ->where('quiz_event_status', 1)
-                ->whereNull('score')
                 ->get();
+
+            //return $pending_quiz;
 
             $finished_quiz = QuizEvent::with([//Gets quiz that have been concluded.
                     'classe',
