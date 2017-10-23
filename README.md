@@ -25,7 +25,6 @@ An Online Quiz Management System built on Laravel.
 - [Laravel Homestead](https://laravel.com/docs/5.4/homestead)
 
 ## Installation
-Assuming that you have already updated PHP7.1 and installed Composer already.
 1. Go to the folder where you will serve the web app, preferrably `htdocs` or `www` folder 
 of your development enviroment.
 
@@ -50,7 +49,7 @@ of your development enviroment.
     ```bash
     php artisan migrate
     ```
-    Or if you want to use seeded data for testing:
+    Or if you want to use seeded data in addition of creating tables for testing:
     ```bash
     php artisan migrate --seed
     ```
@@ -78,11 +77,33 @@ of your development enviroment.
     ```
     192.168.10.10  teckquiz.app
     ```
-- Go to the [web app](http://teckquiz.app) and logon to the Administrator account using `Administrator` as username and `password` as password.
+- Go to the [web app](http://teckquiz.app) and logon to the Administrator account using `Administrator` as username and `password` as password!
 
-## Upcoming features
-- Many class sections with the same subject? Reuse those questionnaires for others.
-- Improve UI because it looks plain.
-- Image support!
-- Graphs of progress!
-- Disable joining of classes option. No more smurf accounts.
+## Starting from scratch
+Assuming you have not seeded the database.
+1. Before anything, make sure you have created a subject AND a teacher in the administrator account. (This can be found on the *Settings* panel)
+
+2. Login to the teacher's account.
+
+3. Create a new class on the *My Classes* panel.
+
+4. You have successfully created a class! You may now create a new quiz event on the `Quiz Events` panel. Do note that you have to enable the quiz after creation.
+
+5. In order for a student to join your newly created class, give them the `Class Code`, a five alphanumeric characters,  which you can see on the `My Classes` panel.
+
+6. The student can now register if they didn't have an account yet or join the class via `Join class` on the `Settings` panel.
+
+## Testing the web app with seeded database
+1. Login to the teacher's account using `Teacher` as username and `password` as password.
+
+2. Go to the `Quiz Events` panel then click on a quiz entry. This will direct you to the `Manage Quiz` page.
+
+3. Enable the quiz by clicking `Enable Quiz`.
+
+4. Logout then login as a student using `Student` as username and `password` as password.
+
+5. Click `Start` on the quiz you have earlier enabled.
+
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/silemi5/TeckQuiz/blob/stable/LICENSE) file for details.

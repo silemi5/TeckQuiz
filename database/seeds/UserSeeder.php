@@ -15,12 +15,12 @@ class UserSeeder extends Seeder
     {
         //Initialize Users
         User::create([
-            'usr' => 'silemi5',
+            'usr' => 'Teacher',
             'permissions' => 1,
             'password' => Hash::make("password"),
         ]);
         User::create([
-            'usr' => 'student',
+            'usr' => 'Student',
             'permissions' => 2,
             'password' => Hash::make("password"),
         ]);
