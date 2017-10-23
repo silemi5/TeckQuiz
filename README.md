@@ -76,9 +76,9 @@ of your development enviroment.
 - Add **teckquiz.app** to your **hosts** file. Make sure the IP in the **Homestead.yaml** matches here!  
   Assuming that the IP in the **Homestead.yaml** is `192.168.10.10`:
     ```
-    192.168.10.10  homestead.app
+    192.168.10.10  teckquiz.app
     ```
-- Go to the [web app](http://techquiz.app) and logon to the Administrator account using `Administrator` as username and `password` as password.
+- Go to the [web app](http://teckquiz.app) and logon to the Administrator account using `Administrator` as username and `password` as password.
 
 ## Upcoming features
 - Many class sections with the same subject? Reuse those questionnaires for others.
