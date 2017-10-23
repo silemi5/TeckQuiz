@@ -88,7 +88,7 @@
                                             @foreach($choices as $choice)
                                                 <div class="form-check">
                                                     <label for="mc_c{{ $choicenum }}" class="form-check-label">
-                                                        <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" id="mc_c{{ $choicenum }}" value="{{ ++$choicenum }}">
+                                                        <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" id="mc_c{{ $choicenum }}" value="{{ $choicenum + 1 }}">
                                                         {{ $choice }}
                                                     </label>
                                                 </div>

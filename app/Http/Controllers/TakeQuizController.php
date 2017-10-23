@@ -39,20 +39,19 @@ class TakeQuizController extends Controller
             abort(403, 'You already took the quiz.');
         }
 
-        /*for($x = 1; $x <= count($question_ids); $x++){
+        for($x = 1; $x <= count($question_ids); $x++){
             StudentAnswer::create([
                 'student_id' => $student_id,
                 'quiz_event_id' => $quiz_event_id,
                 'question_id' => $question_ids[$x],
                 'student_answer' => $answers[$x]
             ]);
-        }*/
+        }
 
         $answers = StudentAnswer::with('question')
                     ->where('student_id', $student_id)
                     ->get();
 
-                    return $answers;
         $score = 0;
         foreach($answers as $answer){
             if($answer->student_answer == $answer->question->answer)
