@@ -1,5 +1,6 @@
 # TeckQuiz
 An Online Quiz Management System built on Laravel.  
+[Repository](https://github.com/silemi5/TeckQuiz)  
 [Demo](http://damp-tundra-88811.herokuapp.com)
 
 ## Features
