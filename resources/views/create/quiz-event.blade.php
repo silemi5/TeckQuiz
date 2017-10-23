@@ -153,10 +153,10 @@
                             <div class="col-8">
                                 <label for="">Correct choice</label>
                                 <select name="c-mc[{0}]" id="c-mc[{0}]" class="form-control">
-                                    <option value="0">Choice 1</option>
-                                    <option value="1">Choice 2</option>
-                                    <option value="2">Choice 3</option>
-                                    <option value="3">Choice 4</option>
+                                    <option value="1">Choice 1</option>
+                                    <option value="2">Choice 2</option>
+                                    <option value="3">Choice 3</option>
+                                    <option value="4">Choice 4</option>
                                 </select>
                             </div>
                         </div>

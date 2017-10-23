@@ -39,6 +39,7 @@ class TakeQuizController extends Controller
             abort(403, 'You already took the quiz.');
         }
 
+       // $test = [];
         for($x = 1; $x <= count($question_ids); $x++){
             StudentAnswer::create([
                 'student_id' => $student_id,
@@ -46,7 +47,15 @@ class TakeQuizController extends Controller
                 'question_id' => $question_ids[$x],
                 'student_answer' => $answers[$x]
             ]);
+            /*array_push($test, [
+                'student_id' => $student_id,
+                'quiz_event_id' => $quiz_event_id,
+                'question_id' => $question_ids[$x],
+                'student_answer' => $answers[$x]
+            ]);*/
         }
+
+        //return $test;
 
         $answers = StudentAnswer::with('question')
                     ->where('student_id', $student_id)

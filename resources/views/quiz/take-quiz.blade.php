@@ -80,7 +80,7 @@
                                     <p style="font-size: 1.5rem">{{ $qc->question_name }}</p>
                                     @php
                                         $choices = explode(";", $qc->choices);
-                                        $choicenum = 0;
+                                        $choicenum = 1;
                                     @endphp
                                     <div class="form-group">
                                         <h5>Choices</h5>
@@ -88,7 +88,7 @@
                                             @foreach($choices as $choice)
                                                 <div class="form-check">
                                                     <label for="mc_c{{ $choicenum }}" class="form-check-label">
-                                                        <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" id="mc_c{{ $choicenum }}" value="{{ $choicenum + 1 }}">
+                                                        <input class="form-check-input" type="radio" name="answer[{{ $questionNum }}]" id="mc_c{{ $choicenum }}" value="{{ $choicenum++ }}">
                                                         {{ $choice }}
                                                     </label>
                                                 </div>
